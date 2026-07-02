@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Catalog — Rollun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #D2D2D2;
+    --bg-2: #C9C9C9;
+    --paper: #E2E2E2;
+    --ink: #1f1f1f;
+    --ink-soft: #555;
+    --ink-mute: #777;
+    --dark: #1a1a1a;
+    --dark-2: #232323;
+    --line: rgba(31,31,31,0.12);
+    --line-dark: rgba(255,255,255,0.12);
+    --or: #EF7F1A;
+    --or-deep: #C56712;
+    --or-soft: #f5a35a;
+    --green: #2f6b48;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Roboto', 'Karla', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, .display {
+    font-family: 'Poppins', 'Karla', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    margin: 0;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  p { margin: 0; }
+  a { color: inherit; }
+  .or-txt { color: var(--or); }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    height: 90px;
+    display: flex; align-items: center;
+    background: #141414;
+    transition: transform .35s ease, height .25s ease, box-shadow .25s ease;
+  }
+  .site-header.scrolled { height: 76px; box-shadow: 0 4px 20px rgba(0,0,0,0.35); }
+  .site-header.hide { transform: translateY(-100%); }
+  .header-inner { display: grid; grid-template-columns: 1fr auto; align-items: center; width: 100%; }
+  .logo { display: inline-flex; align-items: center; text-decoration: none; line-height: 0; }
+  .logo img { height: 40px; width: auto; display: block; }
+  .nav { display: flex; gap: 28px; justify-self: end; align-items: center; margin-right: 20px; }
+  .nav a {
+    color: #fff; text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500; font-size: 14px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: color .2s; white-space: nowrap;
+  }
+  .nav a:hover, .nav a.active { color: var(--or); }
+
+  /* ===== PAGE HERO ===== */
+  .page-hero {
+    background: var(--dark);
+    color: #fff;
+    padding: 170px 0 90px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .page-hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(1000px 500px at 50% 0%, rgba(239,127,26,0.14), transparent 65%);
+    pointer-events: none;
+  }
+  .page-hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+  .page-hero-inner { position: relative; z-index: 2; }
+  .page-hero .eyebrow {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--or); margin-bottom: 18px;
+  }
+  .page-hero h1 {
+    color: #fff;
+    font-size: clamp(38px, 5vw, 68px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 22px;
+  }
+  .page-hero p {
+    color: rgba(255,255,255,0.74);
+    max-width: 660px;
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .page-hero .redirect-note {
+    display: inline-flex; align-items: center; gap: 9px;
+    margin-top: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.18);
+    padding: 9px 18px;
+    border-radius: 100px;
+  }
+  .page-hero .redirect-note svg { width: 15px; height: 15px; color: var(--or); }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none; text-transform: uppercase;
+    font-weight: 500; font-size: 13px;
+    letter-spacing: 0.06em;
+    padding: 16px 32px;
+    border: 1px solid transparent;
+    transition: all .25s;
+    cursor: pointer;
+  }
+  .btn svg { width: 16px; height: 16px; }
+  .btn-or { background: var(--or); color: #fff; border-color: var(--or); }
+  .btn-or:hover { background: var(--or-deep); border-color: var(--or-deep); }
+  .btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+  .btn-ghost:hover { background: #fff; color: var(--dark); border-color: #fff; }
+  .btn-dark { background: var(--dark); color: #fff; border-color: var(--dark); }
+  .btn-dark:hover { background: var(--or); border-color: var(--or); }
+
+  /* ===== SHARED SECTION HEADINGS ===== */
+  .section-eyebrow {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--or); margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 3vw, 44px);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    line-height: 1.08;
+  }
+
+  /* ===== TWO ENTRANCES ===== */
+  .entrances { padding: 84px 0 96px; background: var(--bg); }
+  .entrance-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .entrance {
+    position: relative;
+    display: block;
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
+    text-decoration: none;
+    background: var(--dark);
+    box-shadow: 0 30px 70px -42px rgba(0,0,0,0.55);
+  }
+  .entrance img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6) contrast(1.02);
+    transform: scale(1.03);
+    transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease;
+  }
+  .entrance:hover img { transform: scale(1.08); filter: brightness(0.5); }
+  .entrance::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.05) 100%);
+  }
+  .entrance-body {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    z-index: 2;
+    padding: 40px 42px;
+    color: #fff;
+  }
+  .entrance-kicker {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--or-soft);
+    margin-bottom: 12px;
+  }
+  .entrance-body h2 {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(24px, 2.4vw, 34px);
+    text-transform: uppercase;
+    line-height: 1.08;
+    margin-bottom: 14px;
+  }
+  .entrance-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; font-size: 13px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: #fff;
+    border-bottom: 2px solid var(--or);
+    padding-bottom: 5px;
+    transition: gap .25s ease, color .25s ease;
+  }
+  .entrance:hover .entrance-cta { gap: 16px; color: var(--or-soft); }
+  .entrance-cta svg { width: 17px; height: 17px; }
+
+  /* ===== LINE OVERVIEW BLOCKS ===== */
+  .line { padding: 100px 0; }
+  .line.auto { background: var(--bg); }
+  .line.health { background: var(--paper); }
+  .line-head {
+    max-width: 720px;
+    margin-bottom: 52px;
+  }
+  .line-head h2 { margin-bottom: 18px; }
+  .line-head p { color: var(--ink-soft); font-size: 17px; line-height: 1.7; }
+
+  .subcat-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 22px;
+  }
+  .subcat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+  .subcat-grid.four { grid-template-columns: repeat(4, 1fr); }
+  .subcat {
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 16px 36px -28px rgba(0,0,0,0.4);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .subcat:hover { transform: translateY(-4px); box-shadow: 0 24px 46px -28px rgba(0,0,0,0.45); }
+  .subcat-img { aspect-ratio: 4 / 3; overflow: hidden; background: var(--dark-2); }
+  .subcat-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .subcat-name {
+    padding: 16px 18px 18px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; font-size: 15px;
+    color: var(--ink);
+    text-align: center;
+  }
+
+  /* product listing */
+  .listing-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    flex-wrap: wrap; gap: 14px;
+    margin-bottom: 26px;
+  }
+  .listing-head h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; font-size: 20px;
+    text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  .listing-head .hint {
+    font-size: 13px; color: var(--ink-mute);
+    font-family: 'Poppins', sans-serif; letter-spacing: 0.02em;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .product-grid.health-products { grid-template-columns: repeat(3, 1fr); }
+  .product-card {
+    display: flex; flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    overflow: hidden;
+    transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 28px 56px -32px rgba(0,0,0,0.45);
+    border-color: rgba(31,31,31,0.22);
+  }
+  .pc-media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: #f1f1f1;
+    overflow: hidden;
+  }
+  .pc-track {
+    display: flex;
+    height: 100%;
+    transition: transform .42s cubic-bezier(.4,.0,.2,1);
+  }
+  .pc-slide { flex: 0 0 100%; height: 100%; }
+  .pc-slide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* photo placeholder (no real product image yet) */
+  .img-ph {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px;
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.014) 0 10px, transparent 10px 20px),
+      var(--bg);
+    color: var(--ink-mute);
+    text-align: center;
+  }
+  .img-ph svg { width: 30px; height: 30px; opacity: 0.5; }
+  .img-ph .pl {
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .pc-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .2s ease, background .2s ease, transform .2s ease;
+    z-index: 3;
+  }
+  .pc-arrow.prev { left: 10px; }
+  .pc-arrow.next { right: 10px; }
+  .pc-arrow svg { width: 17px; height: 17px; color: var(--ink); }
+  .pc-arrow:hover { background: #fff; }
+  .pc-arrow:active { transform: translateY(-50%) scale(0.92); }
+  .pc-media:hover .pc-arrow { opacity: 1; }
+  @media (hover: none) { .pc-arrow { opacity: 1; background: rgba(255,255,255,0.82); } }
+  .pc-dots {
+    position: absolute; bottom: 11px; left: 0; right: 0;
+    display: flex; justify-content: center; gap: 6px;
+    z-index: 3; pointer-events: none;
+  }
+  .pc-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.55);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    transition: background .25s ease, width .25s ease;
+  }
+  .pc-dot.active { background: #fff; width: 17px; border-radius: 3px; }
+
+  /* category blocks within a line */
+  .cat-block { margin-bottom: 52px; }
+  .cat-block:last-of-type { margin-bottom: 0; }
+  .cat-block-head {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 22px;
+  }
+  .cat-block-head .cb-num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px; font-weight: 700;
+    color: var(--or-deep);
+    letter-spacing: 0.04em;
+  }
+  .cat-block-head .cb-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; font-size: 17px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+  .cat-block-head .cb-rule { flex: 1; height: 1px; background: var(--line); }
+  .cat-block-head .cb-count {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px; color: var(--ink-mute);
+    letter-spacing: 0.02em;
+  }
+  .product-grid.cat-grid { grid-template-columns: repeat(3, 1fr); }
+
+  /* product card becomes clickable div (carousel arrows live inside) */
+  .product-card { cursor: pointer; }
+  .product-card:focus-visible { outline: 2px solid var(--or); outline-offset: 3px; }
+
+  /* brand logo on card */
+  .pc-brand-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .pc-brand-row .pc-logo { width: 18px; height: 18px; object-fit: contain; flex: none; border-radius: 3px; }
+  .pc-brand-row .pc-brand { margin-bottom: 0; }
+
+  /* marketplace offer chips on card */
+  .pc-stock {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--green);
+  }
+  .pc-stock::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+  .pc-offers {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding-top: 14px; margin-top: auto; border-top: 1px solid var(--line);
+  }
+  .pc-markets { display: flex; align-items: center; gap: 7px; }
+  .pc-markets .mk {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 500;
+    color: var(--ink-soft); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 100px; padding: 4px 9px 4px 5px;
+  }
+  .pc-markets .mk img { width: 14px; height: 14px; object-fit: contain; border-radius: 2px; }
+  .pc-cta {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 12px;
+    font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 12px;
+    letter-spacing: 0.07em; text-transform: uppercase; color: var(--or-deep);
+    transition: color .2s ease, gap .2s ease;
+  }
+  .product-card:hover .pc-cta { color: var(--or); gap: 11px; }
+  .pc-cta svg { width: 14px; height: 14px; }
+
+  /* ===== PRODUCT DETAIL MODAL ===== */
+  .pd-modal { position: fixed; inset: 0; z-index: 220; display: none; }
+  .pd-modal.open { display: block; }
+  .pd-backdrop {
+    position: absolute; inset: 0; background: rgba(10,10,10,0.78);
+    opacity: 0; transition: opacity .3s ease; cursor: zoom-out;
+  }
+  .pd-modal.open .pd-backdrop { opacity: 1; }
+  .pd-panel {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.94); opacity: 0;
+    width: min(1000px, calc(100vw - 48px)); max-height: calc(100vh - 56px);
+    overflow: hidden; background: #fff; border-radius: 18px;
+    box-shadow: 0 50px 120px -30px rgba(0,0,0,0.7);
+    transition: transform .34s cubic-bezier(.2,.8,.2,1), opacity .34s ease;
+    display: flex; flex-direction: column;
+  }
+  .pd-modal.open .pd-panel { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  .pd-close {
+    position: absolute; top: 14px; right: 14px; z-index: 4;
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.92); border: 1px solid var(--line);
+    cursor: pointer; transition: background .2s ease;
+  }
+  .pd-close:hover { background: #fff; }
+  .pd-close svg { width: 18px; height: 18px; color: var(--ink); }
+  .pd-scroll { overflow-y: auto; }
+  .pd-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .pd-gallery { padding: 30px; border-right: 1px solid var(--line); background: var(--paper); }
+  .pd-main {
+    position: relative; aspect-ratio: 1 / 1; background: #fff;
+    border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin-bottom: 14px;
+  }
+  .pd-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pd-ph-main { font-size: 0; }
+  .pd-ph-main svg { width: 56px; height: 56px; opacity: 0.45; }
+  .pd-ph-main .pl { font-size: 13px; letter-spacing: 0.14em; }
+  .pd-ph-main .sub { font-family: 'Poppins', sans-serif; font-size: 11px; opacity: 0.75; letter-spacing: 0.04em; text-transform: none; }
+  .pd-ph-mini svg { width: 20px; height: 20px; }
+  .pd-ph-mini .pl { font-size: 11px; letter-spacing: 0.04em; }
+  .pd-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
+  .pd-thumb {
+    width: 64px; height: 64px; border-radius: 9px; overflow: hidden;
+    border: 2px solid transparent; cursor: pointer; background: #fff;
+    transition: border-color .2s ease; padding: 0;
+  }
+  .pd-thumb.active { border-color: var(--or); }
+  .pd-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pd-info { padding: 34px 34px 30px; display: flex; flex-direction: column; }
+  .pd-brand-row { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+  .pd-brand-row img { width: 24px; height: 24px; object-fit: contain; border-radius: 4px; }
+  .pd-brand-row .b {
+    font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--or-deep);
+  }
+  .pd-title {
+    font-family: 'Poppins', sans-serif; font-weight: 700;
+    font-size: 25px; line-height: 1.18; color: var(--ink);
+    margin-bottom: 12px; text-wrap: balance;
+  }
+  .pd-rating { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .pd-stars { display: inline-flex; gap: 2px; }
+  .pd-stars svg { width: 16px; height: 16px; }
+  .pd-stars .on { color: var(--or); fill: var(--or); }
+  .pd-stars .off { color: #ccc; fill: #e0e0e0; }
+  .pd-rating .rv { font-size: 13px; color: var(--ink-mute); font-family: 'Poppins', sans-serif; }
+  .pd-stockline {
+    display: inline-flex; align-items: center; gap: 7px; align-self: flex-start;
+    font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--green); margin-bottom: 20px;
+  }
+  .pd-stockline::before { content:""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+  .pd-section-h {
+    font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute);
+    margin: 6px 0 12px;
+  }
+  .pd-specs { list-style: none; padding: 0; margin: 0 0 22px; }
+  .pd-specs li {
+    display: flex; justify-content: space-between; gap: 14px;
+    padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14px;
+  }
+  .pd-specs li:last-child { border-bottom: none; }
+  .pd-specs .k { color: var(--ink-mute); }
+  .pd-specs .v { color: var(--ink); font-weight: 500; text-align: right; }
+  .pd-fits {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; margin-bottom: 24px;
+  }
+  .pd-fits ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; }
+  .pd-fits li { display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--ink); }
+  .pd-fits li svg { width: 15px; height: 15px; color: var(--green); flex: none; }
+  .pd-offers { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+  .pd-offer {
+    display: flex; align-items: center; gap: 14px;
+    border: 1px solid var(--line); border-radius: 12px;
+    padding: 13px 14px; text-decoration: none; color: var(--ink);
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .pd-offer:hover { border-color: var(--or); box-shadow: 0 10px 26px -18px rgba(0,0,0,0.4); transform: translateY(-1px); }
+  .pd-offer .mk-logo { width: 30px; height: 30px; object-fit: contain; border-radius: 6px; flex: none; }
+  .pd-offer .mk-meta { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+  .pd-offer .mk-name { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; }
+  .pd-offer .mk-sub { font-size: 12px; color: var(--ink-mute); }
+  .pd-offer .mk-price { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 17px; color: var(--ink); }
+  .pd-offer .mk-go {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 11px;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--or-deep);
+  }
+  .pd-offer .mk-go svg { width: 13px; height: 13px; }
+  .pd-disc { font-size: 11.5px; color: var(--ink-mute); margin-top: 14px; line-height: 1.5; }
+  @media (max-width: 760px) {
+    .pd-grid { grid-template-columns: 1fr; }
+    .pd-gallery { border-right: none; border-bottom: 1px solid var(--line); }
+  }
+
+  /* ===== LOGO SPOTLIGHT (fly to center) ===== */
+  .logo-tile { cursor: pointer; }
+  .logo-spot { position: fixed; inset: 0; z-index: 200; display: none; }
+  .logo-spot.open { display: block; }
+  .logo-spot .ls-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(10,10,10,0.84);
+    opacity: 0;
+    transition: opacity .32s ease;
+    cursor: zoom-out;
+  }
+  .logo-spot.open .ls-backdrop { opacity: 1; }
+  .ls-fly {
+    position: fixed;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 18px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 50px 100px -30px rgba(0,0,0,0.7);
+    overflow: hidden;
+    transition: top .42s cubic-bezier(.4,0,.2,1), left .42s cubic-bezier(.4,0,.2,1),
+                width .42s cubic-bezier(.4,0,.2,1), height .42s cubic-bezier(.4,0,.2,1),
+                padding .42s cubic-bezier(.4,0,.2,1), border-radius .42s ease;
+    z-index: 201;
+  }
+  .ls-fly .ls-content {
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    opacity: 0; transition: opacity .25s ease .15s;
+    text-align: center;
+  }
+  .ls-fly.zoomed .ls-content { opacity: 1; }
+  .ls-fly img { width: 92px; height: 92px; object-fit: contain; display: block; }
+  .ls-fly .ls-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; font-size: 24px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .ls-fly .ls-visit {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; font-size: 12px;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: #fff; background: var(--or);
+    padding: 12px 22px; border-radius: 100px;
+    text-decoration: none;
+    transition: background .2s ease;
+  }
+  .ls-fly .ls-visit:hover { background: var(--or-deep); }
+  .ls-fly .ls-visit svg { width: 14px; height: 14px; }
+  .ls-fly .ls-hint {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ls-fly { transition: none; }
+  }
+  .pc-badge {
+    position: absolute; top: 12px; left: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #fff;
+    background: rgba(26,26,26,0.86);
+    padding: 6px 11px;
+    border-radius: 100px;
+  }
+  .pc-badge.stock { background: rgba(47,107,72,0.92); }
+  .pc-body { display: flex; flex-direction: column; flex: 1; padding: 18px 18px 18px; }
+  .pc-brand {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--or-deep);
+    margin-bottom: 7px;
+  }
+  .pc-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; font-size: 15.5px;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 14px;
+    text-wrap: balance;
+  }
+  .pc-specs { list-style: none; padding: 0; margin: 0 0 16px; }
+  .pc-specs li {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 12.5px;
+  }
+  .pc-specs li:last-child { border-bottom: none; }
+  .pc-specs .k { color: var(--ink-mute); }
+  .pc-specs .v {
+    color: var(--ink); font-weight: 500;
+    text-align: right; white-space: nowrap;
+  }
+  .pc-foot {
+    margin-top: auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .pc-market {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink-mute);
+  }
+  .pc-view {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; font-size: 12px;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--or-deep);
+    transition: color .25s ease, gap .25s ease;
+  }
+  .product-card:hover .pc-view { color: var(--or); gap: 11px; }
+  .pc-view svg { width: 14px; height: 14px; }
+
+  .line-cta { margin-top: 44px; }
+
+  /* ===== SPLIT LINES (health left · automotive right) ===== */
+  .lines-split { display: none; padding: 84px 0 96px; background: var(--bg); }
+  .lines-split.active { display: block; }
+  .entrances-head { text-align: center; margin-bottom: 42px; }
+  .cat-filter-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; flex-wrap: wrap; }
+  .cat-filter-now { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; }
+  .cat-filter-now .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--or); }
+  .cat-back { display: inline-flex; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 13px; letter-spacing: 0.02em; color: var(--ink-soft); background: #fff; border: 1px solid var(--line); border-radius: 100px; padding: 9px 18px; cursor: pointer; transition: border-color .2s ease, color .2s ease; }
+  .cat-back:hover { border-color: var(--or); color: var(--or); }
+  .cat-back svg { width: 15px; height: 15px; }
+  .split-grid.solo { grid-template-columns: 1fr !important; }
+  .split-grid.show-health .line-col.auto { display: none; }
+  .split-grid.show-auto .line-col.health { display: none; }
+  .split-grid.solo .line-col.auto { border-left: none; }
+  .split-grid.solo:has(.line-col:hover) .line-col { opacity: 1 !important; }
+  .split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    box-shadow: 0 40px 90px -55px rgba(0,0,0,0.55);
+  }
+  .line-col { padding: clamp(38px, 3.2vw, 60px) clamp(24px, 2.4vw, 44px); min-width: 0; }
+  .line-col.health { background: var(--paper); }
+  .line-col.auto { background: var(--bg); border-left: 1px solid var(--line); }
+  .split-head {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink-mute); margin-bottom: 30px;
+  }
+  .split-head::before { content: ""; width: 26px; height: 2px; background: var(--or); flex: none; }
+  .lines-split .line-head { max-width: 100%; margin-bottom: 28px; }
+  .lines-split .line-head h2 { margin-bottom: 14px; min-height: 2.2em; }
+  .lines-split .line-head p { font-size: 14.5px; line-height: 1.6; min-height: 4.6em; }
+  .lines-split .subcat-grid,
+  .lines-split .subcat-grid.four {
+    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+    gap: 14px; margin-bottom: 40px;
+  }
+  .lines-split .subcat-name {
+    min-height: 58px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 12px; font-size: 13px; line-height: 1.25;
+  }
+  .lines-split .product-grid,
+  .lines-split .product-grid.cat-grid,
+  .lines-split .product-grid.health-products {
+    grid-template-columns: repeat(auto-fill, minmax(198px, 1fr));
+    gap: 16px;
+  }
+  .lines-split .cat-block { margin-bottom: 36px; }
+  .lines-split .listing-head { margin-bottom: 20px; }
+  .lines-split .line-cta { margin-top: 34px; }
+
+  /* hover one side → it widens & the other dims back */
+  .split-grid { transition: grid-template-columns .5s cubic-bezier(.4,0,.2,1); }
+  .lines-split .line-col { transition: opacity .4s ease; }
+  @media (hover: hover) and (min-width: 981px) {
+    .split-grid:has(.line-col:hover) .line-col { opacity: .5; }
+    .split-grid:has(.line-col:hover) .line-col:hover { opacity: 1; }
+    .split-grid:has(.line-col.health:hover) { grid-template-columns: 1.42fr 0.58fr; }
+    .split-grid:has(.line-col.auto:hover) { grid-template-columns: 0.58fr 1.42fr; }
+  }
+  @media (max-width: 980px) {
+    .split-grid { grid-template-columns: 1fr; }
+    .line-col.auto { border-left: none; border-top: 1px solid var(--line); }
+  }
+
+  /* ===== BRANDS WALL ===== */
+  .brands-wall { padding: 100px 0; background: var(--dark); color: #fff; }
+  .brands-wall .section-eyebrow { color: var(--or); }
+  .brands-wall .section-title { color: #fff; }
+  .bw-head { text-align: center; margin-bottom: 56px; }
+  .bw-head p {
+    color: rgba(255,255,255,0.6);
+    max-width: 560px; margin: 16px auto 0;
+    font-size: 16px;
+  }
+  .bw-cat {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 24px;
+  }
+  .bw-cat::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.14); }
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 14px;
+    margin-bottom: 56px;
+  }
+  .logo-grid.health-grid { grid-template-columns: repeat(3, 1fr); max-width: 720px; }
+  .logo-marquee {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 44px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+  }
+  .logo-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    animation: marquee-left 48s linear infinite;
+  }
+  .logo-track.rev { animation: marquee-right 34s linear infinite; }
+  .logo-marquee:hover .logo-track { animation-play-state: paused; }
+  @keyframes marquee-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-track, .logo-track.rev { animation: none; }
+  }
+  .logo-tile {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px;
+    flex: none;
+    height: 66px;
+    padding: 0 42px;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: opacity .25s ease;
+  }
+  .logo-tile .fav {
+    width: 34px; height: 34px;
+    object-fit: contain;
+    flex: none;
+    display: block;
+  }
+  .logo-tile:not(.linkless) { cursor: pointer; }
+  .logo-tile:hover .wm { color: var(--or); }
+  .logo-tile .wm {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.15;
+    text-decoration: none;
+    transition: color .25s ease;
+  }
+  .logo-tile:hover .wm { color: #fff; }
+  a.logo-tile::after {
+    content: "";
+    position: absolute; top: 8px; right: 8px;
+    width: 16px; height: 16px;
+    background: no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EF7F1A' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7'/%3E%3Cpath d='M7 7h10v10'/%3E%3C/svg%3E");
+    opacity: 0; transition: opacity .25s ease;
+  }
+  a.logo-tile:hover::after { opacity: 1; }
+  .bw-note {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.04em;
+    margin-top: 8px;
+  }
+
+  /* ===== CTA ===== */
+  .cta { background: var(--paper); padding: 100px 0; text-align: center; }
+  .cta h2 { font-size: clamp(32px, 4vw, 56px); text-transform: uppercase; margin-bottom: 20px; }
+  .cta p { color: var(--ink-soft); max-width: 580px; margin: 0 auto 34px; font-size: 17px; line-height: 1.6; }
+  .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .cta .btn-dark { background: var(--dark); }
+
+  /* ===== FOOTER ===== */
+  .site-footer { background: #0e0e0e; color: #fff; padding: 80px 0 30px; }
+  .footer-grid { display: grid; grid-template-columns: 3fr 2fr 2fr 3fr 2fr; gap: 40px; margin-bottom: 60px; }
+  .site-footer .logo img { height: 28px; filter: brightness(1.2); }
+  .site-footer h4 {
+    color: #fff; font-family: 'Poppins', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 22px; margin-top: 22px;
+  }
+  .site-footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .site-footer a { color: rgba(255,255,255,0.72); text-decoration: none; }
+  .site-footer a:hover { color: var(--or); }
+  .site-footer .col p { line-height: 1.7; color: rgba(255,255,255,0.6); font-size: 13.5px; }
+  .site-footer .col .sublabel { color: #fff; font-weight: 500; margin-top: 12px; margin-bottom: 4px; font-size: 13px; }
+  .footer-bottom {
+    text-align: center; padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px; color: rgba(255,255,255,0.5);
+  }
+
+  /* ===== REVEAL ===== */
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 1100px) {
+    .logo-grid { grid-template-columns: repeat(5, 1fr); }
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 920px) {
+    .entrance-grid { grid-template-columns: 1fr; }
+    .subcat-grid, .subcat-grid.four { grid-template-columns: repeat(2, 1fr); }
+    .product-grid, .product-grid.health-products { grid-template-columns: repeat(2, 1fr); }
+    .logo-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .nav { gap: 13px; margin-right: 8px; }
+    .nav a { font-size: 11px; letter-spacing: 0.03em; }
+    .logo img { height: 32px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .product-grid, .product-grid.health-products { grid-template-columns: repeat(2, 1fr); }
+    .logo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body data-screen-label="Catalog">
+
+<!-- HEADER -->
+<header class="site-header" id="hdr">
+  <div class="container header-inner">
+    <a class="logo" href="Home.html">
+      <img src="rollun-logo.png" alt="rollun" />
+    </a>
+    <nav class="nav">
+      <a href="Home.html">HOME</a>
+      <a href="About Us.html">ABOUT US</a>
+      <a href="Catalog.html" class="active">CATALOG</a>
+      <a href="Our Shops.html">OUR SHOPS</a>
+      <a href="Our Brands.html">OUR BRANDS</a>
+      <a href="Contact.html">CONTACT US</a>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero" data-screen-label="01 Hero">
+  <div class="container page-hero-inner">
+    <div class="eyebrow">What we distribute</div>
+    <h1>Catalog</h1>
+    <p>Explore our two main product lines. For purchases, you&rsquo;ll be redirected to our marketplace stores.</p>
+    <div class="redirect-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      Buy on marketplaces
+    </div>
+  </div>
+</section>
+
+<!-- TWO ENTRANCES -->
+<section class="entrances" data-screen-label="02 Two entrances">
+  <div class="container">
+    <div class="entrances-head">
+      <div class="section-eyebrow">Where to start</div>
+      <h2 class="section-title">Choose a product line</h2>
+    </div>
+    <div class="entrance-grid">
+      <a class="entrance" href="#automotive">
+        <img src="cat-tires.png" alt="Automotive and motorcycle parts — tires and wheels" loading="lazy">
+        <div class="entrance-body">
+          <div class="entrance-kicker">Product line 01</div>
+          <h2>Automotive parts &amp; accessories</h2>
+          <span class="entrance-cta">
+            Explore Automotive
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+      <a class="entrance" href="#health">
+        <img src="health-supplements.png" alt="Health products — dietary and sport supplements" loading="lazy">
+        <div class="entrance-body">
+          <div class="entrance-kicker">Product line 02</div>
+          <h2>Health products</h2>
+          <span class="entrance-cta">
+            Explore Health
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT LINES (health left · automotive right) -->
+<section class="lines-split" data-screen-label="03 Product lines">
+  <div class="container">
+    <div class="cat-filter-bar">
+      <span class="cat-filter-now"><span class="dot"></span>Showing&nbsp;<span class="cat-filter-name">—</span></span>
+      <button type="button" class="cat-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Back to product lines
+      </button>
+    </div>
+    <div class="split-grid">
+
+      <!-- HEALTH (left) -->
+      <div class="line-col health" id="health" data-screen-label="03 Health (left)">
+    <div class="line-head">
+      <div class="section-eyebrow">Product line 02</div>
+      <h2 class="section-title">Health products</h2>
+      <p>Medical supplies and wellness products distributed through trusted channels — selected for quality and everyday reliability.</p>
+    </div>
+
+    <div class="subcat-label">Categories</div>
+    <div class="subcat-grid four">
+      <div class="subcat">
+        <div class="subcat-img"><img src="health-orthopedic.png" alt="Orthopedic braces and supports" loading="lazy"></div>
+        <div class="subcat-name">Orthopedic Braces &amp; Supports</div>
+      </div>
+      <div class="subcat">
+        <div class="subcat-img"><img src="health-supplements.png" alt="Dietary and sport supplements" loading="lazy"></div>
+        <div class="subcat-name">Dietary &amp; Sport Supplements</div>
+      </div>
+      <div class="subcat">
+        <div class="subcat-img"><img src="health-energy.png" alt="Energy and focus supplements" loading="lazy"></div>
+        <div class="subcat-name">Energy &amp; Focus Supplements</div>
+      </div>
+      <div class="subcat">
+        <div class="subcat-img"><img src="health-painrelief.png" alt="Pain relief and recovery rubs" loading="lazy"></div>
+        <div class="subcat-name">Pain Relief &amp; Recovery Rubs</div>
+      </div>
+    </div>
+
+    <div class="listing-head">
+      <h3>Product examples</h3>
+      <span class="hint">Representative listings — open any item for full marketplace details</span>
+    </div>
+    <div class="product-grid health-products" data-cat="health"></div>
+
+    <div class="line-cta">
+      <a class="btn btn-or" href="Our Shops.html#online">
+        Shop Health on marketplaces
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </a>
+    </div>
+      </div>
+
+      <!-- AUTOMOTIVE (right) -->
+      <div class="line-col auto" id="automotive" data-screen-label="04 Automotive (right)">
+    <div class="line-head">
+      <div class="section-eyebrow">Product line 01</div>
+      <h2 class="section-title">Automotive parts &amp; accessories</h2>
+      <p>We distribute motorcycle and automotive parts and accessories through leading marketplaces — sourced from trusted manufacturers and shipped from various U.S. facilities.</p>
+    </div>
+
+    <div class="subcat-label">Categories</div>
+    <div class="subcat-grid">
+      <div class="subcat">
+        <div class="subcat-img"><img src="cat-tires.png" alt="Tires" loading="lazy"></div>
+        <div class="subcat-name">Tires</div>
+      </div>
+      <div class="subcat">
+        <div class="subcat-img"><img src="cat-parts.png" alt="Parts"></div>
+        <div class="subcat-name">Parts</div>
+      </div>
+      <div class="subcat">
+        <div class="subcat-img"><img src="cat-oils.png" alt="Oils and fluids" loading="lazy"></div>
+        <div class="subcat-name">Oils &amp; Fluids</div>
+      </div>
+      <div class="subcat">
+        <div class="subcat-img"><img src="cat-electrical.png" alt="Electrical components" loading="lazy"></div>
+        <div class="subcat-name">Electrical Components</div>
+      </div>
+      <div class="subcat">
+        <div class="subcat-img"><img src="cat-batteries.png" alt="Batteries"></div>
+        <div class="subcat-name">Batteries</div>
+      </div>
+    </div>
+
+    <div class="listing-head">
+      <h3>Product examples</h3>
+      <span class="hint">Representative listings — open any item for full marketplace details</span>
+    </div>
+
+    <div class="product-grid cat-grid" data-cat="auto-all"></div>
+
+    <div class="line-cta">
+      <a class="btn btn-or" href="Our Shops.html#online">
+        Shop Automotive on marketplaces
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </a>
+    </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS WE WORK WITH -->
+<section class="brands-wall" data-screen-label="05 Brands we work with" style="height: 700px">
+  <div class="container">
+    <div class="bw-head">
+      <div class="section-eyebrow">Trusted partners</div>
+      <h2 class="section-title">Brands we work with</h2>
+      <p>We distribute and resell products from established manufacturers across both of our product lines.</p>
+    </div>
+
+    <div class="bw-cat">Automotive &amp; Motorcycle</div>
+    <div class="logo-marquee">
+      <div class="logo-track" aria-hidden="false">
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=dunlop.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Dunlop</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=tuskoffroad.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Tusk</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=motionpro.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Motion Pro</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=kendatire.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Kenda</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=barnettclutches.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Barnett</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=ciro3d.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Ciro</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=acerbis.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Acerbis</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=irctire.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">IRC</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=sscycle.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">S&amp;S Cycle</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=customdynamics.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Custom Dynamics</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=yuasabatteries.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Yuasa</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=caliberproducts.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Caliber</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=unifilter.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Unifilter</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=motul.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Motul</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=dunlop.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Dunlop</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=tuskoffroad.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Tusk</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=motionpro.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Motion Pro</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=kendatire.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Kenda</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=barnettclutches.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Barnett</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=ciro3d.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Ciro</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=acerbis.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Acerbis</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=irctire.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">IRC</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=sscycle.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">S&amp;S Cycle</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=customdynamics.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Custom Dynamics</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=yuasabatteries.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Yuasa</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=caliberproducts.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Caliber</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=unifilter.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Unifilter</span></div>
+        <div class="logo-tile linkless"><img class="fav" src="https://www.google.com/s2/favicons?domain=motul.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Motul</span></div>
+      </div>
+    </div>
+
+    <div class="bw-cat">Health &amp; Wellness</div>
+    <div class="logo-marquee">
+      <div class="logo-track rev">
+        <a class="logo-tile" href="https://rynopower.com/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=rynopower.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Ryno Power</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/liquid-fuel/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Liquid Fuel</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/full-throttle/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Full Throttle</span></a>
+        <a class="logo-tile" href="https://rynopower.com/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=rynopower.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Ryno Power</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/liquid-fuel/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Liquid Fuel</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/full-throttle/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Full Throttle</span></a>
+        <a class="logo-tile" href="https://rynopower.com/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=rynopower.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Ryno Power</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/liquid-fuel/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Liquid Fuel</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/full-throttle/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Full Throttle</span></a>
+        <a class="logo-tile" href="https://rynopower.com/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=rynopower.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Ryno Power</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/liquid-fuel/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Liquid Fuel</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/full-throttle/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Full Throttle</span></a>
+        <a class="logo-tile" href="https://rynopower.com/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=rynopower.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Ryno Power</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/liquid-fuel/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Liquid Fuel</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/full-throttle/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Full Throttle</span></a>
+        <a class="logo-tile" href="https://rynopower.com/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=rynopower.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Ryno Power</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/liquid-fuel/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Liquid Fuel</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/full-throttle/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Full Throttle</span></a>
+        <a class="logo-tile" href="https://rynopower.com/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=rynopower.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Ryno Power</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/liquid-fuel/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Liquid Fuel</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/full-throttle/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Full Throttle</span></a>
+        <a class="logo-tile" href="https://rynopower.com/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=rynopower.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Ryno Power</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/liquid-fuel/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Liquid Fuel</span></a>
+        <a class="logo-tile" href="https://ridersgold.com/product/full-throttle/" target="_blank" rel="noopener"><img class="fav" src="https://www.google.com/s2/favicons?domain=ridersgold.com&sz=128" alt="" onload="if(this.naturalWidth<24)this.remove()" onerror="this.remove()"><span class="wm">Riders Gold · Full Throttle</span></a>
+      </div>
+    </div>
+
+    <p class="bw-note">
+</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" data-screen-label="06 CTA">
+  <div class="container">
+    <h2>Ready to <span class="or-txt">buy</span>?</h2>
+    <p>Browse the full selection and complete your purchase on the marketplaces you trust.</p>
+    <div class="cta-buttons">
+      <a class="btn btn-or" href="Our Shops.html#online">Visit our marketplace stores</a>
+      <a class="btn btn-dark" href="Contact.html?topic=Wholesale%20%26%20distribution#contactForm">Wholesale &amp; partnerships</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" data-screen-label="07 Footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="col">
+        <a class="logo" href="Home.html"><img src="rollun-logo.png" alt="rollun"/></a>
+        <p style="margin-top:22px;">
+          Rollun is a U.S.-based e-commerce and distribution company specializing
+          in automotive parts, motorcycle accessories, and health products,
+          operating across leading marketplaces and our own sales channels.
+        </p>
+      </div>
+      <div class="col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="Home.html">Home</a></li>
+          <li><a href="About Us.html">About Us</a></li>
+          <li><a href="Catalog.html">Catalog</a></li>
+          <li><a href="Our Shops.html">Our Shops</a></li>
+          <li><a href="Our Brands.html">Our Brands</a></li>
+          <li><a href="Contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Contacts</h4>
+        <p>(307) 920-0149<br><span style="color:rgba(255,255,255,0.4);font-size:12px;">only for legal purposes</span></p>
+        <p style="margin-top:10px;">(832) 461-2525<br><span style="color:rgba(255,255,255,0.4);font-size:12px;">shop and return center</span></p>
+        <p style="margin-top:10px;"><a href="mailto:info@rollun.com">info@rollun.com</a></p>
+      </div>
+      <div class="col">
+        <h4>Locations</h4>
+        <div class="sublabel">Only for legal purposes</div>
+        <p>Rollun LC<br>30 N Gould St STE 4370<br>Sheridan, WY 82801</p>
+        <div class="sublabel" style="color: rgb(239, 127, 26)">Shop &amp; return center</div>
+        <p>5327 Aldine Mail Route Rd<br>77039</p>
+      </div>
+      <div class="col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">Rollun © 2026</div>
+  </div>
+</footer>
+
+<script>
+// Header hide on scroll-down
+(function(){
+  const hdr = document.getElementById('hdr');
+  let lastY = 0;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    hdr.classList.toggle('scrolled', y > 30);
+    if (y > lastY && y > 200) hdr.classList.add('hide');
+    else hdr.classList.remove('hide');
+    lastY = y;
+  }, { passive: true });
+})();
+
+// Reveal on scroll
+(function(){
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('section').forEach((s, i) => {
+    if (i === 0) return;
+    s.classList.add('reveal');
+    io.observe(s);
+  });
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight) el.classList.add('in');
+    });
+  }, 1500);
+})();
+
+// Product card image carousels
+// (cards + carousels are rendered by the catalog data script below)
+
+// Brand logo "fly to center" spotlight
+(function(){
+  const tiles = document.querySelectorAll('.logo-tile');
+  if (!tiles.length) return;
+
+  const spot = document.createElement('div');
+  spot.className = 'logo-spot';
+  spot.innerHTML = '<div class="ls-backdrop"></div>';
+  document.body.appendChild(spot);
+  const backdrop = spot.querySelector('.ls-backdrop');
+
+  let fly = null;
+  let originRect = null;
+
+  const close = () => {
+    if (!fly) return;
+    const f = fly; fly = null;
+    f.classList.remove('zoomed');
+    // animate back to origin
+    f.style.top = originRect.top + 'px';
+    f.style.left = originRect.left + 'px';
+    f.style.width = originRect.width + 'px';
+    f.style.height = originRect.height + 'px';
+    f.style.padding = '0px';
+    f.style.borderRadius = '0px';
+    spot.classList.remove('open');
+    const cleanup = () => { f.remove(); };
+    f.addEventListener('transitionend', cleanup, { once: true });
+    setTimeout(cleanup, 500);
+  };
+
+  const openFrom = (tile) => {
+    if (fly) return;
+    const img = tile.querySelector('.fav');
+    const name = tile.querySelector('.wm') ? tile.querySelector('.wm').textContent : '';
+    const href = tile.tagName === 'A' ? tile.getAttribute('href') : null;
+    const r = tile.getBoundingClientRect();
+    originRect = { top: r.top, left: r.left, width: r.width, height: r.height };
+
+    fly = document.createElement('div');
+    fly.className = 'ls-fly';
+    fly.style.top = r.top + 'px';
+    fly.style.left = r.left + 'px';
+    fly.style.width = r.width + 'px';
+    fly.style.height = r.height + 'px';
+    fly.style.padding = '0px';
+    fly.style.borderRadius = '0px';
+
+    const visit = href
+      ? `<a class="ls-visit" href="${href}" target="_blank" rel="noopener">Visit website <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>`
+      : '<div class="ls-hint">Trusted partner brand</div>';
+    fly.innerHTML = `<div class="ls-content">${img ? `<img src="${img.src}" alt="">` : ''}<div class="ls-name">${name}</div>${visit}<div class="ls-hint">Click anywhere to close</div></div>`;
+    document.body.appendChild(fly);
+
+    spot.classList.add('open');
+
+    // target: centered card
+    const W = Math.min(360, window.innerWidth - 48);
+    const Hh = Math.min(360, window.innerHeight - 48);
+    const cx = (window.innerWidth - W) / 2;
+    const cy = (window.innerHeight - Hh) / 2;
+
+    // force reflow so the initial geometry is committed, then transition to center
+    void fly.offsetWidth;
+    setTimeout(() => {
+      if (!fly) return;
+      fly.style.top = cy + 'px';
+      fly.style.left = cx + 'px';
+      fly.style.width = W + 'px';
+      fly.style.height = Hh + 'px';
+      fly.style.padding = '32px';
+      fly.style.borderRadius = '20px';
+      fly.classList.add('zoomed');
+    }, 20);
+  };
+
+  tiles.forEach(tile => {
+    tile.addEventListener('click', (e) => {
+      e.preventDefault();
+      openFrom(tile);
+    });
+  });
+  backdrop.addEventListener('click', close);
+  // clicks on the visit link should not close before navigating; clicks elsewhere on fly close
+  spot.addEventListener('click', (e) => { if (e.target === spot) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  document.body.addEventListener('click', (e) => {
+    if (fly && e.target.closest('.ls-fly') && !e.target.closest('.ls-visit')) close();
+  });
+})();
+
+// ===== Catalog data → cards + marketplace detail modal =====
+(function(){
+  const fav = (d, size) => `https://www.google.com/s2/favicons?domain=${d}&sz=${size||64}`;
+  const arrowR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>';
+  const extIco = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>';
+  const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>';
+  const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+  const checkIco = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  const xIco = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>';
+  const imgIco = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>';
+  // photo placeholder (real product images dropped in later)
+  const phSlide = (n) => `<div class="img-ph">${imgIco}<span class="pl">Photo ${n}</span></div>`;
+
+  const MK = {
+    amazon: { name: 'Amazon', domain: 'amazon.com', search: q => `https://www.amazon.com/s?k=${encodeURIComponent(q)}` },
+    ebay:   { name: 'eBay',   domain: 'ebay.com',   search: q => `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(q)}` },
+    walmart:{ name: 'Walmart',domain: 'walmart.com',search: q => `https://www.walmart.com/search?q=${encodeURIComponent(q)}` },
+  };
+
+  const TIRE = ['cat-tires.png','cat-parts.png','mototou-product-reflectors.jpg'];
+  const OIL  = ['cat-oils.png','cat-parts.png','mototou-product-filter.jpg'];
+  const ELEC = ['cat-electrical.png','mototou-product-reflectors.jpg','cat-parts.png'];
+
+  // offer builder: marketplace key, price, shipping note, url (defaults to search)
+  const offer = (key, price, ship, url, name) => ({ key, price, ship: ship || 'In stock · Free shipping', url: url || MK[key].search(name) });
+
+  const PRODUCTS = {
+    tires: [
+      { brand:'Kenda', domain:'kendatire.com', name:'K270 Dual-Sport Tire', imgs:TIRE, rating:4.6, reviews:214,
+        specs:[['Part #','047271878C1'],['Size','4.60-18'],['Type','Dual-sport'],['Position','Rear'],['Load/Speed','63P'],['Condition','New']],
+        fits:['2018–2023 Honda CRF250L','2017–2022 Kawasaki KLX250','2019–2023 Yamaha XT250','Suzuki DR-Z400 (rear)'],
+        desc:'DOT-approved dual-sport rear tire with an aggressive tread for mixed on/off-road riding.' },
+      { brand:'Dunlop', domain:'dunlop.com', name:'Geomax MX33 Tire', imgs:TIRE, rating:4.8, reviews:389,
+        specs:[['Part #','45234080'],['Size','110/90-19'],['Type','Motocross'],['Compound','Soft–Intermediate'],['Position','Rear'],['Condition','New']],
+        fits:['Most 250cc–450cc MX bikes','Honda CRF250R / CRF450R','Yamaha YZ250F / YZ450F','KTM SX-F range'],
+        desc:'Race-proven motocross tire engineered for soft-to-intermediate terrain with excellent bite and control.' },
+      { brand:'Bridgestone', domain:'bridgestone.com', name:'Battlax BT46 Tire', imgs:TIRE, rating:4.7, reviews:156,
+        specs:[['Part #','12612'],['Size','120/70-17'],['Type','Sport-touring'],['Position','Front'],['Load/Speed','58W'],['Condition','New']],
+        fits:['Kawasaki Ninja 650','Honda CB650R','Yamaha MT-07','Suzuki SV650'],
+        desc:'Bias sport-touring tire delivering dependable grip in dry and wet, with long, even wear.' },
+    ],
+    oils: [
+      { brand:'Motul', domain:'motul.com', name:'7100 10W-40 4T Engine Oil', imgs:OIL, rating:4.9, reviews:512,
+        specs:[['Part #','104091'],['Type','Full synthetic'],['Viscosity','10W-40'],['Volume','1 L'],['Spec','JASO MA2'],['Condition','New']],
+        fits:['All 4-stroke motorcycles','Wet-clutch applications','Street & track use'],
+        desc:'Ester-based full-synthetic 4-stroke oil for maximum engine and gearbox protection.' },
+      { brand:'Maxima', domain:'maximausa.com', name:'Extra4 20W-50 Engine Oil', imgs:OIL, rating:4.6, reviews:178,
+        specs:[['Part #','35901'],['Type','Synthetic blend'],['Viscosity','20W-50'],['Volume','1 L'],['Use','4-stroke'],['Condition','New']],
+        fits:['V-twin & cruiser engines','Air-cooled 4-stroke','High-temperature use'],
+        desc:'Premium synthetic-blend oil formulated for hot-running 4-stroke and V-twin engines.' },
+      { brand:'Bel-Ray', domain:'belray.com', name:'Gear Saver 80W-90', imgs:OIL, rating:4.7, reviews:97,
+        specs:[['Part #','99250'],['Type','Gear oil'],['Viscosity','80W-90'],['Volume','1 L'],['Spec','API GL-5'],['Condition','New']],
+        fits:['Manual transmissions','Final-drive gearboxes','Shaft-drive models'],
+        desc:'High-film-strength gear oil that protects against pitting and wear under shock load.' },
+    ],
+    elec: [
+      { brand:'Ciro', domain:'ciro3d.com', name:'Bar-Mount LED Light', imgs:ELEC, rating:4.5, reviews:64,
+        specs:[['Part #','40010'],['Fitment','Harley-Davidson'],['Type','Auxiliary'],['Finish','Black'],['Power','LED'],['Condition','New']],
+        fits:['Harley Touring 2014+','Softail handlebar mounts','1" & 1-1/4" bars'],
+        desc:'Bright bar-mounted LED accent/auxiliary light with billet aluminum housing.' },
+      { brand:'Badlands', domain:'badlandsmoto.com', name:'Plug-In Load Equalizer', imgs:ELEC, rating:4.4, reviews:88,
+        specs:[['Part #','ILL-02'],['Function','LED signal fix'],['Connector','OEM plug'],['Fit','Universal'],['Condition','New']],
+        fits:['LED turn-signal conversions','Most metric cruisers','Harley OEM connectors'],
+        desc:'Plug-and-play equalizer that corrects hyper-flash when switching to LED signals.' },
+      { brand:'Custom Dynamics', domain:'customdynamics.com', name:'ProBEAM LED Bulb', imgs:ELEC, rating:4.8, reviews:131,
+        specs:[['Part #','PB-1157-AW'],['Type','Signal/brake'],['Color','Red'],['Fit','Plug-and-play'],['Condition','New']],
+        fits:['1157 bulb sockets','Harley front/rear signals','Touring & Softail'],
+        desc:'High-output LED bulb upgrade with brighter, faster response than incandescent.' },
+    ],
+    health: [
+      { brand:'Mueller', domain:'muellersportsmed.com', name:'Adjustable Support Brace', imgs:['health-orthopedic.png','health-painrelief.png'], rating:4.5, reviews:1203,
+        amazon:'https://www.amazon.com/gp/product/B0022ZV1MW',
+        specs:[['Type','Compression'],['Size','Adjustable / One-size'],['Material','Neoprene blend'],['Use','Recovery & support'],['Condition','New']],
+        fits:['Knee, elbow & wrist support','Daily wear & training','Left or right'],
+        desc:'Breathable compression brace providing adjustable support for joints during recovery and activity.' },
+      { brand:'Optimum Nutrition', domain:'optimumnutrition.com', name:'Daily Wellness Supplement', imgs:['health-supplements.png','health-energy.png'], rating:4.7, reviews:5821,
+        amazon:'https://www.amazon.com/gp/product/B00NKY2BF0',
+        specs:[['Form','Capsules'],['Count','60 ct'],['Serving','2 capsules'],['Use','Daily'],['Condition','New']],
+        fits:['Adults','Daily supplementation','Gluten-free'],
+        desc:'Daily wellness capsules formulated to support everyday nutrition and recovery.' },
+      { brand:'5-hour Energy', domain:'5hourenergy.com', name:'Energy & Focus Shot', imgs:['health-energy.png','health-supplements.png'], rating:4.6, reviews:9043,
+        amazon:'https://www.amazon.com/gp/product/B01D4W0PX2',
+        specs:[['Form','Liquid shot'],['Volume','2 fl oz'],['Caffeine','Yes'],['Use','Pre-activity'],['Condition','New']],
+        fits:['Adults','Pre-workout / focus','Sugar-free'],
+        desc:'Fast-acting energy & focus shot with B-vitamins and zero sugar.' },
+    ],
+  };
+
+  // assign marketplace offers
+  function buildOffers(p, cat){
+    if (cat === 'health'){
+      return [
+        offer('amazon', priceFor(p,0), 'In stock · Prime delivery', p.amazon),
+        offer('ebay',   priceFor(p,1), 'In stock · Free shipping', undefined, p.name),
+      ];
+    }
+    return [
+      offer('amazon', priceFor(p,0), 'In stock · Free shipping', undefined, p.brand+' '+p.name),
+      offer('ebay',   priceFor(p,1), 'In stock · Free shipping', undefined, p.brand+' '+p.name),
+      offer('walmart',priceFor(p,2), 'In stock · 2-day shipping', undefined, p.brand+' '+p.name),
+    ];
+  }
+  // deterministic-ish prices from name length so they look stable
+  function priceFor(p, idx){
+    const base = 18 + (p.name.length % 9) * 7 + idx; // spread
+    const cents = ['.95','.99','.49','.95'][ (p.name.length+idx) % 4 ];
+    return '$' + (base + idx*1.5).toFixed(0).replace(/(\d)(?=(\d{3})+$)/g,'$1,') + cents;
+  }
+
+  function logoImg(domain, cls){
+    return `<img class="${cls}" src="${fav(domain,64)}" alt="" onerror="this.style.visibility='hidden'">`;
+  }
+
+  function cardEl(p, cat){
+    const offers = buildOffers(p, cat);
+    const el = document.createElement('div');
+    el.className = 'product-card';
+    el.setAttribute('role','button');
+    el.setAttribute('tabindex','0');
+    el.setAttribute('aria-label', p.brand + ' ' + p.name);
+    const slides = p.imgs.map((_,idx) => `<div class="pc-slide">${phSlide(idx+1)}</div>`).join('');
+    const dots = p.imgs.map((_,i)=>`<span class="pc-dot${i===0?' active':''}"></span>`).join('');
+    const chips = offers.slice(0,2).map(o => `<span class="mk">${logoImg(MK[o.key].domain,'')}${MK[o.key].name}</span>`).join('');
+    el.innerHTML = `
+      <div class="pc-media">
+        <div class="pc-track">${slides}</div>
+        <button class="pc-arrow prev" type="button" aria-label="Previous image">${chevL}</button>
+        <button class="pc-arrow next" type="button" aria-label="Next image">${chevR}</button>
+        <div class="pc-dots">${dots}</div>
+        <span class="pc-badge stock">In stock</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-brand-row">${logoImg(p.domain,'pc-logo')}<div class="pc-brand">${p.brand}</div></div>
+        <div class="pc-name">${p.name}</div>
+        <ul class="pc-specs">${p.specs.slice(1,4).map(([k,v])=>`<li><span class="k">${k}</span><span class="v">${v}</span></li>`).join('')}</ul>
+        <div class="pc-offers">
+          <span class="pc-stock">In stock</span>
+          <div class="pc-markets">${chips}</div>
+        </div>
+        <div class="pc-cta">View details${arrowR}</div>
+      </div>`;
+    // carousel
+    const track = el.querySelector('.pc-track');
+    const dotEls = [...el.querySelectorAll('.pc-dot')];
+    let i = 0; const n = p.imgs.length;
+    const go = k => { i=(k+n)%n; track.style.transform=`translateX(${-i*100}%)`; dotEls.forEach((d,di)=>d.classList.toggle('active',di===i)); };
+    el.querySelector('.pc-arrow.prev').addEventListener('click', e=>{ e.stopPropagation(); go(i-1); });
+    el.querySelector('.pc-arrow.next').addEventListener('click', e=>{ e.stopPropagation(); go(i+1); });
+    el.addEventListener('click', e=>{ if(e.target.closest('.pc-arrow')) return; openDetail(p, cat); });
+    el.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openDetail(p, cat); } });
+    return el;
+  }
+
+  // render into containers
+  // Automotive: one representative example per category → 3 cards, parallel to Health
+  const autoAll = document.querySelector('.product-grid[data-cat="auto-all"]');
+  if (autoAll) {
+    ['tires','oils','elec'].forEach(c => {
+      if (PRODUCTS[c] && PRODUCTS[c][0]) autoAll.appendChild(cardEl(PRODUCTS[c][0], c));
+    });
+  }
+  // Any remaining individual grids (e.g. Health)
+  Object.keys(PRODUCTS).forEach(cat => {
+    const cont = document.querySelector(`.product-grid[data-cat="${cat}"]`);
+    if (!cont) return;
+    PRODUCTS[cat].forEach(p => cont.appendChild(cardEl(p, cat)));
+  });
+
+  // ----- Detail modal -----
+  const modal = document.createElement('div');
+  modal.className = 'pd-modal';
+  modal.innerHTML = '<div class="pd-backdrop"></div><div class="pd-panel" role="dialog" aria-modal="true"><button class="pd-close" type="button" aria-label="Close">'+xIco+'</button><div class="pd-scroll"></div></div>';
+  document.body.appendChild(modal);
+  const scroll = modal.querySelector('.pd-scroll');
+  const backdrop = modal.querySelector('.pd-backdrop');
+
+  function stars(r){
+    let s = '';
+    for (let k=1;k<=5;k++){
+      s += `<svg class="${k<=Math.round(r)?'on':'off'}" viewBox="0 0 24 24" stroke="none"><path d="m12 17.3-6.2 3.7 1.6-7L2 9.2l7.1-.6L12 2l2.9 6.6 7.1.6-5.4 4.8 1.6 7z"/></svg>`;
+    }
+    return s;
+  }
+
+  function openDetail(p, cat){
+    const offers = buildOffers(p, cat);
+    const n = p.imgs.length;
+    const thumbs = p.imgs.map((_,idx)=>`<button class="pd-thumb${idx===0?' active':''}" data-n="${idx+1}" type="button"><div class="img-ph pd-ph-mini">${imgIco}<span class="pl">${idx+1}</span></div></button>`).join('');
+    const offerRows = offers.map(o => {
+      const m = MK[o.key];
+      return `<a class="pd-offer" href="${o.url}" target="_blank" rel="noopener">
+        ${logoImg(m.domain,'mk-logo')}
+        <div class="mk-meta"><span class="mk-name">${m.name}</span><span class="mk-sub">${o.ship}</span></div>
+        <span class="mk-price">${o.price}</span>
+        <span class="mk-go">View${extIco}</span>
+      </a>`;
+    }).join('');
+    scroll.innerHTML = `
+      <div class="pd-grid">
+        <div class="pd-gallery">
+          <div class="pd-main"><div class="img-ph pd-ph-main">${imgIco}<span class="pl">Product photo</span><span class="sub">View <b id="pdViewN">1</b> of ${n}</span></div></div>
+          <div class="pd-thumbs">${thumbs}</div>
+          <div class="pd-section-h" style="margin-top:24px;">Compatibility — fits</div>
+          <div class="pd-fits" style="margin-bottom:0;"><ul>${p.fits.map(f=>`<li>${checkIco}${f}</li>`).join('')}</ul></div>
+        </div>
+        <div class="pd-info">
+          <div class="pd-brand-row">${logoImg(p.domain,'')}<span class="b">${p.brand}</span></div>
+          <h3 class="pd-title">${p.name}</h3>
+          <div class="pd-rating"><span class="pd-stars">${stars(p.rating)}</span><span class="rv">${p.rating.toFixed(1)} · ${p.reviews.toLocaleString()} ratings</span></div>
+          <span class="pd-stockline">In stock — ships today</span>
+          <p style="color:var(--ink-soft);font-size:14.5px;line-height:1.6;margin:0 0 22px;">${p.desc}</p>
+          <div class="pd-section-h">Specifications</div>
+          <ul class="pd-specs">${p.specs.map(([k,v])=>`<li><span class="k">${k}</span><span class="v">${v}</span></li>`).join('')}</ul>
+          <div class="pd-section-h">Available at</div>
+          <div class="pd-offers">${offerRows}</div>
+          <p class="pd-disc">Prices and availability shown are representative and may vary on the marketplace. Rollun distributes these products through the listed marketplace stores.</p>
+        </div>
+      </div>`;
+    // thumb switching (placeholder view counter)
+    const viewN = scroll.querySelector('#pdViewN');
+    scroll.querySelectorAll('.pd-thumb').forEach(t => t.addEventListener('click', () => {
+      if (viewN) viewN.textContent = t.dataset.n;
+      scroll.querySelectorAll('.pd-thumb').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+    }));
+    scroll.scrollTop = 0;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDetail(){
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  backdrop.addEventListener('click', closeDetail);
+  modal.querySelector('.pd-close').addEventListener('click', closeDetail);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeDetail(); });
+})();
+
+// Category filter — reveal only the chosen product line's products & categories
+(function(){
+  var section = document.querySelector('.lines-split');
+  if (!section) return;
+  var grid = section.querySelector('.split-grid');
+  var nameEl = section.querySelector('.cat-filter-name');
+  var backBtn = section.querySelector('.cat-back');
+  var entranceSection = document.querySelector('.entrances');
+  var entrances = document.querySelectorAll('.entrance');
+
+  function choose(cat, scroll){
+    grid.classList.add('solo');
+    grid.classList.remove('show-health', 'show-auto');
+    grid.classList.add(cat === 'health' ? 'show-health' : 'show-auto');
+    section.classList.add('active');
+    if (nameEl) nameEl.textContent = cat === 'health' ? 'Health products' : 'Automotive parts & accessories';
+    if (scroll) window.scrollTo({ top: section.offsetTop - 60, behavior: 'smooth' });
+  }
+  entrances.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var href = a.getAttribute('href') || '';
+      choose(href.indexOf('health') >= 0 ? 'health' : 'auto', true);
+    });
+  });
+  if (backBtn) backBtn.addEventListener('click', function(){
+    if (entranceSection) window.scrollTo({ top: entranceSection.offsetTop - 70, behavior: 'smooth' });
+  });
+  var h = location.hash;
+  if (h === '#health') choose('health', false);
+  else if (h === '#automotive') choose('auto', false);
+})();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Rollun team override for the bmad-product-brief skill.
+# Installed into {project-root}/_bmad/custom/bmad-product-brief.toml by the
+# rollun-init skill (the BMAD installer ships skills only, never this file).
+# Committed in the target project — applies to every developer there.
+# Merges over the skill's customize.toml: scalars override; plain arrays append.
+#
+# Purpose: wire the brief's on-demand research to the rollun source skills.
+# `external_sources` is consulted ON DEMAND when a matching research need
+# surfaces (Discovery, Update reconciliation, Validate cross-checks, drafting) —
+# NOT preemptively. Each entry names WHEN to reach for a source and WHICH skill
+# answers it. All these sources are read-only and discover their
+# schema/indices/repos/corpus at runtime, so the directives stay project-agnostic.
+
+[workflow]
+
+external_sources = [
+  "When researching how existing code is wired — call chains, callers/callees, API routes and their consumers, response-shape contracts, or the blast-radius of a proposed change across repos — invoke skill:rollun-nexus before guessing. It queries the GitNexus code knowledge graph read-only.",
+  "When researching real data shapes — actual table structures, row volumes, value distributions, or representative sample rows to ground assumptions or size effort — invoke skill:rollun-sql-prod. It runs read-only queries and discovers the schema at runtime.",
+  "When researching search behavior or document shapes — which indices exist, field mappings/types, the shape of stored documents, search/relevance results, or aggregations and facets — invoke skill:rollun-es. It queries Elasticsearch read-only and discovers indices at runtime.",
+  "When researching curated knowledge — what the docs/runbooks/wikis say, prior art, or a past decision on a topic — invoke skill:rollun-lightrag. It queries the LightRAG knowledge base (graph + vector RAG) read-only and discovers the ingested corpus at runtime; treat it as curated knowledge, not live state.",
+  "If a rollun source skill reports its MCP server is not connected, invoke skill:rollun-mcp-setup once to write the project's .mcp.json and secrets, then retry the source. If setup cannot complete (e.g. headless, missing credentials), note the gap where it matters and continue with standard web research.",
+]

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style data-omelette-print-defaults>
+@media print {
+  @page { margin: 0.5in; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  figure, table, pre, blockquote, img, svg, tr, [class~="card" i] { break-inside: avoid; }
+  img, svg { max-width: 100%; }
+  p { orphans: 3; widows: 3; }
+}
+</style>
+<meta charset="UTF-8">
+<title>Our Brands — Rollun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #D2D2D2;
+    --bg-2: #C9C9C9;
+    --paper: #E2E2E2;
+    --ink: #1f1f1f;
+    --ink-soft: #555;
+    --ink-mute: #777;
+    --dark: #1a1a1a;
+    --dark-2: #232323;
+    --line: rgba(31,31,31,0.12);
+    --line-dark: rgba(255,255,255,0.12);
+    --or: #EF7F1A;
+    --or-deep: #C56712;
+    --or-soft: #f5a35a;
+    --moto-navy: #1c2c6b;
+    --moto-navy-deep: #14215a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Roboto', 'Karla', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, .display {
+    font-family: 'Poppins', 'Karla', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    margin: 0;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  p { margin: 0; }
+  a { color: inherit; }
+  .or-txt { color: var(--or); }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+  .container-narrow { max-width: 920px; margin: 0 auto; padding: 0 28px; }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    height: 90px;
+    display: flex; align-items: center;
+    background: #141414;
+    transition: transform .35s ease, height .25s ease, box-shadow .25s ease;
+  }
+  .site-header.scrolled { height: 76px; box-shadow: 0 4px 20px rgba(0,0,0,0.35); }
+  .site-header.hide { transform: translateY(-100%); }
+  .header-inner { display: grid; grid-template-columns: 1fr auto; align-items: center; width: 100%; }
+  .logo { display: inline-flex; align-items: center; text-decoration: none; line-height: 0; }
+  .logo img { height: 40px; width: auto; display: block; }
+  .nav { display: flex; gap: 28px; justify-self: end; align-items: center; margin-right: 20px; }
+  .nav a {
+    color: #fff; text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500; font-size: 14px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: color .2s; white-space: nowrap;
+  }
+  .nav a:hover, .nav a.active { color: var(--or); }
+
+  /* ===== PAGE HERO ===== */
+  .page-hero {
+    background: var(--dark);
+    color: #fff;
+    padding: 170px 0 96px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .page-hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(1000px 500px at 50% 0%, rgba(239,127,26,0.14), transparent 65%);
+    pointer-events: none;
+  }
+  .page-hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+  .page-hero-inner { position: relative; z-index: 2; }
+  .page-hero .eyebrow {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--or); margin-bottom: 18px;
+  }
+  .page-hero h1 {
+    color: #fff;
+    font-size: clamp(38px, 5vw, 68px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 22px;
+  }
+  .page-hero p {
+    color: rgba(255,255,255,0.74);
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none; text-transform: uppercase;
+    font-weight: 500; font-size: 13px;
+    letter-spacing: 0.06em;
+    padding: 16px 32px;
+    border: 1px solid transparent;
+    transition: all .25s;
+    cursor: pointer;
+  }
+  .btn-or { background: var(--or); color: #fff; border-color: var(--or); }
+  .btn-or:hover { background: var(--or-deep); border-color: var(--or-deep); }
+  .btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+  .btn-ghost:hover { background: #fff; color: var(--dark); border-color: #fff; }
+  .btn-navy { background: var(--moto-navy); color: #fff; border-color: var(--moto-navy); }
+  .btn-navy:hover { background: var(--moto-navy-deep); border-color: var(--moto-navy-deep); }
+
+  /* ===== MOTOTOU LOGO (recreated from packaging) ===== */
+  .moto-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--moto-navy);
+    border-radius: 12px;
+    padding: 14px 28px;
+    background: #fff;
+  }
+  .moto-logo span {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--moto-navy);
+    letter-spacing: 0.16em;
+    font-size: 30px;
+    line-height: 1;
+    padding-left: 0.16em;
+  }
+
+  /* ===== BRANDS INTRO / CARD ===== */
+  .brands { padding: 96px 0 40px; background: var(--bg); }
+  .brand-card {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 40px 90px -42px rgba(0,0,0,0.4);
+  }
+  .brand-card .bc-media {
+    background: linear-gradient(rgba(244,244,244,0.62), rgba(236,236,236,0.62)), url('mototou-shelf-bg.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 26px;
+    padding: 56px 40px;
+    position: relative;
+  }
+  .brand-card .bc-tag {
+    position: absolute; top: 26px; left: 26px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .brand-card .bc-status {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--or-deep);
+    background: rgba(239,127,26,0.12);
+    padding: 7px 14px;
+    border-radius: 100px;
+  }
+  .brand-card .bc-body { padding: 56px 50px; display: flex; flex-direction: column; }
+  .brand-card .bc-body h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+  }
+  .brand-card .bc-body .bc-sub {
+    color: var(--ink-mute);
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .brand-card .bc-body p { color: var(--ink-soft); font-size: 16px; line-height: 1.7; margin-bottom: 18px; }
+  .brand-card .bc-actions { display: flex; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+  .brand-card .bc-trademark { margin-top: 24px; padding-top: 22px; border-top: 1px solid rgba(0,0,0,0.1); }
+  .brand-card .bc-tm-head { display: inline-flex; align-items: center; gap: 9px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px; color: var(--ink); margin-bottom: 10px; }
+  .brand-card .bc-tm-head svg { width: 19px; height: 19px; color: var(--or); }
+  .brand-card .bc-tm-desc { color: var(--ink-soft); font-size: 14.5px; line-height: 1.6; margin-bottom: 20px; }
+  .brand-card .bc-tm-facts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px 22px; }
+  .brand-card .bc-tm-fact { display: flex; flex-direction: column; gap: 3px; }
+  .brand-card .bc-tm-fact .k { font-family: 'Poppins', sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--or); }
+  .brand-card .bc-tm-fact .v { color: var(--ink); font-size: 14px; font-weight: 500; }
+
+  /* ===== STORY ===== */
+  .story { padding: 90px 0; background: var(--paper); }
+  .section-eyebrow {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--or); margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: clamp(26px, 2.6vw, 38px);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.02em;
+    margin-bottom: 44px;
+    color: var(--ink);
+  }
+  .story p {
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 22px;
+  }
+  .story p.lead {
+    font-size: 20px;
+    color: var(--ink);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  .story .pull {
+    border-left: 3px solid var(--or);
+    padding: 6px 0 6px 24px;
+    margin: 34px 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+
+  /* ===== PRODUCTS ===== */
+  .products { padding: 90px 0; background: var(--bg); }
+  .prod-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 70px;
+  }
+  .prod-grid.flip { direction: rtl; }
+  .prod-grid.flip > * { direction: ltr; }
+  .prod-photo {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #ddd;
+    box-shadow: 0 26px 60px -34px rgba(0,0,0,0.45);
+  }
+  .prod-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .prod-text h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .prod-text p { color: var(--ink-soft); font-size: 16px; line-height: 1.7; margin-bottom: 18px; }
+  .cat-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0; }
+  .cat-list li {
+    display: flex; align-items: center; gap: 14px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--line);
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .cat-list li:last-child { border-bottom: none; }
+  .cat-list li svg { width: 22px; height: 22px; color: var(--or); flex-shrink: 0; }
+  .prod-note {
+    background: var(--dark);
+    color: rgba(255,255,255,0.82);
+    padding: 40px 48px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .prod-note strong { color: #fff; font-weight: 600; }
+
+  /* ===== TRADEMARK ===== */
+  .trademark { padding: 96px 0; background: var(--dark); color: #fff; }
+  .tm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .trademark .section-eyebrow { text-align: left; }
+  .trademark h2 {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 3vw, 44px);
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .trademark p { color: rgba(255,255,255,0.74); font-size: 16px; line-height: 1.7; margin-bottom: 26px; }
+  .tm-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 30px; margin-top: 32px; }
+  .tm-fact .k {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--or); margin-bottom: 6px;
+  }
+  .tm-fact .v { color: #fff; font-size: 16px; font-weight: 500; }
+  .tm-cert {
+    background: #fff;
+    padding: 16px;
+    box-shadow: 0 40px 80px -40px rgba(0,0,0,0.8);
+    cursor: zoom-in;
+    transition: transform .35s ease;
+  }
+  .tm-cert:hover { transform: translateY(-4px); }
+  .tm-cert img { width: 100%; height: auto; display: block; }
+  .tm-cert .cap {
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-mute);
+    padding: 12px 0 4px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  /* lightbox */
+  .lightbox {
+    position: fixed; inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,0.88);
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px;
+    opacity: 0; visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+    cursor: zoom-out;
+  }
+  .lightbox.open { opacity: 1; visibility: visible; }
+  .lightbox img { max-width: 100%; max-height: 100%; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+
+  /* ===== CTA ===== */
+  .cta {
+    background: var(--paper);
+    padding: 100px 0;
+    text-align: center;
+  }
+  .cta h2 {
+    font-size: clamp(32px, 4vw, 56px);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cta p { color: var(--ink-soft); max-width: 580px; margin: 0 auto 34px; font-size: 17px; line-height: 1.6; }
+
+  /* ===== FOOTER ===== */
+  .site-footer { background: #0e0e0e; color: #fff; padding: 80px 0 30px; }
+  .footer-grid { display: grid; grid-template-columns: 3fr 2fr 2fr 3fr 2fr; gap: 40px; margin-bottom: 60px; }
+  .site-footer .logo img { height: 28px; filter: brightness(1.2); }
+  .site-footer h4 {
+    color: #fff; font-family: 'Poppins', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 22px; margin-top: 22px;
+  }
+  .site-footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .site-footer a { color: rgba(255,255,255,0.72); text-decoration: none; }
+  .site-footer a:hover { color: var(--or); }
+  .site-footer .col p { line-height: 1.7; color: rgba(255,255,255,0.6); font-size: 13.5px; }
+  .site-footer .col .sublabel { color: #fff; font-weight: 500; margin-top: 12px; margin-bottom: 4px; font-size: 13px; }
+  .footer-bottom {
+    text-align: center; padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px; color: rgba(255,255,255,0.5);
+  }
+
+  /* ===== REVEAL ===== */
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 980px) {
+    .brand-card, .prod-grid, .tm-grid, .footer-grid { grid-template-columns: 1fr; }
+    .prod-grid.flip { direction: ltr; }
+    .prod-grid { gap: 32px; }
+    .tm-grid { gap: 36px; }
+  }
+  @media (max-width: 720px) {
+    .nav { gap: 14px; margin-right: 8px; }
+    .nav a { font-size: 11px; letter-spacing: 0.03em; }
+    .logo img { height: 32px; }
+    .brand-card .bc-body, .brand-card .bc-media { padding: 40px 28px; }
+    .brand-card .bc-tm-facts { grid-template-columns: 1fr 1fr; }
+    .tm-facts { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body data-screen-label="Our Brands">
+
+<!-- HEADER -->
+<header class="site-header" id="hdr">
+  <div class="container header-inner">
+    <a class="logo" href="Home.html">
+      <img src="rollun-logo.png" alt="rollun" />
+    </a>
+    <nav class="nav">
+      <a href="Home.html">HOME</a>
+      <a href="About Us.html">ABOUT US</a>
+      <a href="Catalog.html">CATALOG</a>
+      <a href="Our Shops.html">OUR SHOPS</a>
+      <a href="Our Brands.html" class="active">OUR BRANDS</a>
+      <a href="Contact.html">CONTACT US</a>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero" data-screen-label="01 Hero">
+  <div class="container page-hero-inner">
+    <div class="eyebrow">Private Label</div>
+    <h1>Our Brands</h1>
+    <p>We build and grow brands with a long-term focus on quality and customer experience — not only distribution, but products we own and stand behind.</p>
+  </div>
+</section>
+
+<!-- BRAND CARD -->
+<section class="brands" data-screen-label="02 Brand card">
+  <div class="container">
+    <div class="brand-card">
+      <div class="bc-media">
+        <span class="bc-tag">Brand 01</span>
+        <div class="moto-logo"><span>MOTOTOU</span></div>
+        <span class="bc-status" style="background-color: rgba(239, 127, 26, 0.34)">In active development</span>
+      </div>
+      <div class="bc-body">
+        <h2>Mototou</h2>
+        <div class="bc-sub">Motorcycle parts &amp; accessories</div>
+        <p>Practical, functional motorcycle components designed for everyday reliability and long-term performance. A U.S.-registered trademark, built and refined by Rollun.</p>
+        <p>Our lineup is still growing — we're actively expanding the catalog, refining materials, and tightening quality checks with our production partners.</p>
+        <div class="bc-trademark">
+          <div class="bc-tm-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+            A U.S. registered trademark
+          </div>
+          <p class="bc-tm-desc">MOTOTOU is a registered trademark on the Principal Register of the United States Patent and Trademark Office, owned by Rollun LC — your assurance that you're working with a genuine, protected brand.</p>
+          <div class="bc-tm-facts">
+            <div class="bc-tm-fact"><span class="k">Registration No.</span><span class="v">5,513,305</span></div>
+            <div class="bc-tm-fact"><span class="k">Registered</span><span class="v">Jul. 10, 2018</span></div>
+            <div class="bc-tm-fact"><span class="k">Int. Class</span><span class="v">12 — Land vehicle parts</span></div>
+            <div class="bc-tm-fact"><span class="k">Owner</span><span class="v">Rollun LC (Wyoming)</span></div>
+            <div class="bc-tm-fact"><span class="k">First use</span><span class="v">May 26, 2015</span></div>
+            <div class="bc-tm-fact"><span class="k">Register</span><span class="v">Principal</span></div>
+          </div>
+        </div>
+        <div class="bc-actions">
+          <a class="btn btn-or" href="Contact.html">BECOME A PARTNER</a>
+          <a class="btn btn-navy" href="https://www.amazon.com/s?srs=76258337011&rh=p_89%3AMototou" target="_blank" rel="noopener">SHOP MOTOTOU ON AMAZON</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" data-screen-label="03 Story">
+  <div class="container-narrow">
+    <div class="section-eyebrow">Mototou</div>
+    <h2 class="section-title">Our story</h2>
+    <p class="lead">MOTOTOU began with sourcing and manufacturing, focusing on accessibility and value for customers in the US. As the brand evolving, our priority shifting toward stronger standards and better control over production.</p>
+    <p>Today, MOTOTOU is not just about manufacturing — it's about quality, precision, and long-term reliability. We work closely with our production partners, improving materials, tightening specifications, and strengthening quality checks.</p>
+    <div class="pull">Our goal is simple: deliver products riders can install with confidence and use without doubt.</div>
+    <p>Several new products are currently in development and refinement. We are not publicly presenting the full lineup yet. If you are interested in learning more or becoming a partner, please reach out.</p>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" data-screen-label="04 Products">
+  <div class="container">
+    <div class="section-eyebrow">What we make</div>
+    <h2 class="section-title">Our products</h2>
+
+    <div class="prod-grid">
+      <div class="prod-photo">
+        <img src="mototou-product-reflectors.jpg" alt="Mototou reflector hardware kit in branded packaging" loading="lazy">
+      </div>
+      <div class="prod-text">
+        <h3>Built for real-world riding</h3>
+        <p>MOTOTOU focuses on practical, functional motorcycle components designed for everyday reliability. We prioritize durability, proper fitment, and straightforward installation.</p>
+        <p>Every product is developed with real-world use in mind — built to perform, not just to look good.</p>
+      </div>
+    </div>
+
+    <div class="prod-grid flip">
+      <div class="prod-photo">
+        <img src="mototou-filters.jpg" alt="MOTOTOU air and oil filters in branded packaging on a retail shelf" loading="lazy">
+      </div>
+      <div class="prod-text">
+        <h3>Current &amp; upcoming categories</h3>
+        <ul class="cat-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>Structural &amp; replacement motorcycle parts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>Handlebars, grips &amp; control components</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>Tubes &amp; essential riding components</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>Small hardware &amp; functional accessories</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prod-note">
+      MOTOTOU is a developing brand. We are actively refining our product line and expanding into new categories step by step — several products are currently undergoing testing and quality improvement. <strong>We are not publicly showcasing the full lineup yet.</strong> If you are interested in distribution, retail partnership, or early access, please contact us.
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" data-screen-label="05 CTA">
+  <div class="container">
+    <h2>Interested in <span class="or-txt">Mototou</span>?</h2>
+    <p>For distribution, retail partnership, or early access to new products — we'd love to hear from you.</p>
+    <a class="btn btn-or" href="Contact.html">CONTACT US</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" data-screen-label="07 Footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="col">
+        <a class="logo" href="Home.html"><img src="rollun-logo.png" alt="rollun"/></a>
+        <p style="margin-top:22px;">
+          Rollun is a U.S.-based e-commerce and distribution company specializing
+          in automotive parts, motorcycle accessories, and health products,
+          operating across leading marketplaces and our own sales channels.
+        </p>
+      </div>
+      <div class="col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="Home.html">Home</a></li>
+          <li><a href="About Us.html">About Us</a></li>
+          <li><a href="Catalog.html">Catalog</a></li>
+          <li><a href="Our Shops.html">Our Shops</a></li>
+          <li><a href="Our Brands.html">Our Brands</a></li>
+          <li><a href="Contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Contacts</h4>
+        <p>(307) 920-0149<br><span style="color:rgba(255,255,255,0.4);font-size:12px;">only for legal purposes</span></p>
+        <p style="margin-top:10px;">(832) 461-2525<br><span style="color:rgba(255,255,255,0.4);font-size:12px;">shop and return center</span></p>
+        <p style="margin-top:10px;"><a href="mailto:info@rollun.com">info@rollun.com</a></p>
+      </div>
+      <div class="col">
+        <h4>Locations</h4>
+        <div class="sublabel">Only for legal purposes</div>
+        <p>Rollun LC<br>30 N Gould St STE 4370<br>Sheridan, WY 82801</p>
+        <div class="sublabel" style="color: rgb(239, 127, 26)">Shop &amp; return center</div>
+        <p>5327 Aldine Mail Route Rd<br>Houston, TX 77039</p>
+      </div>
+      <div class="col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">Rollun © 2026</div>
+  </div>
+</footer>
+
+<script>
+// Header hide on scroll-down
+(function(){
+  const hdr = document.getElementById('hdr');
+  let lastY = 0;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    hdr.classList.toggle('scrolled', y > 30);
+    if (y > lastY && y > 200) hdr.classList.add('hide');
+    else hdr.classList.remove('hide');
+    lastY = y;
+  }, { passive: true });
+})();
+
+// Reveal on scroll
+(function(){
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('section').forEach((s, i) => {
+    if (i === 0) return;
+    s.classList.add('reveal');
+    io.observe(s);
+  });
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight) el.classList.add('in');
+    });
+  }, 1500);
+})();
+
+// Certificate lightbox
+(function(){
+  const card = document.getElementById('certCard');
+  const lb = document.getElementById('lightbox');
+  if (!card || !lb) return;
+  card.addEventListener('click', () => { lb.classList.add('open'); document.body.style.overflow = 'hidden'; });
+  lb.addEventListener('click', () => { lb.classList.remove('open'); document.body.style.overflow = ''; });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { lb.classList.remove('open'); document.body.style.overflow = ''; } });
+})();
+</script>
+
+<script>
+(async () => {
+  if (!document.title || !document.title.trim()) document.title = "Our Brands";
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    print-color-adjust: exact; -webkit-print-color-adjust: exact;\n    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        !settleRoot.querySelector('.sc-placeholder');
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  // Project support.js may predate runtime default-seeding; push via bridge.
+  if (isDc && window.__dcSetProps && window.__dcRootName) {
+    try {
+      const dpEl = document.querySelector('script[data-dc-script]');
+      const meta = JSON.parse((dpEl && dpEl.getAttribute('data-props')) || '{}');
+      const bag = {};
+      for (const k in meta)
+        if (k[0] !== '$' && meta[k] && meta[k].default !== undefined)
+          bag[k] = meta[k].default;
+      if (Object.keys(bag).length) {
+        window.__dcSetProps(window.__dcRootName(), bag);
+        await new Promise((r) => setTimeout(r, 50));
+      }
+    } catch (e) {}
+  }
+  // Reveal content gated on scroll or visibility before printing. Lazy <img>,
+  // IntersectionObserver fade-ins, and collapsed <details> don't render while
+  // off-screen, so a long page would print with them blank or closed. Open
+  // every <details>, force native-lazy images eager, and scroll the document
+  // through its full height to trip lazy-load + IO; then wait (bounded) for the
+  // newly-triggered images. Inert for deck-stage (slides aren't scroll-gated).
+  try {
+    for (const d of document.querySelectorAll('details')) d.open = true;
+    for (const img of document.querySelectorAll('img[loading="lazy"]'))
+      img.loading = 'eager';
+    const scroller = document.scrollingElement || document.documentElement;
+    const full = Math.max(scroller.scrollHeight, document.body.scrollHeight);
+    const step = window.innerHeight || 800;
+    for (let y = 0; y <= full; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((r) => requestAnimationFrame(r));
+    }
+    window.scrollTo(0, 0);
+    await Promise.race([
+      Promise.all(
+        [...document.images].map((img) =>
+          img.complete
+            ? null
+            : new Promise((res) => {
+                img.addEventListener('load', res, { once: true });
+                img.addEventListener('error', res, { once: true });
+              })
+        )
+      ),
+      new Promise((r) => setTimeout(r, 4000)),
+    ]);
+  } catch (e) {}
+  try { await document.fonts.ready; } catch (e) {}
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  // Re-append deck-stage's @page last so no author @page can add a margin and
+  // spill each full-bleed slide onto two sheets. Backstop for old copies.
+  if (ds) {
+    let pg = document.getElementById('deck-stage-print-page');
+    if (!pg) {
+      pg = document.createElement('style');
+      pg.textContent = '@page{size:' + (+ds.getAttribute('width') || 1920) +
+        'px ' + (+ds.getAttribute('height') || 1080) + 'px;margin:0}';
+    }
+    document.body.appendChild(pg);
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+  } catch (e) {}
+  // Size the PDF page to the rendered design unless the file opted into
+  // standard paper via @page{size:letter|A4|…}. Decks own their own @page.
+  // Wrappers (body, …) lose padding+margin so the frame sits at (0,0); the
+  // frame itself loses only margin — its padding is INSIDE the measured
+  // rect and must stay, or content shifts and leaves a gap at bottom/right.
+  var __m = null;
+  try { __m = (() => {
+  var docEl = document.documentElement;
+  var doc = { width: docEl.scrollWidth, height: docEl.scrollHeight };
+
+  var ds = document.querySelector('deck-stage');
+  if (ds) {
+    var dw = Number(ds.getAttribute('width')) || 1920;
+    var dh = Number(ds.getAttribute('height')) || 1080;
+    var n = typeof ds.length === 'number' ? ds.length : ds.children.length;
+    var idx = typeof ds.index === 'number' ? ds.index : 0;
+    var frames = [];
+    for (var i = 0; i < n; i++) frames.push({ left: 0, top: 0, width: dw, height: dh });
+    return { kind: 'deck', doc: doc, frames: frames,
+      authored: frames.map(function(){return{width:true,height:true}}),
+      deck: { width: dw, height: dh, slideCount: n, index: idx },
+      signals: { paperPage: false, pxPage: false } };
+  }
+
+  var paperPage = false, pxPage = false;
+  var eachRule = function (fn) {
+    for (var s = 0; s < document.styleSheets.length; s++) {
+      var rs; try { rs = document.styleSheets[s].cssRules; } catch (e) { continue; }
+      for (var r = 0; r < rs.length; r++) {
+        fn(rs[r]);
+        if (rs[r].cssRules) for (var n = 0; n < rs[r].cssRules.length; n++) fn(rs[r].cssRules[n]);
+      }
+    }
+  };
+  eachRule(function (r) {
+    if (r.type !== 6) return;
+    var m = /\bsize\s*:\s*([^;}]+)/i.exec(r.cssText || '');
+    if (!m) return;
+    if (/\b(letter|a[3-5]|legal|ledger)\b/i.test(m[1])) paperPage = true;
+    if (/\d+(?:\.\d+)?px\b/i.test(m[1])) pxPage = true;
+  });
+  var signals = { paperPage: paperPage, pxPage: pxPage };
+
+  var pxVal = function (v) {
+    var m = /^(\d+(?:\.\d+)?)px$/.exec(v || ''); return m ? +m[1] : 0;
+  };
+  var authoredPx = function (el, prop) {
+    if (pxVal(el.style[prop])) return true;
+    var attr = el.getAttribute(prop);
+    if (attr && /^\d+$/.test(attr)) return true;
+    var hit = false;
+    eachRule(function (r) {
+      if (hit || r.type !== 1 || !r.style) return;
+      try { if (el.matches(r.selectorText) && pxVal(r.style[prop])) hit = true; } catch (e) {}
+    });
+    return hit;
+  };
+
+  var el = document.body, rootPxW = false;
+  for (;;) {
+    var kids = [];
+    for (var c = 0; c < el.children.length; c++) {
+      var t = el.children[c].tagName;
+      if (t !== 'SCRIPT' && t !== 'STYLE' && t !== 'TEMPLATE') kids.push(el.children[c]);
+    }
+    if (kids.length !== 1 || !(kids[0] instanceof HTMLElement)) break;
+    el.setAttribute('data-om-frame-wrap', '');
+    el = kids[0];
+    rootPxW = authoredPx(el, 'width');
+    if (rootPxW) break;
+  }
+  if (!rootPxW) rootPxW = authoredPx(el, 'width');
+
+  // @page{size:letter} alone is a flowing doc; with a px-width root it's a
+  // fixed sheet pretending to be paper — fall through and size to render.
+  if (paperPage && !rootPxW) {
+    return { kind: 'paper-doc', doc: doc, signals: signals,
+      frames: [{ left: 0, top: 0, width: doc.width, height: doc.height }],
+      authored: [{ width: false, height: false }] };
+  }
+
+  var sx = window.scrollX || 0, sy = window.scrollY || 0;
+  var rectOf = function (e) {
+    var r = e.getBoundingClientRect();
+    var oy; try { oy = getComputedStyle(e).overflowY; } catch (err) {}
+    var h = oy === 'visible' ? Math.max(r.height, e.scrollHeight || 0) : r.height;
+    return { left: r.left + sx, top: r.top + sy, width: r.width, height: h };
+  };
+
+  // Multi-frame: ≥2 visible non-fixed children, each with authored px width
+  // AND height, all within ±2px of each other. Off unless the page opts in
+  // via data-om-multi-frame on the stop element — guards against card grids
+  // and pricing tables that match the geometry but aren't separate canvases.
+  if (el.hasAttribute('data-om-multi-frame')) {
+    var cands = [];
+    for (var k = 0; k < el.children.length; k++) {
+      var ch = el.children[k];
+      var cs; try { cs = getComputedStyle(ch); } catch (e) { continue; }
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.position === 'fixed') continue;
+      var rc = rectOf(ch);
+      if (rc.width < 2 || rc.height < 2) continue;
+      if (!authoredPx(ch, 'width') || !authoredPx(ch, 'height')) continue;
+      cands.push(rc);
+    }
+    if (cands.length >= 2) {
+      var w0 = cands[0].width, h0 = cands[0].height, ok = true;
+      for (var q = 1; q < cands.length; q++)
+        if (Math.abs(cands[q].width - w0) > 2 || Math.abs(cands[q].height - h0) > 2) ok = false;
+      if (ok) return { kind: 'multi-frame', doc: doc, signals: signals,
+        frames: cands, authored: cands.map(function(){return{width:true,height:true}}) };
+    }
+  }
+
+  el.setAttribute('data-om-frame', '');
+  return { kind: 'single-canvas', doc: doc, signals: signals,
+    frames: [rectOf(el)],
+    authored: [{ width: rootPxW, height: authoredPx(el, 'height') }] };
+})(); } catch (e) {}
+  var frame = null;
+  if (__m && __m.kind === 'single-canvas') {
+    var f = __m.frames && __m.frames[0];
+    if (f && f.width >= 200 && f.height >= 200) {
+      frame = f;
+      var fst = document.createElement('style');
+      fst.textContent = '@media print{@page{size:' + Math.ceil(f.width) + 'px ' +
+        Math.ceil(f.height) + 'px;margin:0}' +
+        'html,body,[data-om-frame-wrap]{padding:0!important;margin:0!important;background:none!important}' +
+        '[data-om-frame]{margin:0!important}}';
+      document.body.appendChild(fst);
+    }
+  }
+  // Relax break-inside on oversized elements. An element taller than a
+  // printable page can't honor break-inside: avoid — browsers either overflow
+  // it or push it whole to the next page, leaving a blank gap, then break it
+  // anyway at an arbitrary point. After the final layout (content revealed,
+  // animations jumped), find elements taller than a page that still compute
+  // break-inside: avoid and reset them to auto, so the browser breaks them at
+  // their children's boundaries instead (children keep their own avoid). PAGE_PX
+  // is a conservative portrait estimate at 96 CSS px/in — Letter/A4 usable
+  // height minus our 0.5in margins — so only clearly-oversized elements are
+  // touched and under-page elements still stay whole. Skipped for decks (slides
+  // are sized to the page) and for fixed-size canvases (frame set, or an author
+  // px-based @page) — runs as before for flowing docs on letter/A4.
+  try {
+    if (!ds && !frame && !(__m && __m.signals && __m.signals.pxPage)) {
+      const PAGE_PX = 1024;
+      // Our print defaults add a real @page margin only when the source has
+      // no @page of its own; computed style can't tell us (it reports screen
+      // media), so read the injected rule directly.
+      const defaults = document.querySelector('style[data-omelette-print-defaults]');
+      const pageInset = /@page\s*\{[^}]*margin/.test(defaults ? defaults.textContent || '' : '');
+      const SEL = 'section,article,figure,table,pre,blockquote,[class~="card" i],[class~="page" i],[class~="sheet" i]';
+      for (const el of document.body.querySelectorAll(SEL)) {
+        if (el instanceof HTMLElement && el.offsetHeight > PAGE_PX) {
+          el.setAttribute('data-om-oversized', '');
+          // Fake-paged docs simulate sheets with over-tall break-after:page
+          // boxes; honoring the break spills half-blank pages and ends a
+          // colored box mid-sheet. Flow them, and (only when we own the page
+          // inset) drop the redundant padding/background via the rule below.
+          const cs = getComputedStyle(el);
+          if (cs.breakAfter === 'page' || cs.pageBreakAfter === 'always') {
+            el.setAttribute('data-om-fakepage', '');
+          }
+        }
+      }
+      const ost = document.createElement('style');
+      ost.textContent = '@media print{' +
+        '[data-om-oversized]{break-inside:auto !important;page-break-inside:auto !important}' +
+        '[data-om-fakepage]{break-after:auto !important;page-break-after:auto !important}' +
+        (pageInset ? '[data-om-fakepage]{padding:0 !important;background:none !important}' : '') +
+        '}';
+      document.head.appendChild(ost);
+    }
+  } catch (e) {}
+  // macOS Preview renders Skia-PDF Luminosity soft-masks as opaque grey boxes;
+  // swap the CSS that triggers them for Preview-safe forms.
+  try {
+    for (const el of document.body.querySelectorAll('*')) {
+      const cs = getComputedStyle(el);
+
+      if (cs.boxShadow !== 'none' && cs.filter === 'none') {
+        const outs = [], kept = [];
+        for (const s of cs.boxShadow.split(/,(?![^(]*[)])/)) {
+          const t = s.trim();
+          const m = t.match(/^(rgba?[(][^)]+[)]) (-?[0-9.]+px) (-?[0-9.]+px) ([0-9.]+px) -?[0-9.]+px$/);
+          if (m && parseFloat(m[4]) > 0) outs.push('drop-shadow(' + m[2] + ' ' + m[3] + ' ' + m[4] + ' ' + m[1] + ')');
+          else kept.push(t);
+        }
+        if (outs.length) {
+          el.style.setProperty('filter', outs.join(' '), 'important');
+          el.style.setProperty('box-shadow', kept.join(', ') || 'none', 'important');
+        }
+      }
+
+      const mask = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : cs.webkitMaskImage;
+      if (mask && mask !== 'none' && cs.filter === 'none') el.style.setProperty('filter', 'opacity(1)', 'important');
+    }
+  } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>

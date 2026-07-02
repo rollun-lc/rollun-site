@@ -1,0 +1,20 @@
+version: "3"
+
+# Source of truth for the rollun module is skills/ (committed).
+# .claude/, .agents/, _bmad/ are local runtime/installer artifacts (gitignored).
+
+tasks:
+  default:
+    cmds:
+      - task --list
+
+  codex:
+    aliases: [cdx]
+    cmds:
+      - codex --dangerously-bypass-approvals-and-sandbox
+
+  claude:
+    aliases: [c]
+    interactive: true
+    cmds:
+      - claude --dangerously-skip-permissions

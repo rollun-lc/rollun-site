@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Us — Rollun (Mobile)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mobile.css">
+<style>
+  .about-hero h1 { font-size: 38px; line-height: 1.08; }
+  .about-hero .hero-sub { color: rgba(255,255,255,0.8); font-size: 16px; font-weight: 300; margin: 0 auto 12px; max-width: 360px; }
+  .about-hero .hero-para { color: rgba(255,255,255,0.6); font-size: 13.5px; line-height: 1.7; max-width: 360px; margin: 0 auto; }
+
+  /* Focus cards */
+  .focus-list { display: flex; flex-direction: column; gap: 16px; }
+  .focus-card { background: #fff; border: 1px solid var(--line); overflow: hidden; }
+  .focus-card .img { aspect-ratio: 2.4/1; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .focus-card .img::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(135deg, transparent 0 14px, rgba(255,255,255,0.04) 14px 15px); }
+  .focus-card .img .icon { position: relative; color: var(--or); }
+  .focus-card-body { padding: 20px 20px 24px; border-top: 3px solid var(--or); }
+  .focus-card .tag { font-family: 'Poppins', sans-serif; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--or); margin-bottom: 9px; font-weight: 600; }
+  .focus-card h3 { font-size: 18px; margin-bottom: 9px; font-weight: 600; }
+  .focus-card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+
+  /* Principles */
+  .principles { background: #fff; border: 1px solid var(--line); }
+  .principle { padding: 22px 20px; display: flex; gap: 16px; align-items: flex-start; border-bottom: 1px solid var(--line); }
+  .principle:last-child { border-bottom: none; }
+  .principle-num { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.16em; color: var(--or); flex-shrink: 0; padding-top: 3px; }
+  .principle h3 { font-size: 16px; font-weight: 600; margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.01em; }
+  .principle p { color: var(--ink-soft); font-size: 13.5px; line-height: 1.6; }
+
+  /* Automation stats */
+  .auto-lede { color: rgba(255,255,255,0.72); font-size: 14.5px; line-height: 1.7; font-weight: 300; margin: 14px 0 26px; }
+  .auto-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.12); }
+  .astat { background: var(--dark); padding: 30px 16px; text-align: center; }
+  .astat.big { grid-column: span 2; padding: 38px 16px; }
+  .astat .v { font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 50px; line-height: 1; color: #fff; letter-spacing: -0.02em; }
+  .astat.big .v { font-size: 72px; color: var(--or); font-weight: 400; }
+  .astat .v .unit { color: var(--or); }
+  .astat.big .v .unit { color: #fff; }
+  .astat .l { margin-top: 12px; font-family: 'Poppins', sans-serif; font-size: 10.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.7); line-height: 1.5; }
+  .astat .note { margin-top: 6px; font-size: 9.5px; color: rgba(255,255,255,0.4); letter-spacing: 0.14em; text-transform: uppercase; }
+
+  /* KeepToShip */
+  .kts-tag { display: inline-flex; align-items: center; gap: 9px; font-family: 'Poppins', sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--or); margin-bottom: 14px; }
+  .kts-tag::before { content: ""; width: 22px; height: 2px; background: var(--or); }
+  .kts h2 { font-size: 26px; text-transform: uppercase; line-height: 1.1; margin-bottom: 16px; }
+  .kts p { color: var(--ink-soft); font-size: 14.5px; line-height: 1.65; margin-bottom: 14px; }
+  .kts-cta-block { margin-top: 22px; padding: 22px; background: var(--dark); color: #fff; display: flex; flex-direction: column; gap: 16px; }
+  .kts-cta-block strong { display: block; font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.02em; }
+  .kts-cta-text { font-size: 13.5px; color: rgba(255,255,255,0.72); line-height: 1.55; }
+  .kts-cta-block .btn { align-self: flex-start; }
+
+  /* US presence */
+  .loc-list { display: flex; flex-direction: column; gap: 12px; }
+  .loc-card { background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--or); padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; }
+  .loc-card.store { border-left-color: var(--dark); }
+  .loc-card.ship { border-left-color: var(--ink-mute); }
+  .loc-marker { width: 12px; height: 12px; border-radius: 50%; flex: none; margin-top: 5px; }
+  .loc-marker.hq { background: var(--or); box-shadow: 0 0 0 3px rgba(239,127,26,0.25); }
+  .loc-marker.store { background: var(--dark); }
+  .loc-marker.ship { background: #fff; border: 2px solid var(--dark); }
+  .loc-card .meta { font-family: 'Poppins', sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 3px; font-weight: 500; }
+  .loc-card .place { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15px; }
+  .loc-card .addr { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+  .ship-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .ship-chip { display: inline-flex; align-items: center; gap: 7px; font-family: 'Poppins', sans-serif; font-size: 11.5px; font-weight: 500; color: var(--ink-soft); background: #fff; border: 1px solid var(--line); border-radius: 100px; padding: 7px 13px; }
+  .ship-chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; border: 2px solid var(--or); }
+  .live-tag { display: inline-flex; align-items: center; gap: 9px; font-family: 'Poppins', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-top: 18px; }
+  .live-tag .dot { width: 8px; height: 8px; background: #34C759; border-radius: 50%; animation: live 1.8s ease-out infinite; }
+  .live-tag .num { color: var(--or); font-weight: 700; }
+  @keyframes live { 0% { box-shadow: 0 0 0 0 rgba(52,199,89,0.5); } 70% { box-shadow: 0 0 0 9px rgba(52,199,89,0); } 100% { box-shadow: 0 0 0 0 rgba(52,199,89,0); } }
+
+  /* Team */
+  .team { background: var(--green); color: #fff; position: relative; overflow: hidden; }
+  .team::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.06), transparent 50%), radial-gradient(ellipse at 10% 90%, rgba(0,0,0,0.22), transparent 50%); pointer-events: none; }
+  .team-inner { position: relative; z-index: 2; padding: 0 20px; }
+  .team-mark { aspect-ratio: 1/1; max-width: 280px; margin: 0 auto 28px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; }
+  .team-tile { position: relative; overflow: hidden; background: #555859; }
+  .team-tile img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(0.4) brightness(0.85); }
+  .team-tile.tl { border-radius: 0 12px 12px 0; }
+  .team-tile.tr { background: #ea7b07; border-radius: 12px; }
+  .team-tile.bl { border-radius: 0 0 12px 12px; }
+  .team-tile.br { border-radius: 0 12px 0 0; }
+  .team h2 { color: #fff; font-size: 30px; text-transform: uppercase; line-height: 1.08; margin-bottom: 18px; text-align: center; }
+  .team h2 .lv { color: var(--or); }
+  .team .quote { font-size: 15.5px; line-height: 1.7; color: rgba(255,255,255,0.86); margin-bottom: 24px; font-weight: 300; text-align: center; }
+  .team-sig { display: flex; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.18); justify-content: center; }
+  .team-sig .av { width: 50px; height: 50px; border-radius: 50%; overflow: hidden; flex: none; }
+  .team-sig .av img { width: 100%; height: 100%; object-fit: cover; }
+  .team-sig .name { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15px; }
+  .team-sig .role { font-size: 13px; color: rgba(255,255,255,0.72); }
+
+  /* CTA */
+  .about-cta { text-align: center; }
+  .about-cta::before { content: ""; position: absolute; inset: 0; background: radial-gradient(600px 280px at 50% 30%, rgba(239,127,26,0.16), transparent 60%); pointer-events: none; }
+  .about-cta-inner { position: relative; z-index: 2; padding: 0 20px; }
+  .about-cta h2 { color: #fff; font-size: 34px; font-weight: 500; text-transform: none; margin-bottom: 14px; letter-spacing: -0.01em; }
+  .about-cta .sub { color: rgba(255,255,255,0.78); font-size: 15px; font-weight: 300; margin-bottom: 6px; }
+  .about-cta .hours { color: rgba(255,255,255,0.78); font-size: 13.5px; font-weight: 300; margin-bottom: 26px; }
+  .about-cta .hours strong { color: #fff; font-weight: 500; }
+  .cta-social { display: flex; justify-content: center; gap: 14px; margin-top: 26px; }
+  .cta-social a { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; }
+  .cta-social a svg { width: 22px; height: 22px; }
+  .cta-social .gh { background: #1c1c1c; border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+  .cta-social .li { background: #0a66c2; color: #fff; }
+</style>
+</head>
+<body data-screen-label="About Us (Mobile)">
+<div class="phone">
+
+<header class="site-header" id="hdr">
+  <div class="header-inner">
+    <a class="logo" href="Home Mobile.html"><img src="rollun-logo.png" alt="rollun"></a>
+    <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-top">
+    <img src="rollun-logo.png" alt="rollun">
+    <button class="drawer-close" id="drawerClose" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg></button>
+  </div>
+  <nav>
+    <a href="Home Mobile.html">Home <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></a>
+    <a href="About Us Mobile.html" class="active">About Us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></a>
+    <a href="Catalog Mobile.html">Catalog <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></a>
+    <a href="Our Shops Mobile.html">Our Shops <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></a>
+    <a href="Our Brands Mobile.html">Our Brands <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></a>
+    <a href="Contact Mobile.html">Contact Us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></a>
+  </nav>
+  <div class="drawer-foot">
+    <a class="btn btn-or" href="Contact Mobile.html">Contact us
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+    </a>
+    <p>U.S.-based e-commerce distribution</p>
+  </div>
+</aside>
+
+<!-- HERO -->
+<section class="page-hero about-hero" data-screen-label="01 Hero">
+  <div class="page-hero-inner">
+    <div class="eyebrow">Who we are</div>
+    <h1>Why <span class="or-txt">partners</span> choose <span class="or-txt">Rollun</span></h1>
+    <p class="hero-sub">A traditional business mindset powered by modern operations and automation.</p>
+    <p class="hero-para">Rollun is a U.S.-based LLC registered in Sheridan, Wyoming, founded by a Ukrainian team. Since April 2015 we've built automated e-commerce distribution that helps products reach customers through leading marketplaces.</p>
+    <div class="hero-buttons">
+      <a class="btn btn-or btn-block" href="Contact Mobile.html">Contact us</a>
+      <a class="btn btn-ghost btn-block" href="#focus">Explore our work</a>
+    </div>
+  </div>
+</section>
+
+<!-- SNAPSHOT -->
+<section class="section bg" id="focus" data-screen-label="02 Snapshot">
+  <div class="section-head center wrap">
+    <h2 class="section-title">Who we are &amp; what we do</h2>
+    <p>A small, focused team running a U.S.-based e-commerce distribution business — three product lines, one operating playbook, all built on technology we own.</p>
+  </div>
+  <div class="wrap">
+    <div class="focus-list">
+      <article class="focus-card">
+        <div class="img"><svg class="icon" width="64" height="64" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="22" cy="52" r="8"/><circle cx="58" cy="52" r="8"/><path d="M8 52h6M30 52h20M66 52h6M14 40l8-16h28l8 10 10 2v16"/></svg></div>
+        <div class="focus-card-body"><div class="tag">01 · Category</div><h3>Automotive parts &amp; accessories</h3><p>Motorcycle and automotive products — oils &amp; fluids, electrical systems, tires &amp; wheels, batteries.</p></div>
+      </article>
+      <article class="focus-card">
+        <div class="img"><svg class="icon" width="64" height="64" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M40 68s-26-15-26-36c0-8 7-14 14-14 5 0 9 3 12 8 3-5 7-8 12-8 7 0 14 6 14 14 0 21-26 36-26 36z"/></svg></div>
+        <div class="focus-card-body"><div class="tag">02 · Category</div><h3>Health products</h3><p>Medical supplies and wellness — orthopedic supports, pain relief &amp; recovery rubs, supplements, energy &amp; focus.</p></div>
+      </article>
+      <article class="focus-card">
+        <div class="img"><svg class="icon" width="64" height="64" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="14" y="14" width="52" height="52" rx="2"/><path d="M26 30h28M26 40h28M26 50h18"/><circle cx="62" cy="62" r="3" fill="currentColor"/></svg></div>
+        <div class="focus-card-body"><div class="tag">03 · Platform</div><h3>AI-driven automation</h3><p>Internal tools developed, used, and tested by our own team — then offered to partners.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="section paper" data-screen-label="03 Approach">
+  <div class="section-head center wrap"><h2 class="section-title">Our approach</h2></div>
+  <div class="wrap">
+    <div class="principles">
+      <div class="principle"><div class="principle-num">01</div><div><h3>Integrity above all</h3><p>Honest, transparent, ethical. Partners, suppliers, customers — the same standard for everyone, every time.</p></div></div>
+      <div class="principle"><div class="principle-num">02</div><div><h3>Innovation as our growth engine</h3><p>Automation, analytics, and AI. We grow by sharpening the system — not by adding headcount.</p></div></div>
+      <div class="principle"><div class="principle-num">03</div><div><h3>Efficiency, long-term focus</h3><p>Durable value over quick wins. Every decision is weighed against a multi-year horizon.</p></div></div>
+      <div class="principle"><div class="principle-num">04</div><div><h3>Small, stable team</h3><p>Led by an experienced CEO — an expert in business development and operations, with the team to match.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATION -->
+<section class="section dark" data-screen-label="04 Automation">
+  <div class="wrap">
+    <div class="section-eyebrow">Automation</div>
+    <h2 class="section-title" style="color:#fff;">Automation that improves <span class="or-txt">reliability</span></h2>
+    <p class="auto-lede">We scale through innovation and technology — not by expanding headcount. Internal tools and process automation reduce operational costs and keep execution consistent, year after year.</p>
+    <div class="auto-stats">
+      <div class="astat big"><div class="v"><span data-count="50000">0</span><span class="unit">+</span></div><div class="l">Items in inventory handled by a small team</div></div>
+      <div class="astat"><div class="v"><span data-count="80">0</span><span class="unit">%</span></div><div class="l">Operations without human work</div></div>
+      <div class="astat"><div class="v"><span data-count="30">0</span><span class="unit">%</span></div><div class="l">Cost savings via automation</div><div class="note">Internal benchmark</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- KEEPTOSHIP -->
+<section class="section bg" data-screen-label="05 KeepToShip">
+  <div class="wrap">
+    <div class="kts-tag">Our technological startup</div>
+    <h2 class="kts"><span class="or-txt">KeepToShip</span><br>Logistics, distributed.</h2>
+    <div class="kts">
+      <p>KeepToShip is an AI-powered logistics platform that connects online sellers with a distributed network of independent keep-and-ship partners.</p>
+      <p>Our Uber-like system replaces complex centralized logistics by storing products closer to customers — enabling faster delivery, lower shipping costs, and scalable fulfillment without expensive warehouses.</p>
+      <div class="kts-cta-block">
+        <div class="kts-cta-text"><strong>Want to work with us?</strong>Invest, store products in your area, or use KeepToShip in your free time.</div>
+        <a class="btn btn-or" href="https://keeptoship.com/" target="_blank" rel="noopener">Learn more</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- US PRESENCE -->
+<section class="section paper" data-screen-label="06 US Presence">
+  <div class="section-head wrap">
+    <div class="section-eyebrow">Across the country</div>
+    <h2 class="section-title">US presence</h2>
+    <p>Registered in Wyoming, operating from Texas, shipping nationwide through a network of partner nodes.</p>
+  </div>
+  <div class="wrap">
+    <div class="loc-list">
+      <div class="loc-card"><div class="loc-marker hq"></div><div><div class="meta">Registered HQ</div><div class="place">Sheridan, Wyoming</div><div class="addr">30 N Gould St STE 4370 · only for legal purposes</div></div></div>
+      <div class="loc-card store"><div class="loc-marker store"></div><div><div class="meta">Brick store &amp; return center</div><div class="place">Houston, Texas</div><div class="addr">5327 Aldine Mail Route Rd, 77039</div></div></div>
+    </div>
+    <div class="ship-row">
+      <span class="ship-chip">Seattle, WA</span>
+      <span class="ship-chip">Los Angeles, CA</span>
+      <span class="ship-chip">Denver, CO</span>
+      <span class="ship-chip">Kansas City, MO</span>
+      <span class="ship-chip">Chicago, IL</span>
+      <span class="ship-chip">Atlanta, GA</span>
+      <span class="ship-chip">New York, NY</span>
+      <span class="ship-chip">Miami, FL</span>
+    </div>
+    <div class="live-tag"><span class="dot"></span> Live network · <span class="num">9</span> shipping points</div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section team" data-screen-label="07 Team">
+  <div class="team-inner">
+    <div class="team-mark">
+      <div class="team-tile tl"><img src="team-tile-1.png" alt=""></div>
+      <div class="team-tile tr"></div>
+      <div class="team-tile bl"><img src="team-photo.jpg" alt=""></div>
+      <div class="team-tile br"><img src="team-tile-4.jpg" alt="" style="object-position:70% 35%;"></div>
+    </div>
+    <h2>We <span class="lv">love</span><br>what we do.</h2>
+    <p class="quote">A small, stable team that has worked together for years — disciplined operators on the business side, sharp engineers on the platform side. We hire slowly, invest in tooling, and let the work speak for itself.</p>
+    <div class="team-sig">
+      <div class="av"><img src="ceo-photo.png" alt="CEO"></div>
+      <div><div class="name">Natalia Gretchukha</div><div class="role">CEO</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section dark about-cta" data-screen-label="08 CTA">
+  <div class="about-cta-inner">
+    <h2>Let's talk business</h2>
+    <p class="sub">Wholesale, partnership, and marketplace operations.</p>
+    <p class="hours">Monday to Friday from <strong>09:00 to 21:00 UTC+2</strong></p>
+    <a class="btn btn-or btn-block" href="Contact Mobile.html">Get in touch</a>
+    <div class="cta-social">
+      <a class="gh" href="https://github.com/rollun-lc" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg></a>
+      <a class="li" href="https://www.linkedin.com/company/rollun-lc/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" data-screen-label="09 Footer">
+  <a class="logo" href="Home Mobile.html"><img src="rollun-logo.png" alt="rollun"></a>
+  <p class="intro">Rollun is a U.S.-based e-commerce and distribution company specializing in automotive parts, motorcycle accessories, and health products.</p>
+  <div class="facc">
+    <button class="facc-head" type="button">Quick Links <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg></button>
+    <div class="facc-body"><div class="facc-inner"><ul>
+      <li><a href="Home Mobile.html">Home</a></li>
+      <li><a href="About Us Mobile.html">About Us</a></li>
+      <li><a href="Catalog Mobile.html">Catalog</a></li>
+      <li><a href="Our Shops Mobile.html">Our Shops</a></li>
+      <li><a href="Our Brands Mobile.html">Our Brands</a></li>
+      <li><a href="Contact Mobile.html">Contact Us</a></li>
+    </ul></div></div>
+  </div>
+  <div class="facc">
+    <button class="facc-head" type="button">Contacts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg></button>
+    <div class="facc-body"><div class="facc-inner">
+      <p>(307) 920-0149<br><span style="color:rgba(255,255,255,0.4);font-size:12px;">only for legal purposes</span></p>
+      <p style="margin-top:10px;">(832) 461-2525<br><span style="color:rgba(255,255,255,0.4);font-size:12px;">shop and return center</span></p>
+      <p style="margin-top:10px;"><a href="mailto:info@rollun.com">info@rollun.com</a></p>
+    </div></div>
+  </div>
+  <div class="facc">
+    <button class="facc-head" type="button">Locations <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg></button>
+    <div class="facc-body"><div class="facc-inner">
+      <div class="sublabel">Only for legal purposes</div>
+      <p>Rollun LC<br>30 N Gould St STE 4370<br>Sheridan, WY 82801</p>
+      <div class="sublabel" style="color: var(--or)">Shop &amp; return center</div>
+      <p>5327 Aldine Mail Route Rd<br>Houston, TX 77039</p>
+    </div></div>
+  </div>
+  <div class="footer-bottom">Rollun © 2026</div>
+</footer>
+
+</div>
+<script src="mobile.js"></script>
+<script>
+// Count-up automation stats
+(function(){
+  function animate(el){
+    var final = parseFloat(el.dataset.count), dur = 1700, start = performance.now();
+    function tick(t){ var p = Math.min(1,(t-start)/dur); var e = 1-Math.pow(1-p,3); el.textContent = Math.round(final*e).toLocaleString('en-US'); if (p<1) requestAnimationFrame(tick); }
+    requestAnimationFrame(tick);
+  }
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting && !e.target.dataset.done){ e.target.dataset.done='1'; animate(e.target); } }); }, { threshold: 0.4 });
+  document.querySelectorAll('[data-count]').forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>

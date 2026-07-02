@@ -1,0 +1,73 @@
+# Rollun team override for the bmad-quick-dev skill.
+# Installed into {project-root}/_bmad/custom/bmad-quick-dev.toml by the
+# rollun-init skill (the BMAD installer ships skills only, never this file).
+# Committed in the target project — applies to every developer there.
+# Merges over the skill's customize.toml: scalars override; plain arrays append.
+#
+# Purpose: make quick-dev apply rollun's PHP coding conventions on every build,
+# fix, tweak or refactor, so the code it writes stays visible to static analysis
+# (GitNexus, PHPStan, Psalm) and findable by semantic search. The directive
+# points at skill:rollun-coding-rules — the single source of truth (incl. §17
+# code-visibility) — rather than duplicating the rules here.
+
+[workflow]
+
+persistent_facts = [
+  "When writing or modifying code, apply rollun's PHP coding conventions: invoke skill:rollun-coding-rules and follow its assets/coding-rules.md, especially §17 (code visibility). Make every link visible to static analysis (GitNexus, PHPStan, Psalm) — static `use` imports and `new ClassName()` (never instantiate a project class from a runtime string or via magic methods), constructor DI with one factory per class (no service locator or static singletons), `match`/`switch` dispatchers over enums or constants (not dynamic array lookup or variable-variables), no eval or variable-functions, and precise PHPDoc @throws/@see/@param/@return. Make it findable by semantic search — a business-purpose class docblock, the project's domain terminology, @aggregate/@port/@use-case/@invariant tags, concrete domain-prefixed names (no bare Manager/Service/Helper/Processor), domain-specific exceptions carrying the rule, and test names that spell the business invariant.",
+
+  # rag-php SEMANTIC+DOC — worked before->after examples so the dev agent recognises the problem and
+  # the fix on sight. Generic: adapt <Module>/names to the module in hand. Where a repo enforces these
+  # with PHPStan, the gate failure names the rule (architecture.missingRoleTag / controllerDocBlock /
+  # exceptionBase / bareSplThrow); every fix is doc/taxonomy-level and PARITY-NEUTRAL — never change
+  # runtime behaviour to silence it.
+  '''
+rag-php SEMANTIC+DOC — recognise the problem and apply the fix on sight (before -> after; adapt <Module>/names):
+
+(1) ROLE TAG missing in the class docblock. Add @port to an Application/Port interface, @use-case to a
+    Command/Query handler, @value-object to a Domain/ValueObject class. Tag name = class short name minus
+    its role suffix. [PHPStan: architecture.missingRoleTag]
+    BEFORE
+        /** MAP price gateway. */
+        interface MapPriceGatewayInterface
+    AFTER
+        /**
+         * MAP price gateway.
+         * @port MapPriceGateway
+         */
+        interface MapPriceGatewayInterface
+
+(2) CONTROLLER docblock must state its trigger: the HTTP route (METHOD /path) AND the operationId, taken
+    from the OpenAPI manifest for that route. [PHPStan: architecture.controllerDocBlock]
+    BEFORE
+        /** Updates a listing. */
+        final class ListingController
+    AFTER
+        /**
+         * POST /listing/update-by-mln - operationId updateListingByMln (recalculate one listing).
+         */
+        final class ListingController
+
+(3) EXCEPTION extends a bare global SPL root. Make it extend a module base instead. The base lives in
+    <Module>\Domain\Exception\ (so an Application exception can extend it without Domain importing
+    Application), is marked @module-exception-base, and extends the SAME SPL root (catch-compat = parity).
+    [PHPStan: architecture.exceptionBase]
+    BEFORE
+        final class NoEligibleCandidatesException extends \RuntimeException
+    AFTER
+        final class NoEligibleCandidatesException extends ModuleException   // ModuleException extends \RuntimeException
+    The base itself:
+        /** @module-exception-base */
+        class ModuleException extends \RuntimeException {}
+    Preserve ancestry: a class that was `extends \DomainException` must extend a base that also extends
+    \DomainException (not the \RuntimeException base), so catch(\DomainException)/catch(\LogicException) keep matching.
+
+(4) BARE SPL THROW. Replace `throw new \Exception|\RuntimeException|\LogicException|\Error|\Throwable(...)`
+    with a module exception, preserving the message byte-for-byte and the SPL ancestry; add the `use`.
+    Specific subtypes (\InvalidArgumentException, \DomainException, ...) used for value-object boundary
+    guards are idiomatic and are fine. [PHPStan: architecture.bareSplThrow]
+    BEFORE
+        throw new \LogicException('Invalid format of warehouseId');
+    AFTER
+        throw new ModuleLogicException('Invalid format of warehouseId');   // ModuleLogicException extends \LogicException
+''',
+]

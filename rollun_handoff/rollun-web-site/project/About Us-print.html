@@ -1,0 +1,2745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Us — Rollun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #D2D2D2;          /* main page bg */
+    --bg-2: #C9C9C9;
+    --paper: #E2E2E2;
+    --ink: #1f1f1f;
+    --ink-soft: #555;
+    --ink-mute: #777;
+    --dark: #1a1a1a;        /* dark hero/CTA bg */
+    --dark-2: #232323;
+    --line: rgba(31,31,31,0.12);
+    --line-dark: rgba(255,255,255,0.12);
+    --or: #EF7F1A;
+    --or-deep: #C56712;
+    --or-soft: #f5a35a;
+    --green: #2f6b48;
+    --green-deep: #214d33;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Roboto', 'Karla', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, .display {
+    font-family: 'Poppins', 'Karla', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    margin: 0;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  p { margin: 0; }
+  a { color: inherit; }
+  .or-txt { color: var(--or); }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    height: 90px;
+    display: flex; align-items: center;
+    background: #141414;
+    transition: transform .35s ease, height .25s ease, box-shadow .25s ease;
+    will-change: transform;
+  }
+  .site-header.scrolled {
+    height: 76px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  }
+  .site-header.hide { transform: translateY(-100%); }
+  .header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    width: 100%;
+  }
+  .logo {
+    display: inline-flex; align-items: center;
+    text-decoration: none;
+    line-height: 0;
+  }
+  .logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+  /* ===== NAV ===== */
+  .nav {
+    display: flex;
+    gap: 28px;
+    justify-self: end;
+    align-items: center;
+    margin-right: 20px;
+  }
+  .nav a {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color .2s;
+    white-space: nowrap;
+  }
+  .nav a:hover, .nav a.active { color: var(--or); }
+  .header-right { display: none; }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: var(--dark);
+    color: #fff;
+    padding: 200px 0 130px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(1200px 600px at 85% 30%, rgba(239,127,26,0.10), transparent 60%),
+      radial-gradient(800px 500px at 10% 90%, rgba(255,255,255,0.04), transparent 60%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+  .hero-inner { position: relative; z-index: 2; text-align: center; }
+  .hero h1 {
+    font-size: clamp(46px, 6.5vw, 96px);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 auto 32px;
+    max-width: 1100px;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+  .hero-sub {
+    font-size: clamp(18px, 1.4vw, 22px);
+    color: rgba(255,255,255,0.78);
+    max-width: 780px;
+    margin: 0 auto 16px;
+    line-height: 1.55;
+    font-weight: 300;
+  }
+  .hero-para {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    max-width: 740px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    padding: 16px 32px;
+    border: 1px solid transparent;
+    transition: all .25s;
+    cursor: pointer;
+  }
+  .btn-or {
+    background: var(--or);
+    color: #fff;
+    border-color: var(--or);
+  }
+  .btn-or:hover { background: var(--or-deep); border-color: var(--or-deep); }
+  .btn-ghost {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255,255,255,0.4);
+  }
+  .btn-ghost:hover { background: #fff; color: var(--dark); border-color: #fff; }
+  .btn-dark { background: var(--dark); color: #fff; border-color: var(--dark); }
+  .btn-dark:hover { background: var(--or); border-color: var(--or); }
+
+  /* ===== SECTION TITLE ===== */
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: clamp(26px, 2.6vw, 36px);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.02em;
+    margin-bottom: 60px;
+    color: var(--ink);
+  }
+  .section-title .or-txt { color: var(--or); }
+  .section-display {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 4.4vw, 64px);
+    text-transform: uppercase;
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+  }
+  .section-display .or-txt { color: var(--or); }
+
+  /* ===== SNAPSHOT ===== */
+  .snapshot {
+    padding: 110px 0 60px;
+    background: var(--bg);
+  }
+  .snapshot .section-title { margin-bottom: 18px; }
+  .snapshot-intro {
+    max-width: 880px;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+  .snapshot-intro p {
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+  .focus-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .focus-col { display: flex; flex-direction: column; }
+  .group-label {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    font-weight: 600; color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .group-label .gl-line { flex: 1; height: 1px; background: var(--line); }
+  .group-label .gl-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--or); }
+  /* Distribution tray — darker layer binds 01 + 02 together */
+  .dist-col .group-label { color: var(--ink); }
+  .dist-tray {
+    position: relative;
+    background: #E4E5E6;
+    border: 1px solid var(--border-strong, #cdd0d1);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .dist-tray .dist-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  /* connector node showing the two lines are linked */
+  .dist-tray .dist-link {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 30px; height: 30px; border-radius: 50%;
+    background: #fff; border: 1px solid var(--border-strong, #cdd0d1);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--or); z-index: 2;
+  }
+  .dist-tray .dist-link svg { width: 16px; height: 16px; }
+  .tech-col .focus-card { margin-top: 17px; }
+  .focus-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .focus-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.2);
+  }
+  .focus-card .img {
+    aspect-ratio: 1.4 / 1;
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    color: rgba(255,255,255,0.6);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+  }
+  .focus-card .img::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(135deg, transparent 0 14px, rgba(255,255,255,0.04) 14px 15px);
+  }
+  .focus-card .img .icon {
+    position: relative;
+    color: var(--or);
+  }
+  .focus-card-body {
+    padding: 28px 26px 32px;
+    border-top: 3px solid transparent;
+    transition: border-color .3s;
+  }
+  .focus-card:hover .focus-card-body { border-top-color: var(--or); }
+  .focus-card .tag {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .focus-card h3 {
+    font-size: 22px;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .focus-card p {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  /* ===== WAVE ===== */
+  .wave {
+    background: var(--bg);
+    height: 90px;
+    overflow: hidden;
+    margin-top: 50px;
+  }
+  .wave svg { display: block; width: 100%; height: 100%; }
+
+  /* ===== APPROACH ===== */
+  .approach {
+    padding: 110px 0 120px;
+    background: var(--paper);
+  }
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+  .principle {
+    padding: 44px 40px;
+    display: flex;
+    gap: 26px;
+    align-items: flex-start;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    transition: background .25s;
+    background: #fff;
+  }
+  .principle:nth-child(2n) { border-right: none; }
+  .principle:nth-last-child(-n+2) { border-bottom: none; }
+  .principle:hover { background: var(--bg); }
+  .principle-num {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--or);
+    flex-shrink: 0;
+    padding-top: 6px;
+    min-width: 28px;
+  }
+  .principle h3 {
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+  .principle p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ===== AUTOMATION / PROVEN-AT-SCALE STYLE ===== */
+  .automation {
+    background: var(--dark);
+    color: #fff;
+    padding: 110px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .automation::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(1000px 600px at 70% 40%, rgba(239,127,26,0.13), transparent 60%),
+      linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.0) 30%);
+    pointer-events: none;
+  }
+  .automation::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 80px);
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
+    pointer-events: none;
+  }
+  .auto-inner { position: relative; z-index: 2; }
+  .auto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .auto-left h2 {
+    color: #fff;
+    margin-bottom: 28px;
+  }
+  .auto-left .lede {
+    font-size: 17px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.72);
+    max-width: 520px;
+    font-weight: 300;
+  }
+  .auto-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat {
+    background: var(--dark);
+    padding: 40px 32px;
+    text-align: center;
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  }
+  .stat.big { grid-column: span 2; padding: 60px 32px; }
+  /* Coin tower (cost-savings stat) — contour line-art */
+  .coin-stat .coin-tower { position: relative; width: 96px; height: 118px; margin: 20px auto 10px; }
+  .coin-stat .coin {
+    position: absolute; left: 50%; bottom: 0;
+    width: 74px; height: 21px; border-radius: 50%;
+    background: transparent;
+    border: 1.7px solid rgba(255,255,255,0.5);
+    opacity: 0;
+    transform: translateX(-50%) translateY(34px) scaleX(0.55);
+    transition: opacity .3s ease, transform .5s cubic-bezier(.2,.85,.25,1), border-color .3s ease;
+  }
+  .coin-stat .coin.show { opacity: 1; transform: translateX(-50%) translateY(0) scaleX(1); }
+  .coin-stat .coin.on { border-color: var(--or); }
+  .coin-cap { font-family: 'Poppins', sans-serif; font-size: 12.5px; font-weight: 500; color: rgba(255,255,255,0.62); margin-bottom: 4px; }
+  /* Unified 10-icon meters (workforce & savings) */
+  .auto-stats .meter { display: flex; justify-content: center; gap: 6px; margin: 20px auto 16px; min-height: 22px; }
+  .auto-stats .meter .u { width: 18px; height: 22px; color: rgba(255,255,255,0.2); transition: color .5s ease; }
+  .auto-stats .meter .u svg { width: 100%; height: 100%; display: block; }
+  .auto-stats .meter .u.on { color: var(--or); }
+  /* Workforce figures (operations stat) — clustered inside an open circle, height matches coin tower */
+  .team-stat .people-circle { width: 118px; height: 118px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.28); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; margin: 20px auto 10px; }
+  .team-stat .pcr { display: flex; justify-content: center; gap: 5px; }
+  .team-stat .fig { flex: 0 0 auto; width: 15px; height: 22px; color: var(--or); transition: color 1.1s ease; }
+  .team-stat .fig svg { width: 15px; height: 22px; display: block; fill: currentColor; }
+  .team-stat .fig.faded { color: rgba(255,255,255,0.26); }
+  .stat-val {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: clamp(58px, 6vw, 88px);
+    line-height: 1;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .stat.big .stat-val { font-size: clamp(80px, 8vw, 128px); color: var(--or); font-weight: 400; }
+  .stat-val .unit { color: var(--or); font-weight: 400; }
+  .stat.big .stat-val .unit { color: #fff; }
+  .stat-lbl {
+    margin-top: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+  .stat-note {
+    margin-top: 8px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* ===== KEEPTOSHIP ===== */
+  .kts {
+    padding: 110px 0;
+    background: var(--bg);
+  }
+  .kts-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .kts-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 22px;
+  }
+  .kts-tag::before { content: ""; width: 28px; height: 2px; background: var(--or); }
+  .kts h2 { margin-bottom: 28px; }
+  .kts-body p {
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.75;
+    margin-bottom: 18px;
+  }
+  .kts-cta-block {
+    margin-top: 36px;
+    padding: 30px 32px;
+    background: var(--dark);
+    color: #fff;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .kts-cta-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.55;
+  }
+  .kts-cta-text strong {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .kts-visual {
+    background: #fff;
+    padding: 44px 40px;
+    border: 1px solid var(--line);
+    position: relative;
+    box-shadow: 0 24px 50px -20px rgba(0,0,0,0.18);
+  }
+  .kts-visual-label {
+    position: absolute;
+    top: 22px; left: 26px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  /* KeepToShip analogy visual */
+  .kts-analogy { display: flex; flex-direction: column; justify-content: center; gap: clamp(14px,2vw,20px); width: 100%; padding-top: 18px; }
+  .kts-analogy-h { font-family: 'Poppins', sans-serif; font-size: clamp(16px,1.6vw,20px); line-height: 1.38; color: var(--ink); font-weight: 500; }
+  .kts-analogy-h strong { color: var(--or); font-weight: 700; }
+  .kts-compare { display: grid; grid-template-columns: 1fr 1fr 1.15fr; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .kcol { padding: 16px 10px 14px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 9px; background: #fff; border-right: 1px solid var(--line); }
+  .kcol:last-child { border-right: none; }
+  .kcol-accent { background: #fff7f0; }
+  .kcol-name { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13px; color: var(--ink); letter-spacing: -0.01em; }
+  .kcol-accent .kcol-name { color: var(--or); }
+  .kcol-ic { width: 32px; height: 32px; color: #54585A; }
+  .kcol-accent .kcol-ic { color: var(--or); }
+  .kcol-ic svg { width: 100%; height: 100%; }
+  .kcol-role { font-size: 12px; color: var(--ink-soft); font-weight: 600; line-height: 1.3; min-height: 2.5em; display: flex; align-items: center; }
+  .kcol-verb { font-family: 'Roboto Mono', monospace; font-size: 10.5px; letter-spacing: 0.03em; color: var(--ink-mute); padding-top: 8px; border-top: 1px dashed var(--line); width: 100%; }
+  .kts-note { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); }
+  .kts-note svg { width: 18px; height: 18px; color: var(--or); flex: none; margin-top: 1px; }
+  .kts-note strong { color: var(--ink); font-weight: 700; }
+  /* KeepToShip mini line-art diagram */
+  .kts-diagram { width: 100%; }
+  .kts-diagram svg { width: 100%; height: auto; display: block; }
+  .kts-diagram svg * { vector-effect: non-scaling-stroke; }
+  .kts-dia-stroke { stroke: #54585A; }
+  .kts-dia-accent { stroke: var(--or); }
+  .kts-dia-path { stroke: #c9ccce; stroke-dasharray: 2.5 4; }
+  .kts-dia-label { font-family: 'Roboto Mono', monospace; font-size: 9px; letter-spacing: 0.12em; fill: var(--ink-mute); stroke: none; }
+
+  /* ===== MAP ===== */
+  .map-section {
+    padding: 48px 0 44px;
+    background: var(--paper);
+  }
+  .map-head {
+    max-width: 800px;
+    margin: 0 auto 18px;
+    text-align: center;
+  }
+  .map-head .section-title { margin-bottom: 10px; }
+  .map-head p {
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .map-wrap {
+    --map-land: #2a2d2e;
+    --map-border: rgba(255,255,255,0.10);
+    --map-accent: var(--or);
+    --map-bg: transparent;
+    background: transparent;
+    padding: 8px 0 0;
+    position: relative;
+  }
+  .map-canvas { position: relative; width: 100%; text-align: center; }
+  #us-map { display: block; width: 100%; max-width: 820px; height: auto; margin: 0 auto; overflow: visible; }
+  #us-map .state { fill: var(--map-land); stroke: var(--map-border); stroke-width: 0.6; stroke-linejoin: round; }
+  .map-wrap[data-borders="off"] #us-map .state { stroke: none; }
+  #us-map .nation { fill: none; stroke: rgba(0,0,0,0.22); stroke-width: 1; stroke-linejoin: round; }
+
+  /* ---- markers ---- */
+  .mk { cursor: pointer; }
+  .mk .halo { fill: var(--map-accent); opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .mk.node .halo { opacity: .5; animation: mk-pulse var(--pulse-speed, 2.4s) ease-out infinite; }
+  @keyframes mk-pulse { 0% { transform: scale(.55); opacity: .55; } 100% { transform: scale(2.8); opacity: 0; } }
+  .mk .ring { fill: none; stroke: var(--map-accent); stroke-width: 2; opacity: 0; transition: opacity .2s; }
+  .mk.is-active .ring, .mk:hover .ring { opacity: 1; }
+  .mk .dot { fill: var(--map-accent); stroke: #fff; stroke-width: 1.5; transition: r .15s ease-out; }
+  .mk.node .dot { fill: #fff; stroke: var(--map-accent); stroke-width: 2.2; }
+  /* Shop = loud orange primary; Legal HQ = muted secondary */
+  .mk.store .dot { fill: var(--map-accent); stroke: #fff; stroke-width: 2.6; }
+  .mk.hq .dot { fill: #767b7e; stroke: #fff; stroke-width: 2.2; }
+  .mk:hover .dot { r: 9; }
+  .mk.is-active .dot { fill: var(--map-accent); stroke: #fff; stroke-width: 2.6; }
+  .mk.hq .ring { stroke: #767b7e; }
+  .mk.hq.is-active .dot { fill: #54585A; }
+  .mk-pinring { fill: none; stroke: var(--map-accent); stroke-width: 2; opacity: .5; }
+  .mk.hq .mk-pinring { stroke: #767b7e; opacity: .4; }
+  .mk-chip { pointer-events: none; }
+  .mk-chip-bg { fill: var(--map-accent); }
+  .mk-chip-tx { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.02em; fill: #1f1f1f; }
+  .mk.hq .mk-chip { opacity: .9; }
+  .mk.hq .mk-chip-bg { fill: #54585A; }
+  .mk.hq .mk-chip-tx { fill: #fff; }
+  /* supplier warehouse markers (small orange dots) */
+  .mk.wh .dot { fill: var(--map-accent); stroke: #fff; stroke-width: 1.4; }
+  .mk.wh .ring { stroke: var(--map-accent); }
+  .mk.wh:hover .dot { r: 6.5; }
+  .mk.wh.is-active .dot { r: 6.5; fill: var(--map-accent); stroke: #fff; stroke-width: 2; }
+
+  /* ---- click-only info popup ---- */
+  .loc-popup {
+    position: absolute;
+    left: 0; top: 0;
+    z-index: 12;
+    width: 286px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: 0 22px 60px rgba(0,0,0,0.24);
+    padding: 18px 18px 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .18s ease-out, visibility .18s;
+    pointer-events: none;
+  }
+  .loc-popup.open { opacity: 1; visibility: visible; pointer-events: auto; }
+  .loc-popup .lp-kicker {
+    font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--or);
+    margin-bottom: 9px; display: flex; align-items: center; gap: 8px;
+  }
+  .loc-popup .lp-kicker .badge { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: none; }
+  .loc-popup.k-store .lp-kicker { color: var(--ink); }
+  .loc-popup.k-node .lp-kicker { color: var(--green); }
+  .loc-popup h4 { font-family: 'Poppins', sans-serif; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .loc-popup .lp-desc { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); margin-bottom: 14px; }
+  .loc-popup .lp-rows { display: flex; flex-direction: column; gap: 7px; border-top: 1px solid var(--line); padding-top: 12px; }
+  .loc-popup .lp-whlist { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); margin-top: 2px; max-height: 232px; overflow-y: auto; }
+  .loc-popup .lp-wh { padding: 11px 0 10px; border-bottom: 1px solid var(--line); }
+  .loc-popup .lp-wh:last-child { border-bottom: none; }
+  .loc-popup .lp-wh-name { font-family: 'Poppins', sans-serif; font-size: 12.5px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+  .loc-popup .lp-wh-addr { font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); }
+  .loc-popup .lp-wh.watch .lp-wh-addr { color: var(--ink-mute); font-style: italic; }
+  .loc-popup .lp-row { display: flex; justify-content: space-between; gap: 14px; font-size: 12.5px; }
+  .loc-popup .lp-row .k { color: var(--ink-mute); }
+  .loc-popup .lp-row .v { font-family: ui-monospace, 'Roboto Mono', monospace; color: var(--ink); font-weight: 500; text-align: right; }
+  .loc-popup .lp-close {
+    position: absolute; top: 9px; right: 11px; width: 24px; height: 24px;
+    background: none; border: none; font-size: 19px; line-height: 1;
+    color: var(--ink-mute); cursor: pointer; border-radius: 4px;
+  }
+  .loc-popup .lp-close:hover { color: var(--ink); background: var(--bg); }
+  .loc-popup::after {
+    content: ""; position: absolute; bottom: -8px; left: var(--arrow, 50%);
+    transform: translateX(-50%) rotate(45deg); width: 15px; height: 15px; background: #fff;
+    border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .loc-popup.below::after { bottom: auto; top: -8px; border: none; border-left: 1px solid var(--line); border-top: 1px solid var(--line); }
+
+  .map-hint { margin: 10px 0 0; text-align: center; font-size: 12.5px; color: var(--ink-mute); font-family: 'Poppins', sans-serif; letter-spacing: 0.02em; }
+  .map-hint b { color: var(--ink-soft); font-weight: 600; }
+
+  .map-foot { display: flex; justify-content: center; margin-top: 14px; }
+  .map-overlay {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    padding: 10px 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: inline-flex; gap: 10px; align-items: center;
+    border-radius: 2px;
+  }
+  .map-overlay .live-dot {
+    width: 8px; height: 8px;
+    background: #34C759;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(52,199,89,0.5);
+    animation: live-pulse 1.8s ease-out infinite;
+  }
+  @keyframes live-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(52,199,89,0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(52,199,89,0); }
+    100% { box-shadow: 0 0 0 0 rgba(52,199,89,0); }
+  }
+  .map-overlay .live-num {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--or);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+
+  .map-legend-removed h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .legend-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 26px; }
+  .legend-item {
+    background: var(--bg);
+    padding: 12px 14px;
+    display: flex; gap: 12px; align-items: flex-start;
+    cursor: pointer;
+    transition: all .2s;
+    border-left: 3px solid transparent;
+  }
+  .legend-item:hover, .legend-item.active {
+    border-left-color: var(--or);
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .legend-marker {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .legend-marker.hq { background: var(--or); box-shadow: 0 0 0 3px rgba(239,127,26,0.25); }
+  .legend-marker.store { background: var(--dark); }
+  .legend-marker.ship { background: #fff; border: 2px solid var(--dark); }
+  .legend-item .meta {
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 2px;
+    font-weight: 500;
+  }
+  .legend-item .place {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .map-key {
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 8px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .map-key-row { display: flex; align-items: center; gap: 10px; }
+
+  /* ===== TEAM ===== */
+  .team {
+    background: var(--green);
+    color: #fff;
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .team::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 30%, rgba(255,255,255,0.06), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(0,0,0,0.22), transparent 50%);
+    pointer-events: none;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+  }
+  .team-mark {
+    aspect-ratio: 1/1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    position: relative;
+  }
+  .team-tile {
+    position: relative;
+    overflow: hidden;
+    background: #555859;
+    display: block;
+  }
+  .team-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.55) brightness(0.78) contrast(0.92);
+    transition: filter .55s cubic-bezier(.2,.7,.2,1),
+                transform .55s cubic-bezier(.2,.7,.2,1);
+  }
+  /* Subtle desaturating overlay on photo tiles only */
+  .team-tile.tl::after,
+  .team-tile.bl::after,
+  .team-tile.br::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(40, 55, 50, 0.32);
+    pointer-events: none;
+    transition: opacity .55s ease;
+    z-index: 1;
+  }
+  .team-tile:hover img {
+    filter: none;
+    transform: scale(1.06);
+  }
+  .team-tile.tl:hover::after,
+  .team-tile.bl:hover::after,
+  .team-tile.br:hover::after {
+    opacity: 0;
+  }
+  .team-tile.tr { background: #ea7b07; }
+  /* Rounded only on the inner side of each tile — outer edges of the whole mark stay sharp */
+  .team-tile.tl { border-radius: 0 12px 12px 0; }
+  .team-tile.tr { border-radius: 12px; }
+  .team-tile.bl { border-radius: 0 0 12px 12px; }
+  .team-tile.br { border-radius: 0 12px 0 0; }
+
+  .team-text .section-display { color: #fff; margin-bottom: 28px; }
+  .circled {
+    position: relative;
+    display: inline-block;
+    padding: 0 0.18em 0.05em;
+  }
+  .circled svg {
+    position: absolute;
+    inset: -0.12em -0.18em -0.18em -0.18em;
+    width: calc(100% + 0.36em);
+    height: calc(100% + 0.3em);
+    pointer-events: none;
+    overflow: visible;
+    color: var(--or);
+  }
+  .circled svg path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3.5;
+    vector-effect: non-scaling-stroke;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: circled-draw 1.4s cubic-bezier(.6,.2,.2,1) .25s forwards;
+  }
+  @keyframes circled-draw {
+    to { stroke-dashoffset: 0; }
+  }
+  .team-text .quote {
+    font-size: 18px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.86);
+    max-width: 600px;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+  .team-sig {
+    display: flex; align-items: center; gap: 16px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,0.18);
+    max-width: 420px;
+  }
+  .team-sig .av {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .team-sig .av img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .team-sig .name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .team-sig .role {
+    font-size: 13px;
+    color: rgba(255,255,255,0.72);
+  }
+
+  /* ===== CTA ===== */
+  .cta {
+    background: var(--dark);
+    color: #fff;
+    padding: 130px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(239,127,26,0.16), transparent 60%);
+  }
+  .cta::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    pointer-events: none;
+  }
+  .cta-inner { position: relative; z-index: 2; }
+  .cta h2 {
+    color: #fff;
+    font-size: clamp(48px, 6vw, 88px);
+    text-transform: none;
+    font-weight: 500;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .cta .sub { font-size: 17px; color: rgba(255,255,255,0.78); margin-bottom: 10px; font-weight: 300; }
+  .cta .hours {
+    font-size: 15px;
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+  .cta .hours strong { color: #fff; font-weight: 500; }
+  .cta .btn-or { padding: 18px 42px; font-size: 14px; }
+  .cta-social {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 34px;
+  }
+  .cta-social a {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    transition: transform .25s ease, background .25s ease;
+  }
+  .cta-social a svg { width: 24px; height: 24px; }
+  .cta-social .gh { background: #1c1c1c; border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+  .cta-social .gh:hover { background: #000; transform: translateY(-3px); }
+  .cta-social .li { background: #0a66c2; color: #fff; }
+  .cta-social .li:hover { background: #0954a0; transform: translateY(-3px); }
+
+  /* ===== CONTACT MODAL ===== */
+  .contact-overlay {
+    position: fixed; inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+  }
+  .contact-overlay.open { opacity: 1; visibility: visible; }
+  .contact-modal {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    background: #fff;
+    box-shadow: 0 40px 90px -30px rgba(0,0,0,0.6);
+    transform: translateY(20px) scale(0.98);
+    transition: transform .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .contact-overlay.open .contact-modal { transform: none; }
+  .contact-close {
+    position: absolute;
+    top: 22px; right: 28px;
+    width: 40px; height: 40px;
+    border: none;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background .2s;
+    z-index: 3;
+  }
+  .contact-close:hover { background: var(--or); }
+  .cf-form { padding: 48px 48px 44px; text-align: left; }
+  .cf-form h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .cf-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 22px;
+  }
+  .cf-field { display: flex; flex-direction: column; }
+  .cf-field.full { grid-column: 1 / -1; }
+  .cf-field label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .cf-field input,
+  .cf-field select,
+  .cf-field textarea {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    padding: 13px 15px;
+    border: 1px solid #cfcfcf;
+    border-radius: 6px;
+    background: #fff;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    width: 100%;
+  }
+  .cf-field textarea { resize: vertical; min-height: 150px; }
+  .cf-field input:focus,
+  .cf-field select:focus,
+  .cf-field textarea:focus {
+    border-color: var(--or);
+    box-shadow: 0 0 0 3px rgba(239,127,26,0.15);
+  }
+  .cf-form .btn { margin-top: 10px; border: none; cursor: pointer; }
+  .cf-info {
+    background: #3a3a3a;
+    color: #fff;
+    padding: 48px 42px;
+    text-align: left;
+  }
+  .cf-info h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #fff;
+    margin-bottom: 36px;
+  }
+  .cf-item {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 14px;
+    align-items: start;
+    margin-bottom: 30px;
+  }
+  .cf-item svg { width: 26px; height: 26px; color: #fff; margin-top: 2px; }
+  .cf-item .info-lines { color: rgba(255,255,255,0.82); font-size: 15px; line-height: 1.5; }
+  .cf-item .info-lines .muted { color: rgba(255,255,255,0.55); }
+  .cf-item .info-lines .gap { display: block; height: 14px; }
+  .cf-info hr { border: none; border-top: 1px solid rgba(255,255,255,0.18); margin: 8px 0 26px; }
+  .cf-info .blurb { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
+  .cf-info-social { display: flex; gap: 16px; }
+  .cf-info-social a {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    transition: transform .25s ease, background .25s ease;
+  }
+  .cf-info-social a svg { width: 22px; height: 22px; }
+  .cf-info-social .gh { background: #1c1c1c; color: #fff; }
+  .cf-info-social .gh:hover { background: #000; transform: translateY(-3px); }
+  .cf-info-social .li { background: #0a66c2; color: #fff; }
+  .cf-info-social .li:hover { background: #0954a0; transform: translateY(-3px); }
+  @media (max-width: 820px) {
+    .contact-modal { grid-template-columns: 1fr; }
+    .cf-row { grid-template-columns: 1fr; gap: 18px; }
+    .cf-form, .cf-info { padding: 40px 30px; }
+  }
+
+  /* ===== FOOTER ===== */
+  .site-footer {
+    background: #0e0e0e;
+    color: #fff;
+    padding: 80px 0 30px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr 2fr 3fr 2fr;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+  .site-footer .logo img { height: 28px; filter: brightness(1.2); }
+  .site-footer h4 {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    margin-top: 22px;
+  }
+  .site-footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .site-footer a { color: rgba(255,255,255,0.72); text-decoration: none; }
+  .site-footer a:hover { color: var(--or); }
+  .site-footer .col p { line-height: 1.7; color: rgba(255,255,255,0.6); font-size: 13.5px; }
+  .site-footer .col .sublabel { color: #fff; font-weight: 500; margin-top: 12px; margin-bottom: 4px; font-size: 13px; }
+  .footer-bottom {
+    text-align: center;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ===== REVEAL ===== */
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 880px) {
+    .nav { gap: 16px; margin-right: 8px; }
+    .nav a { font-size: 11px; letter-spacing: 0.03em; }
+    .logo img { height: 32px; }
+    .focus-grid, .principles, .auto-grid, .kts-grid, .team-grid, .map-wrap, .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .principle { border-right: none; border-bottom: 1px solid var(--line); }
+    .principle:last-child { border-bottom: none; }
+    .hero { padding: 140px 0 80px; }
+    .hero h1 { font-size: clamp(34px, 8vw, 60px); }
+  }
+  @media (max-width: 560px) {
+    .nav { gap: 10px; }
+    .nav a { font-size: 9.5px; letter-spacing: 0.02em; }
+    .logo img { height: 26px; }
+    .container { padding: 0 16px; }
+  }
+</style>
+</head>
+<body data-screen-label="About Us">
+
+<!-- HEADER -->
+<header class="site-header" id="hdr">
+  <div class="container header-inner">
+    <a class="logo" href="#">
+      <img src="rollun-logo.png" alt="rollun" />
+    </a>
+    <nav class="nav">
+      <a href="Home.html">HOME</a>
+      <a href="About Us.html" class="active">ABOUT US</a>
+      <a href="Catalog.html">CATALOG</a>
+      <a href="Our Shops.html">OUR SHOPS</a>
+      <a href="Our Brands.html" class="lbl-brands">OUR BRANDS</a>
+      <a href="Contact.html">CONTACT US</a>
+    </nav>
+    <div class="header-right"></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="container hero-inner">
+    <h1>Why <span class="or-txt">partners</span> choose <span class="or-txt">Rollun</span></h1>
+    <p class="hero-sub">A traditional business mindset powered by modern operations and automation.</p>
+    <p class="hero-para">
+      Rollun is a U.S.‑based LLC registered in Sheridan, Wyoming, and founded by a Ukrainian team.
+      Since April 2015, we have been building automated e‑commerce distribution that helps products
+      reach customers through leading marketplaces — and creating our own automated solutions along the way.
+    </p>
+    <div class="hero-buttons">
+      <a class="btn btn-or" href="#cta">CONTACT US</a>
+      <a class="btn btn-ghost" href="#focus">EXPLORE OUR WORK</a>
+    </div>
+  </div>
+</section>
+
+<!-- SNAPSHOT -->
+<section class="snapshot" id="focus" data-screen-label="02 Snapshot">
+  <div class="container">
+    <h2 class="section-title">Who we are and what we do</h2>
+    <div class="snapshot-intro">
+      <p>
+        We are a small, focused team running a U.S.‑based e‑commerce distribution
+        business. Three product lines, one operating playbook, all built on technology we own.
+      </p>
+    </div>
+
+    <div class="focus-grid">
+      <div class="focus-col dist-col">
+        <div class="group-label"><span class="gl-dot"></span>Distribution<span class="gl-line"></span></div>
+        <div class="dist-tray">
+          <div class="dist-cards">
+            <article class="focus-card">
+              <div class="img">
+                <svg class="icon" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.4">
+                  <circle cx="22" cy="52" r="8"/>
+                  <circle cx="58" cy="52" r="8"/>
+                  <path d="M8 52h6M30 52h20M66 52h6M14 40l8-16h28l8 10 10 2v16"/>
+                </svg>
+              </div>
+              <div class="focus-card-body">
+                <div class="tag">01 · Distribution line</div>
+                <h3>Automotive parts &amp; accessories</h3>
+                <p>Motorcycle and automotive products — oils &amp; fluids, electrical &amp; electronic systems, tires &amp; wheels, batteries.</p>
+              </div>
+            </article>
+            <article class="focus-card">
+              <div class="img">
+                <svg class="icon" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.4">
+                  <path d="M40 68s-26-15-26-36c0-8 7-14 14-14 5 0 9 3 12 8 3-5 7-8 12-8 7 0 14 6 14 14 0 21-26 36-26 36z"/>
+                </svg>
+              </div>
+              <div class="focus-card-body">
+                <div class="tag">02 · Distribution line</div>
+                <h3>Health products</h3>
+                <p>Medical supplies and wellness — orthopedic supports, pain relief &amp; recovery rubs, supplements, energy &amp; focus.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="focus-col tech-col">
+        <div class="group-label"><span class="gl-dot"></span>Technology<span class="gl-line"></span></div>
+        <article class="focus-card">
+          <div class="img">
+            <svg class="icon" width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.4">
+              <rect x="14" y="14" width="52" height="52" rx="2"/>
+              <path d="M26 30h28M26 40h28M26 50h18"/>
+              <circle cx="62" cy="62" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="focus-card-body">
+            <div class="tag">03 · IT Solutions</div>
+            <h3>AI‑driven automation</h3>
+            <p>Internal tools developed, used, and tested by our own team — then offered to partners.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave">
+  <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+    <path d="M0,55 C200,90 360,15 540,40 C720,65 900,15 1080,40 C1260,65 1380,30 1440,45 L1440,90 L0,90 Z" fill="#E2E2E2"/>
+    <path d="M0,72 C200,100 360,40 540,60 C720,80 900,40 1080,60 C1260,80 1380,55 1440,65 L1440,90 L0,90 Z" fill="#E2E2E2" opacity="0.6"/>
+  </svg>
+</div>
+
+<!-- APPROACH -->
+<section class="approach" data-screen-label="03 Approach">
+  <div class="container">
+    <h2 class="section-title">Our approach</h2>
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <div>
+          <h3>Integrity above all</h3>
+          <p>Honest, transparent, ethical. Partners, suppliers, customers — the same standard for everyone, every time.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <div>
+          <h3>Innovation as our growth engine</h3>
+          <p>Automation, analytics, and AI. We grow by sharpening the system — not by adding headcount.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <div>
+          <h3>Efficiency, long‑term focus</h3>
+          <p>Durable value over quick wins. Every decision is weighed against a multi‑year horizon.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">04</div>
+        <div>
+          <h3>Small, stable team</h3>
+          <p>Led by an experienced CEO — an expert in business development and operations, with the team to match.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATION (dark, stats) -->
+<section class="automation" data-screen-label="04 Automation">
+  <div class="container auto-inner">
+    <div class="auto-grid">
+      <div class="auto-left">
+        <h2 class="section-display">Automation that improves <span class="or-txt">reliability</span></h2>
+        <p class="lede">
+          We scale through innovation and technology — not by expanding headcount.
+          Internal tools and process automation reduce operational costs and keep
+          execution consistent, year after year.
+        </p>
+      </div>
+      <div class="auto-stats">
+        <div class="stat big">
+          <div class="stat-val"><span data-count="50000">0</span><span class="unit">+</span></div>
+          <div class="stat-lbl">Items in inventory handled by a small team</div>
+        </div>
+        <div class="stat team-stat">
+          <div class="stat-val"><span data-count="80">0</span><span class="unit">%</span></div>
+          <div class="people-circle" id="peopleRow" aria-hidden="true"></div>
+          <div class="stat-lbl">Less manual work than before</div>
+        </div>
+        <div class="stat coin-stat">
+          <div class="stat-val"><span data-count="30">0</span><span class="unit">%</span></div>
+          <div class="coin-tower" id="coinTower" aria-hidden="true"></div>
+          <div class="stat-lbl">Cost savings via automation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEEPTOSHIP -->
+<section class="kts" data-screen-label="05 KeepToShip">
+  <div class="container">
+    <div class="kts-grid">
+      <div class="kts-body">
+        <div class="kts-tag">Our technological startup</div>
+        <h2 class="section-display"><span class="or-txt">KeepToShip</span><br>Logistics, distributed.</h2>
+        <p>
+          KeepToShip is an AI‑powered logistics platform that connects online sellers
+          with a distributed network of independent keep‑and‑ship partners.
+        </p>
+        <p>
+          Our Uber‑like system replaces complex centralized logistics by storing products
+          closer to customers — enabling faster delivery, lower shipping costs, and
+          scalable fulfillment without expensive warehouses.
+        </p>
+
+        <div class="kts-cta-block">
+          <div class="kts-cta-text">
+            <strong>Want to work with us?</strong>
+            Invest, store products in your area, or use KeepToShip in your free time.
+          </div>
+          <a class="btn btn-or" href="https://keeptoship.com/" target="_blank" rel="noopener">LEARN MORE</a>
+        </div>
+      </div>
+
+      <div class="kts-visual">
+        <div class="kts-visual-label">// KeepToShip · model</div>
+        <div class="kts-analogy">
+          <div class="kts-diagram" aria-hidden="true">
+            <svg class="kts-dia" viewBox="0 0 400 132" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path class="kts-dia-path" d="M52 86 C 76 104, 92 102, 108 88 C 130 72, 156 76, 178 82"/>
+              <path class="kts-dia-path" d="M222 82 C 244 76, 270 72, 292 88 C 308 100, 324 104, 348 86"/>
+              <g class="kts-dia-stroke">
+                <path d="M64 46 L64 40 L150 40 L150 46"/>
+                <path d="M250 46 L250 40 L336 40 L336 46"/>
+              </g>
+              <text class="kts-dia-label" x="107" y="33" text-anchor="middle">10 km</text>
+              <text class="kts-dia-label" x="293" y="33" text-anchor="middle">10 km</text>
+              <g class="kts-dia-stroke" transform="translate(20,64) scale(1.25)">
+                <circle cx="12" cy="7" r="4"/>
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+              </g>
+              <rect class="kts-dia-stroke" x="44" y="84" width="11" height="9" rx="1.5"/>
+              <g class="kts-dia-stroke" transform="translate(92,66) scale(1.2)">
+                <circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/>
+              </g>
+              <g class="kts-dia-accent" transform="translate(178,52) scale(1.8)">
+                <path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35a2 2 0 0 1 1.26-1.86l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z"/>
+                <path d="M6 18h12"/><path d="M6 14h12"/><path d="M6 22V12h12v10"/>
+              </g>
+              <g class="kts-dia-stroke" transform="translate(279,62) scale(1.15)">
+                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/>
+                <circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>
+              </g>
+              <rect class="kts-dia-stroke" x="345" y="84" width="11" height="9" rx="1.5"/>
+              <g class="kts-dia-stroke" transform="translate(348,64) scale(1.25)">
+                <circle cx="12" cy="7" r="4"/>
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+              </g>
+            </svg>
+          </div>
+          <p class="kts-analogy-h">Think of it as an <strong>Airbnb</strong> or <strong>Uber</strong> — but for fulfillment.</p>
+          <div class="kts-compare">
+            <div class="kcol">
+              <div class="kcol-name">Uber</div>
+              <div class="kcol-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></div>
+              <div class="kcol-role">Driver</div>
+              <div class="kcol-verb">to ride</div>
+            </div>
+            <div class="kcol">
+              <div class="kcol-name">Airbnb</div>
+              <div class="kcol-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg></div>
+              <div class="kcol-role">Host</div>
+              <div class="kcol-verb">to stay</div>
+            </div>
+            <div class="kcol kcol-accent">
+              <div class="kcol-name">KeepToShip</div>
+              <div class="kcol-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
+              <div class="kcol-role">Independent shipper</div>
+              <div class="kcol-verb">to keep &amp; ship</div>
+            </div>
+          </div>
+          <div class="kts-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Partners keep stock within <strong>~10 km</strong> of buyers — a nationwide micro-fulfillment network instead of distant mega-warehouses.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section" data-screen-label="06 US Presence">
+  <div class="container">
+    <div class="map-head">
+      <h2 class="section-title">US presence</h2>
+      <p>Registered in Wyoming, operating from Texas, shipping across the country
+        through a network of partner nodes. Hover any pin to see the details.</p>
+    </div>
+
+    <div class="map-wrap" id="map-wrap" data-borders="on">
+      <div class="map-canvas" id="map">
+        <div class="loc-popup" id="loc-popup"></div>
+      </div>
+      <div class="map-foot">
+        <div class="map-overlay"><span class="live-num" id="live-count">0</span> ship-from locations</div>
+      </div>
+      <p class="map-hint">Tap any point to see the <b>supplier &amp; warehouse address</b> we ship from.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" data-screen-label="07 Team">
+  <div class="container team-grid">
+    <div class="team-mark">
+      <div class="team-tile tl" aria-label="Team photo slot"><img src="team-tile-1.png" alt="" /></div>
+      <div class="team-tile tr" aria-label="Team photo slot"></div>
+      <div class="team-tile bl" aria-label="Team photo slot"><img src="team-photo.jpg" alt="" style="object-position: 50% 40%;" /></div>
+      <div class="team-tile br" aria-label="Team photo slot"><img src="team-tile-4.jpg" alt="" style="object-position: 70% 35%;" /></div>
+    </div>
+    <div class="team-text">
+      <h2 class="section-display">We <span class="circled" style="padding: 8px 26px; height: 66px; line-height: 1.45">love<svg viewBox="0 0 240 110" preserveAspectRatio="none" aria-hidden="true"><path d="M 178 16 C 118 4, 52 8, 26 30 C 5 47, 13 75, 58 89 C 118 107, 194 103, 219 78 C 240 58, 226 27, 166 17 C 128 11, 92 13, 66 22"/></svg></span><br>what we do.</h2>
+      <p class="quote">
+        A small, stable team that has worked together for years — disciplined operators
+        on the business side, sharp engineers on the platform side. We hire slowly,
+        invest in tooling, and let the work speak for itself.
+      </p>
+      <div class="team-sig">
+        <div class="av"><img src="ceo-photo.png" alt="CEO" /></div>
+        <div>
+          <div class="name">Natalia Gretchukha</div>
+          <div class="role">CEO </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta" data-screen-label="08 CTA">
+  <div class="container cta-inner">
+    <h2>Let's talk business</h2>
+    <p class="sub">Wholesale, partnership, and marketplace operations.</p>
+    <p class="hours">Monday to Friday from <strong>09:00 to 21:00 UTC +2</strong></p>
+    <a class="btn btn-or" href="#" id="openContact">GET IN TOUCH</a>
+    <div class="cta-social">
+      <a class="gh" href="https://github.com/rollun-lc" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+      </a>
+      <a class="li" href="https://www.linkedin.com/company/rollun-lc/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT MODAL -->
+<div class="contact-overlay" id="contactOverlay" role="dialog" aria-modal="true" aria-label="Contact form">
+  <div class="contact-modal">
+    <button class="contact-close" id="closeContact" aria-label="Close">&times;</button>
+    <form class="cf-form" id="contactForm">
+      <h3>Send us a message</h3>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label for="cf-name">Your Name</label>
+          <input type="text" id="cf-name" name="name" autocomplete="name">
+        </div>
+        <div class="cf-field">
+          <label for="cf-email">Your Email</label>
+          <input type="email" id="cf-email" name="email" autocomplete="email">
+        </div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label for="cf-phone">Phone Number</label>
+          <input type="tel" id="cf-phone" name="phone" autocomplete="tel">
+        </div>
+        <div class="cf-field">
+          <label for="cf-company">Company</label>
+          <input type="text" id="cf-company" name="company" autocomplete="organization">
+        </div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-field full">
+          <label for="cf-topic">Question Topic</label>
+          <select id="cf-topic" name="topic">
+            <option value="" selected disabled>Select a topic</option>
+            <option>Wholesale &amp; distribution</option>
+            <option>Partnership</option>
+            <option>Marketplace operations</option>
+            <option>Returns &amp; support</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-field full">
+          <label for="cf-message">Your Message</label>
+          <textarea id="cf-message" name="message"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-or">ASK A QUESTION</button>
+    </form>
+
+    <div class="cf-info">
+      <h3>Contact Information</h3>
+      <div class="cf-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <div class="info-lines">
+          Registered Rollun LC<br>
+          30 N Gould St STE 4370<br>
+          Sheridan WY 82801
+        </div>
+      </div>
+      <div class="cf-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+        <div class="info-lines">
+          (307) 920-0149<br>
+          <span class="muted">( only for legal purposes)</span>
+          <span class="gap"></span>
+          (832) 461-2525<br>
+          <span class="muted">(shop and return center)</span>
+        </div>
+      </div>
+      <div class="cf-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 3 2 11l7 2 2 7 11-17z"/><path d="M9 13l4-4"/></svg>
+        <div class="info-lines">
+          <a href="mailto:llc@rollun.com" style="color:#fff;text-decoration:none;">llc@rollun.com</a>
+        </div>
+      </div>
+      <hr>
+      <p class="blurb">Send us an email and we'll get in touch shortly.</p>
+      <div class="cf-info-social">
+        <a class="gh" href="https://github.com/rollun-lc" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+        </a>
+        <a class="li" href="https://www.linkedin.com/company/rollun-lc/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="col">
+        <a class="logo" href="Home.html"><img src="rollun-logo.png" alt="rollun"/></a>
+        <p style="margin-top:22px;">
+          Rollun is a U.S.-based e-commerce and distribution company specializing
+          in automotive parts, motorcycle accessories, and health products,
+          operating across leading marketplaces and our own sales channels.
+        </p>
+      </div>
+      <div class="col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="Home.html">Home</a></li>
+          <li><a href="About Us.html">About Us</a></li>
+          <li><a href="Catalog.html">Catalog</a></li>
+          <li><a href="Our Shops.html">Our Shops</a></li>
+          <li><a href="Our Brands.html">Our Brands</a></li>
+          <li><a href="Contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Contacts</h4>
+        <p>(307) 920-0149<br><span style="color:rgba(255,255,255,0.4);font-size:12px;">only for legal purposes</span></p>
+        <p style="margin-top:10px;">(832) 461-2525<br><span style="color:rgba(255,255,255,0.4);font-size:12px;">shop and return center</span></p>
+        <p style="margin-top:10px;"><a href="mailto:info@rollun.com">info@rollun.com</a></p>
+      </div>
+      <div class="col">
+        <h4>Locations</h4>
+        <div class="sublabel">Only for legal purposes</div>
+        <p>Rollun LC<br>30 N Gould St STE 4370<br>Sheridan, WY 82801</p>
+        <div class="sublabel" style="color: rgb(239, 127, 26)">Shop &amp; return center</div>
+        <p>5327 Aldine Mail Route Rd<br>Houston, TX 77039</p>
+      </div>
+      <div class="col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">Rollun © 2026</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script>
+  // Sticky header with hide-on-scroll-down / show-on-scroll-up (matches home page)
+  const hdr = document.getElementById('hdr');
+  let lastY = 0;
+  let ticking = false;
+  const onScroll = () => {
+    const y = window.scrollY;
+    if (y > 60) hdr.classList.add('scrolled');
+    else hdr.classList.remove('scrolled');
+    if (y > 200 && y > lastY + 4) {
+      hdr.classList.add('hide');
+    } else if (y < lastY - 4 || y < 200) {
+      hdr.classList.remove('hide');
+    }
+    lastY = y;
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+
+  // Counters
+  const animateCounter = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const duration = 1800;
+    const start = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const tick = (now) => {
+      const p = Math.min(1, (now - start) / duration);
+      const v = Math.floor(ease(p) * target);
+      el.textContent = v.toLocaleString('en-US');
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString('en-US');
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        if (e.target.dataset && e.target.dataset.count) animateCounter(e.target);
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll('[data-count]').forEach(c => io.observe(c));
+  document.querySelectorAll('section').forEach((s, i) => {
+    // First section (hero) is visible immediately — no reveal
+    if (i === 0) return;
+    s.classList.add('reveal');
+    io.observe(s);
+  });
+  // Fallback: if any reveal hasn't fired after 1.5s, force visible
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight) el.classList.add('in');
+    });
+  }, 1500);
+
+  // ===== US presence map (click-to-reveal supplier ship-from network) =====
+  const PRIMARY = [
+    { id:'hq', city:'Sheridan', state:'WY', coord:[-106.9562,44.7972], type:'hq',
+      kicker:'Registered headquarters',
+      desc:"Our legal home. Rollun LC is incorporated in Wyoming — the registered entity behind every order.",
+      rows:[['Role','Registered HQ'],['Since','2015'],['Entity','Rollun LC']] },
+    { id:'store', city:'Houston', state:'TX', coord:[-95.3698,29.7604], type:'store',
+      kicker:'Store & returns center',
+      desc:"Our brick-and-mortar operation. Walk-in pickup, local support, and the hub that processes returns.",
+      rows:[['Role','Store & returns'],['Hours','Mon–Fri 9–6'],['Pickup','Walk-in']] }
+  ];
+
+  // Real supplier ship-from warehouses — grouped by city (a city can host several suppliers).
+  // Clicking a point reveals the supplier(s) and the warehouse address we route from.
+  const WAREHOUSES = [
+    // Tucker / Tucker Rocky (Tucker Powersports assets, 2023)
+    { city:'Hatfield', state:'PA', coord:[-75.298,40.279], items:[['Tucker / Tucker Rocky','3035 Campus Dr, Hatfield, PA 19440']] },
+    { city:'Reno', state:'NV', coord:[-119.870,39.580], items:[['Tucker / Tucker Rocky','10880 Lear Blvd, Reno, NV 89506']] },
+    { city:'Arlington', state:'TX', coord:[-97.105,32.706], items:[['Tucker / Tucker Rocky','931 W. Bardin Rd, Ste 150–200, Arlington, TX 76017']] },
+    { city:'Whiteland', state:'IN', coord:[-86.078,39.549], items:[['Tucker / Tucker Rocky','5789 N. Graham Rd, Ste 200, Whiteland, IN 46184']] },
+    // AutoDist / Automatic Distributors
+    { city:'Bangor', state:'ME', coord:[-68.779,44.801], items:[['AutoDist / Automatic Distributors','22 Target Circle, Bangor, ME 04401']] },
+    // Sparks, NV — shared (Parts Unlimited + AutoDist west-coast DC)
+    { city:'Sparks', state:'NV', coord:[-119.720,39.555], items:[['Parts Unlimited / LeMans','45 Isidor Court, Sparks, NV 89441 · secondary source'],['AutoDist / Automatic Distributors','West-coast DC — city-level warehouse watch']] },
+    // Parts Unlimited / LeMans Corporation
+    { city:'Janesville', state:'WI', coord:[-89.018,42.683], items:[['Parts Unlimited / LeMans','3501 Kennedy Rd, Janesville, WI 53547-5222']] },
+    { city:'Flat Rock', state:'NC', coord:[-82.440,35.286], items:[['Parts Unlimited / LeMans','121 Commercial Blvd, Flat Rock, NC 28731 · secondary source']] },
+    { city:'Ballston Spa', state:'NY', coord:[-73.850,43.001], items:[['Parts Unlimited / LeMans','City-level ship-from watch']] },
+    { city:'Saratoga Springs', state:'NY', coord:[-73.785,43.082], items:[['Parts Unlimited / LeMans','City-level ship-from watch']] },
+    { city:'Grapevine', state:'TX', coord:[-97.078,32.934], items:[['Parts Unlimited / LeMans','City-level ship-from watch · 76051']] },
+    { city:'Fontana', state:'CA', coord:[-117.436,34.092], items:[['Parts Unlimited / LeMans','City-level ship-from watch']] },
+    { city:'Hendersonville', state:'NC', coord:[-82.460,35.319], items:[['Parts Unlimited / LeMans','City-level ship-from watch']] },
+    // Keystone Automotive Operations
+    { city:'Austell', state:'GA', coord:[-84.634,33.813], items:[['Keystone Automotive Operations','600 Hartman Industrial Court, Austell, GA 30168']] },
+    { city:'Brownstown', state:'MI', coord:[-83.246,42.114], items:[['Keystone Automotive Operations','17950 Dix Toledo Hwy, Brownstown, MI 48193-8497']] },
+    { city:'Exeter', state:'PA', coord:[-75.821,41.321], items:[['Keystone Automotive Operations','44 Tunkhannock Avenue, Exeter, PA 18643']] },
+    { city:'Lewisville', state:'TX', coord:[-96.994,33.046], items:[['Keystone Automotive Operations','351 Lakeside Pkwy, Lewisville, TX 75028 · Irving/Lewisville area']] },
+    { city:'Kansas City', state:'KS', coord:[-94.727,39.114], items:[['Keystone Automotive Operations','90 Shawnee Avenue, Kansas City, KS 66105']] },
+    { city:'Shawnee', state:'KS', coord:[-94.840,39.018], items:[['Keystone Automotive Operations','24550 W 43rd St Ste 100, Shawnee, KS 66226 · KC-area LKQ']] },
+    { city:'Eastvale', state:'CA', coord:[-117.564,33.963], items:[['Keystone Automotive Operations','City-level DC watch']] },
+    { city:'Ocoee', state:'FL', coord:[-81.544,28.569], items:[['Keystone Automotive Operations','City-level DC watch']] },
+    { city:'Spokane', state:'WA', coord:[-117.426,47.659], items:[['Keystone Automotive Operations','City-level DC watch']] },
+    // Rocky Mountain ATV/MC
+    { city:'Payson', state:'UT', coord:[-111.732,40.044], items:[['Rocky Mountain ATV/MC','1551 American Way, Payson, UT 84651']] },
+    { city:'Winchester', state:'KY', coord:[-84.180,37.990], items:[['Rocky Mountain ATV/MC','1459 Rolling Hills Lane, Winchester, KY 40391']] },
+    // WPS / Western Power Sports
+    { city:'Boise', state:'ID', coord:[-116.203,43.618], items:[['WPS / Western Power Sports','601 E. Gowen Road, Boise, ID 83716']] },
+    { city:'Ashley', state:'IN', coord:[-85.062,41.526], items:[['WPS / Western Power Sports','902 H L Thompson Jr Dr, Ashley, IN 46705']] },
+    { city:'Midway', state:'GA', coord:[-81.433,31.799], items:[['WPS / Western Power Sports','2137 Sunbury Road, Midway, GA 31320']] },
+    { city:'Midlothian', state:'TX', coord:[-96.994,32.483], items:[['WPS / Western Power Sports','4081 Railport Parkway, Midlothian, TX 76065']] },
+    { city:'Fresno', state:'CA', coord:[-119.787,36.741], items:[['WPS / Western Power Sports','2855 S Elm Ave, Fresno, CA 93706 · secondary/API watch']] },
+    { city:'Elizabethtown', state:'PA', coord:[-76.602,40.152], items:[['WPS / Western Power Sports','1480 Zeager Rd, Elizabethtown, PA 17022 · secondary/API watch']] }
+  ];
+
+  const LOCATIONS = [
+    ...WAREHOUSES.map((w, i) => ({ id:'wh'+i, city:w.city, state:w.state, coord:w.coord, type:'wh', items:w.items })),
+    ...PRIMARY
+  ];
+
+  (function initUSMap(){
+    const wrap = document.getElementById('map-wrap');
+    const canvas = document.getElementById('map');
+    const popup = document.getElementById('loc-popup');
+    if (!wrap || !canvas || !popup || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+    const W = 960, H = 600;
+    const svg = d3.select(canvas).insert('svg', ':first-child')
+      .attr('id', 'us-map')
+      .attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('preserveAspectRatio', 'xMidYMid meet');
+    const gStates = svg.append('g');
+    const gMarks = svg.append('g');
+    let current = null;
+
+    function buildPopup(loc){
+      if (loc.type === 'wh') {
+        const items = loc.items.map(it => {
+          const watch = /watch|secondary/i.test(it[1]);
+          return `<div class="lp-wh${watch ? ' watch' : ''}">
+            <div class="lp-wh-name">${it[0]}</div>
+            <div class="lp-wh-addr">${it[1]}</div>
+          </div>`;
+        }).join('');
+        const n = loc.items.length;
+        return `<button class="lp-close" aria-label="Close">&times;</button>
+          <div class="lp-kicker"><span class="badge"></span>Supplier ship-from · ${n} ${n > 1 ? 'suppliers' : 'supplier'}</div>
+          <h4>${loc.city}, ${loc.state}</h4>
+          <div class="lp-whlist">${items}</div>`;
+      }
+      const rows = loc.rows.map(r => `<div class="lp-row"><span class="k">${r[0]}</span><span class="v">${r[1]}</span></div>`).join('');
+      return `<button class="lp-close" aria-label="Close">&times;</button>
+        <div class="lp-kicker"><span class="badge"></span>${loc.kicker}</div>
+        <h4>${loc.city}, ${loc.state}</h4>
+        <div class="lp-desc">${loc.desc}</div>
+        <div class="lp-rows">${rows}</div>`;
+    }
+    function positionPopup(loc){
+      if (!loc || !loc._xy) return;
+      const svgEl = document.getElementById('us-map');
+      if (!svgEl) return;
+      const vb = svgEl.viewBox.baseVal;
+      const r = svgEl.getBoundingClientRect();
+      const cr = canvas.getBoundingClientRect();
+      const scale = r.width / vb.width;
+      const px = (r.left - cr.left) + (loc._xy[0] - vb.x) * scale;
+      const py = (r.top - cr.top) + (loc._xy[1] - vb.y) * scale;
+      const halfW = 286 / 2;
+      const popLeft = Math.max(halfW + 6, Math.min(cr.width - halfW - 6, px));
+      const below = py < cr.height * 0.4;
+      popup.style.left = popLeft + 'px';
+      popup.style.top = py + 'px';
+      popup.style.transform = below
+        ? 'translate(-50%, 20px)'
+        : 'translate(-50%, calc(-100% - 20px))';
+      popup.style.setProperty('--arrow', (px - (popLeft - halfW)) + 'px');
+      popup.classList.toggle('below', below);
+    }
+    function openPopup(loc){
+      current = loc;
+      gMarks.selectAll('.mk').classed('is-active', d => d === loc);
+      popup.className = 'loc-popup k-' + loc.type;
+      popup.innerHTML = buildPopup(loc);
+      popup.querySelector('.lp-close').addEventListener('click', (e) => { e.stopPropagation(); closePopup(); });
+      positionPopup(loc);
+      requestAnimationFrame(() => popup.classList.add('open'));
+    }
+    function closePopup(){
+      current = null;
+      popup.classList.remove('open');
+      gMarks.selectAll('.mk').classed('is-active', false);
+    }
+
+    fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')
+      .then(r => r.json())
+      .then(us => {
+        const states = topojson.feature(us, us.objects.states);
+        // geoAlbersUsa clips to the US regions (no stray specks) and lays the map
+        // out cleanly inside the fixed 960x600 viewBox
+        const proj = d3.geoAlbersUsa().fitSize([W, H], states);
+        const path = d3.geoPath(proj);
+        gStates.selectAll('path.state').data(states.features).join('path')
+          .attr('class', 'state').attr('d', path);
+        gStates.append('path').attr('class', 'nation')
+          .attr('d', path(topojson.mesh(us, us.objects.states, (a, b) => a !== b)));
+
+        LOCATIONS.forEach(loc => {
+          const p = proj(loc.coord);
+          if (!p) return;
+          loc._xy = p;
+          const g = gMarks.append('g')
+            .attr('class', 'mk ' + loc.type)
+            .attr('transform', `translate(${p[0]},${p[1]})`)
+            .datum(loc);
+          if (loc.type === 'wh') {
+            g.append('circle').attr('class', 'ring').attr('r', 9);
+            g.append('circle').attr('class', 'dot').attr('r', 4.2);
+            g.append('circle').attr('class', 'hit').attr('r', 12).attr('fill', 'transparent');
+          } else {
+            g.append('circle').attr('class', 'ring').attr('r', 16);
+            g.append('circle').attr('class', 'mk-pinring').attr('r', 13);
+            g.append('circle').attr('class', 'dot').attr('r', loc.type === 'store' ? 9 : 7);
+            const label = (loc.type === 'hq' ? 'Legal HQ · ' : 'Shop · ') + loc.city + ', ' + loc.state;
+            const chip = g.append('g').attr('class', 'mk-chip');
+            const tx = chip.append('text').attr('class', 'mk-chip-tx')
+              .attr('text-anchor', 'middle').attr('dy', '0.34em').text(label);
+            const w = tx.node().getComputedTextLength() + 24;
+            chip.insert('rect', 'text').attr('class', 'mk-chip-bg')
+              .attr('x', -w / 2).attr('y', -11).attr('rx', 5).attr('width', w).attr('height', 22);
+            chip.attr('transform', 'translate(0,-26)');
+          }
+          g.node().addEventListener('click', (e) => { e.stopPropagation(); openPopup(loc); });
+        });
+      })
+      .catch(() => { const h = document.querySelector('.map-hint'); if (h) h.textContent = 'Map could not load.'; });
+
+    canvas.addEventListener('click', closePopup);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePopup(); });
+    window.addEventListener('resize', () => { if (current) positionPopup(current); });
+  })();
+
+  // Map: animate the live shipping points counter
+  const liveCount = document.getElementById('live-count');
+  if (liveCount) {
+    const target = 30;
+    let cur = 0;
+    const tick = () => {
+      if (cur < target) {
+        cur++;
+        liveCount.textContent = cur;
+        setTimeout(tick, 180);
+      }
+    };
+    const mapIO = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { tick(); mapIO.disconnect(); } });
+    }, { threshold: 0.3 });
+    mapIO.observe(document.querySelector('.map-section'));
+  }
+
+  // Contact modal
+  (function(){
+    const overlay = document.getElementById('contactOverlay');
+    const openBtn = document.getElementById('openContact');
+    const closeBtn = document.getElementById('closeContact');
+    const form = document.getElementById('contactForm');
+    if (!overlay || !openBtn) return;
+    const open = (e) => { if (e) e.preventDefault(); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const close = () => { overlay.classList.remove('open'); document.body.style.overflow = ''; };
+    openBtn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    if (form) form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'THANK YOU \u2713';
+      setTimeout(() => { close(); btn.textContent = 'ASK A QUESTION'; form.reset(); }, 1400);
+    });
+  })();
+</script>
+
+<!-- ===== TWEAKS PANEL ===== -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', noDeckControls = false, children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  // Auto-inject a rail toggle when a <deck-stage> is on the page. The
+  // toggle drives the deck's per-viewer _railVisible via window message;
+  // state is mirrored from the same localStorage key the deck reads so
+  // the control reflects reality across reloads. The mechanism is the
+  // message — authors who want custom placement can post it directly
+  // and pass noDeckControls to suppress this one.
+  const hasDeckStage = React.useMemo(
+    () => typeof document !== 'undefined' && !!document.querySelector('deck-stage'),
+    [],
+  );
+  // deck-stage enables its rail in connectedCallback, but this panel can
+  // mount before that element has upgraded. The initial read catches the
+  // common case; the listener covers mounting first. (Older deck-stage.js
+  // copies still wait for the host's __omelette_rail_enabled postMessage —
+  // same listener handles those.)
+  const [railEnabled, setRailEnabled] = React.useState(
+    () => hasDeckStage && !!document.querySelector('deck-stage')?._railEnabled,
+  );
+  React.useEffect(() => {
+    if (!hasDeckStage || railEnabled) return undefined;
+    const onMsg = (e) => {
+      if (e.data && e.data.type === '__omelette_rail_enabled') setRailEnabled(true);
+    };
+    window.addEventListener('message', onMsg);
+    return () => window.removeEventListener('message', onMsg);
+  }, [hasDeckStage, railEnabled]);
+  const [railVisible, setRailVisible] = React.useState(() => {
+    try { return localStorage.getItem('deck-stage.railVisible') !== '0'; } catch (e) { return true; }
+  });
+  const toggleRail = (on) => {
+    setRailVisible(on);
+    window.postMessage({ type: '__deck_rail_visible', on }, '*');
+  };
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-noncommentable=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+          {hasDeckStage && railEnabled && !noDeckControls && (
+            <TweakSection label="Deck">
+              <TweakToggle label="Thumbnail rail" value={railVisible} onChange={toggleRail} />
+            </TweakSection>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+
+</script>
+<div id="tweaks-root"></div>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "landColor": "charcoal",
+  "accent": "#EF7F1A",
+  "showBorders": true,
+  "pulseSpeed": 2.4
+}/*EDITMODE-END*/;
+
+const LAND_THEMES = {
+  charcoal: { land: '#2a2d2e', border: 'rgba(255,255,255,0.10)' },
+  slate:    { land: '#3a4046', border: 'rgba(255,255,255,0.12)' },
+  navy:     { land: '#243243', border: 'rgba(255,255,255,0.12)' },
+  forest:   { land: '#223a30', border: 'rgba(255,255,255,0.12)' },
+  mono:     { land: '#1f1f1f', border: 'rgba(255,255,255,0.10)' }
+};
+
+function TweaksApp() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  React.useEffect(() => {
+    const wrap = document.getElementById('map-wrap');
+    if (!wrap) return;
+    const theme = LAND_THEMES[t.landColor] || LAND_THEMES.charcoal;
+    wrap.style.setProperty('--map-land', theme.land);
+    wrap.style.setProperty('--map-border', theme.border);
+    wrap.style.setProperty('--map-accent', t.accent);
+    wrap.dataset.borders = t.showBorders ? 'on' : 'off';
+    document.documentElement.style.setProperty('--pulse-speed', t.pulseSpeed + 's');
+  }, [t]);
+
+  return (
+    <TweaksPanel title="Map controls">
+      <TweakSection label="Map" />
+      <TweakSelect label="Land color" value={t.landColor}
+        options={['charcoal', 'slate', 'navy', 'forest', 'mono']}
+        onChange={(v) => setTweak('landColor', v)} />
+      <TweakColor label="Accent" value={t.accent}
+        options={['#EF7F1A', '#2A6FDB', '#1F8A5B', '#7A5AE0', '#D03A52']}
+        onChange={(v) => setTweak('accent', v)} />
+      <TweakToggle label="State borders" value={t.showBorders} onChange={(v) => setTweak('showBorders', v)} />
+      <TweakSection label="Animation" />
+      <TweakSlider label="Marker pulse" value={t.pulseSpeed} min={0.6} max={4} step={0.2} unit="s"
+        onChange={(v) => setTweak('pulseSpeed', v)} />
+    </TweaksPanel>
+  );
+}
+
+window.addEventListener('load', () => {
+  const root = ReactDOM.createRoot(document.getElementById('tweaks-root'));
+  root.render(<TweaksApp />);
+});
+</script>
+
+<script>
+// Coin tower — coins stack up as the cost-savings percentage rises
+(function(){
+  var tower = document.getElementById('coinTower');
+  if (!tower) return;
+  var N = 10, STEP = 9;
+  var coins = [];
+  for (var i = 0; i < N; i++) {
+    var c = document.createElement('div');
+    c.className = 'coin';
+    c.style.bottom = (i * STEP) + 'px';
+    c.style.zIndex = String(i + 1);
+    tower.appendChild(c);
+    coins.push(c);
+  }
+  var played = false;
+  function play(){
+    if (played) return; played = true;
+    var dur = 1800, start = performance.now();
+    var ease = function(t){ return 1 - Math.pow(1 - t, 3); };
+    function tick(now){
+      var p = Math.min(1, (now - start) / dur);
+      var shown = Math.round(ease(p) * N);
+      for (var i = 0; i < N; i++) {
+        coins[i].classList.toggle('show', i < shown);
+        coins[i].classList.toggle('on', i < 3 && i < shown);
+      }
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  function inViewC(){ var r = tower.getBoundingClientRect(); return r.top < window.innerHeight * 0.9 && r.bottom > 0; }
+  function fireC(){ if (inViewC()) { play(); window.removeEventListener('scroll', onScrollC); if (ioC) ioC.disconnect(); } }
+  function onScrollC(){ fireC(); }
+  var ioC = ('IntersectionObserver' in window) ? new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) fireC(); }); }, { threshold: 0.2 }) : null;
+  if (ioC) ioC.observe(tower);
+  window.addEventListener('scroll', onScrollC, { passive: true });
+  fireC();
+})();
+
+// Workforce figures — all start orange on enter, then 80% fade to no colour
+(function(){
+  var row = document.getElementById('peopleRow');
+  if (!row) return;
+  var TOTAL = 10, TEAM = 2;
+  var SIL = '<svg viewBox="0 0 24 24"><path d="M12 13c2.8 0 5-2.2 5-5s-2.2-5-5-5-5 2.2-5 5 2.2 5 5 5Zm0 1.5c-4.7 0-8 2.4-8 5.5v1.5h16V20c0-3.1-3.3-5.5-8-5.5Z"/></svg>';
+  var figs = [];
+  var ROWS = [2, 3, 3, 2];
+  ROWS.forEach(function(n){
+    var rdiv = document.createElement('div'); rdiv.className = 'pcr';
+    for (var j = 0; j < n; j++) { var d = document.createElement('div'); d.className = 'fig'; d.innerHTML = SIL; rdiv.appendChild(d); figs.push(d); }
+    row.appendChild(rdiv);
+  });
+  var played = false;
+  function play(){
+    if (played) return; played = true;
+    var k = 0;
+    for (var i = TEAM; i < TOTAL; i++) {
+      (function(idx, delay){ setTimeout(function(){ figs[idx].style.color = 'rgba(255,255,255,0.24)'; }, delay); })(i, 600 + k * 130);
+      k++;
+    }
+  }
+  function inView(){ var r = row.getBoundingClientRect(); return r.top < window.innerHeight * 0.9 && r.bottom > 0; }
+  function fireP(){ if (inView()) { play(); window.removeEventListener('scroll', onScroll); if (ioP) ioP.disconnect(); } }
+  function onScroll(){ fireP(); }
+  var ioP = ('IntersectionObserver' in window) ? new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) fireP(); }); }, { threshold: 0.2 }) : null;
+  if (ioP) ioP.observe(row);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  fireP();
+})();
+</script>
+
+<script>
+(async () => {
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  @page { margin: 0.5cm; }\n  html, body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }\n  section, article, figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        !settleRoot.querySelector('.sc-placeholder');
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  try { await document.fonts.ready; } catch (e) {}
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+  } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>

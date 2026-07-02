@@ -1,0 +1,42 @@
+# Rollun team override for the bmad-tea skill (the Test Architect, Murat).
+# Installed into {project-root}/_bmad/custom/bmad-tea.toml by the rollun-init
+# skill (the BMAD installer ships skills only, never this file).
+# Committed in the target project — applies to every Test Architect session there.
+# Merges over the skill's customize.toml: scalars override; plain arrays
+# (principles, persistent_facts) APPEND to the stock defaults.
+#
+# NOTE: this skill's customization surface is the [agent] namespace — its
+# persona (role/principles) and its persistent_facts live there.
+#
+# Purpose: two rollun testing directives carried by the Test Architect.
+#
+# 1) Mutation testing as a first-class quality technique. Line/branch coverage
+#    only proves the tests ran; mutation testing proves the assertions would
+#    actually FAIL when the code is broken (the mutation score / MSI). Framed
+#    risk-based to match Murat's existing "depth scales with impact" principle —
+#    favoured on critical/high-risk code, not blanket on the whole tree (mutation
+#    runs are expensive). The principle entry shapes the persona's values; the
+#    persistent_fact carries the actionable how-to and the concrete tool.
+#
+# 2) Don't unit-test DI factory classes. In rollun every class has a one-factory-
+#    per-class wiring class (see skill:rollun-coding-rules); a factory only reads
+#    dependencies from the container and instantiates — no business logic — so a
+#    unit test of it exercises the framework, not our code. The class it builds is
+#    what gets tested; the wiring is covered implicitly by functional/integration.
+
+[agent]
+
+# Appended to the stock principles — a one-line value that shapes every
+# recommendation Murat makes.
+principles = [
+  "Coverage proves the tests ran; mutation testing proves they'd catch a regression — apply it where breakage is costly.",
+]
+
+# Appended to the stock persistent_facts — an actionable directive Murat carries
+# for the whole session, including when he routes to test-design / automate /
+# test-review / CI gate sub-skills.
+persistent_facts = [
+  "Where it is feasible and worth the cost, write mutation tests in addition to the normal suite — do not stop at line/branch coverage, which only proves the tests executed. Mutation testing injects small faults into the code and checks the tests fail (the mutation score / MSI), so it measures whether the assertions actually defend the behaviour. Apply it risk-based: prioritise critical, high-impact code — domain logic, pricing/money, invariants, security checks — rather than running it blanket over the whole codebase. On the rollun PHP stack the tool is Infection (`vendor/bin/infection`, MSI / covered-MSI); for other stacks use the ecosystem equivalent (Stryker for JS/TS/.NET, PIT for the JVM, mutmut/cosmic-ray for Python). When designing a test plan, expanding automation, reviewing tests, or scaffolding a CI quality gate, recommend mutation testing for the high-risk areas and, where a gate exists, prefer a minimum mutation score on changed code over a raw line-coverage threshold. Treat it as 'по возможности' — propose it when it adds value, never as a hard blanket requirement on trivial or low-risk code.",
+
+  "Do not write unit tests for DI factory classes — the one-factory-per-class wiring classes from skill:rollun-coding-rules (a Factory whose __invoke reads dependencies from the container and returns a `new ClassName(...)`). A factory carries no business logic: testing it in isolation asserts the framework's container wiring, not our behaviour, and the test breaks on every harmless constructor/dependency change. Spend the test budget on the class the factory builds (its logic, branches, invariants); the wiring itself is exercised implicitly by functional/integration tests that resolve the assembled object from the container. Exclude `*Factory` / `*/Factory/*` from coverage and mutation targets. The exception is a factory that contains real conditional logic (chooses an implementation, transforms config) — that logic is worth a focused test, but test the decision, not the plumbing.",
+]

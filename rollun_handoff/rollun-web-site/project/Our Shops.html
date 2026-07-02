@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Shops — Rollun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #D2D2D2;
+    --bg-2: #C9C9C9;
+    --paper: #E2E2E2;
+    --ink: #1f1f1f;
+    --ink-soft: #555;
+    --ink-mute: #777;
+    --dark: #1a1a1a;
+    --dark-2: #232323;
+    --line: rgba(31,31,31,0.12);
+    --line-dark: rgba(255,255,255,0.12);
+    --or: #EF7F1A;
+    --or-deep: #C56712;
+    --or-soft: #f5a35a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-snap-type: y proximity; scroll-padding-top: 90px; scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Roboto', 'Karla', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, .display {
+    font-family: 'Poppins', 'Karla', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    margin: 0;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  p { margin: 0; }
+  a { color: inherit; }
+  .or-txt { color: var(--or); }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    height: 90px;
+    display: flex; align-items: center;
+    background: #141414;
+    transition: transform .35s ease, height .25s ease, box-shadow .25s ease;
+  }
+  .site-header.scrolled { height: 76px; box-shadow: 0 4px 20px rgba(0,0,0,0.35); }
+  .site-header.hide { transform: translateY(-100%); }
+  .header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    width: 100%;
+  }
+  .logo { display: inline-flex; align-items: center; text-decoration: none; line-height: 0; }
+  .logo img { height: 40px; width: auto; display: block; }
+  .nav {
+    display: flex; gap: 28px;
+    justify-self: end; align-items: center;
+    margin-right: 20px;
+  }
+  .nav a {
+    color: #fff; text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500; font-size: 14px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: color .2s; white-space: nowrap;
+  }
+  .nav a:hover, .nav a.active { color: var(--or); }
+
+  /* ===== PAGE HERO ===== */
+  .page-hero {
+    background: var(--dark);
+    color: #fff;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 110px 0 40px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    scroll-snap-align: start;
+  }
+  .page-hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(1000px 500px at 50% 0%, rgba(239,127,26,0.14), transparent 65%);
+    pointer-events: none;
+  }
+  .page-hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+  .page-hero-inner { position: relative; z-index: 2; }
+  .page-hero .eyebrow {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 18px;
+  }
+  .page-hero h1 {
+    color: #fff;
+    font-size: clamp(40px, 5.4vw, 72px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+  .page-hero p {
+    color: rgba(255,255,255,0.72);
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none; text-transform: uppercase;
+    font-weight: 500; font-size: 13px;
+    letter-spacing: 0.06em;
+    padding: 15px 30px;
+    border: 1px solid transparent;
+    transition: all .25s;
+    cursor: pointer;
+  }
+  .btn-or { background: var(--or); color: #fff; border-color: var(--or); }
+  .btn-or:hover { background: var(--or-deep); border-color: var(--or-deep); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: rgba(31,31,31,0.35); }
+  .btn-ghost:hover { border-color: var(--or); color: var(--or); }
+
+  /* ===== SECTION SHELL ===== */
+  .section-eyebrow {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--or); margin-bottom: 14px;
+  }
+  .section-title {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: clamp(28px, 3.2vw, 44px);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin-bottom: 16px;
+  }
+  .section-intro {
+    text-align: center;
+    max-width: 640px; margin: 0 auto;
+    color: var(--ink-soft);
+    font-size: 16.5px;
+  }
+
+  /* ===== ONLINE SHOPS ===== */
+  .shops { padding: clamp(40px,7vh,90px) 0; background: var(--paper); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
+  .shop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: clamp(28px,4vh,58px);
+  }
+  .shop-card {
+    background: #fff;
+    border-radius: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 40px -28px rgba(0,0,0,0.25);
+    transition: box-shadow .35s ease, transform .35s ease;
+  }
+  .shop-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 0 2px var(--or-soft) inset, 0 26px 50px -28px rgba(239,127,26,0.5);
+  }
+  .shop-shot {
+    display: block;
+    text-decoration: none;
+    aspect-ratio: 12 / 5;
+    overflow: hidden;
+    background: #f1f1f1;
+    border-bottom: 1px solid var(--line);
+  }
+  .shop-shot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform .4s ease;
+  }
+  .shop-card:hover .shop-shot img { transform: scale(1.03); }
+  /* Long-screenshot reveal: pan top -> bottom on hover */
+  .shop-shot.scroll-shot img { transition: object-position 7s ease; }
+  .shop-card:hover .shop-shot.scroll-shot img { object-position: center bottom; transform: none; }
+  .shop-body {
+    padding: clamp(20px,2.6vh,28px) 32px clamp(22px,3vh,34px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+  }
+  .shop-logo {
+    height: clamp(44px,5vh,56px);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: clamp(10px,1.6vh,16px);
+  }
+  /* eBay */
+  .shop-logo .ebay { font-style: normal; font-size: 42px; line-height: 1; font-weight: 900; letter-spacing: -0.04em; display: inline-flex; font-family: 'Poppins', sans-serif; }
+  .shop-logo .ebay .e { color: #e53238; }
+  .shop-logo .ebay .b { color: #0064d2; }
+  .shop-logo .ebay .a { color: #f5af02; }
+  .shop-logo .ebay .y { color: #86b817; }
+  /* Amazon */
+  .shop-logo .amazon-wrap { display: inline-flex; flex-direction: column; align-items: center; }
+  .shop-logo .amazon { color: #232f3e; font-size: 36px; line-height: 1; font-weight: 700; letter-spacing: -0.04em; font-family: 'Poppins', sans-serif; }
+  .shop-logo .amazon-smile { width: 108px; height: 18px; margin-top: -4px; color: #ff9900; }
+  /* Walmart */
+  .shop-logo .walmart-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; }
+  .shop-logo .walmart-spark { width: 30px; height: 30px; color: #ffc220; }
+  .shop-logo .walmart { color: #0071ce; font-size: 27px; font-weight: 700; line-height: 1; font-family: 'Poppins', sans-serif; }
+
+  /* Rating */
+  .rating { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: clamp(12px,1.8vh,20px); }
+  .stars {
+    --pct: 100%;
+    position: relative;
+    display: inline-block;
+    font-size: 19px;
+    line-height: 1;
+    letter-spacing: 2px;
+    font-family: 'Arial', sans-serif;
+  }
+  .stars::before { content: "\2605\2605\2605\2605\2605"; color: #ddd6cb; }
+  .stars::after {
+    content: "\2605\2605\2605\2605\2605";
+    color: var(--or);
+    position: absolute; left: 0; top: 0;
+    width: var(--pct);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .rating .score { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; color: var(--ink); }
+  .rating .meta { font-size: 12.5px; color: var(--ink-mute); }
+  .shop-body > p { color: var(--ink-soft); font-size: 15px; margin-bottom: clamp(16px,2.4vh,26px); }
+  .shop-body .btn { margin-top: auto; }
+
+  /* ===== PHYSICAL STORE ===== */
+  .store { padding: clamp(40px,7vh,90px) 0; background: var(--bg); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
+  .store-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 24px;
+    margin-top: clamp(24px,3.5vh,48px);
+    align-items: stretch;
+  }
+  .store-media { display: flex; flex-direction: column; gap: 24px; min-height: 0; }
+  .store-photo-feature {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    flex: 1;
+    min-height: 0;
+    box-shadow: 0 30px 70px -40px rgba(0,0,0,0.5);
+    background: var(--dark-2);
+  }
+  .store-photo-feature img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 14%; display: block; }
+  .store-info {
+    background: var(--dark);
+    color: #fff;
+    border-radius: 20px;
+    align-self: start;
+    padding: clamp(24px,3vh,40px) clamp(24px,2.4vw,40px);
+  }
+  .store-info h3 {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 18px;
+  }
+  .store-info .city {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .store-info .addr { color: rgba(255,255,255,0.6); font-size: 15px; margin-bottom: clamp(14px,2vh,28px); }
+  .store-info .addr .tbd { color: rgba(255,255,255,0.4); font-style: italic; }
+  .hours-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: clamp(14px,2vh,28px);
+  }
+  .hours-table td {
+    padding: clamp(6px,1vh,11px) 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 15px;
+  }
+  .hours-table td.day { color: rgba(255,255,255,0.85); font-family: 'Poppins', sans-serif; font-weight: 500; }
+  .hours-table td.time { text-align: right; color: #fff; }
+  .hours-table tr.closed td.time { color: var(--or); font-weight: 500; }
+  .store-phone {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: clamp(14px,2vh,26px);
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px; font-weight: 600; color: #fff;
+  }
+  .store-phone svg { width: 22px; height: 22px; color: var(--or); flex: none; }
+
+  /* ===== FOOTER ===== */
+  .site-footer { background: #0e0e0e; color: #fff; padding: clamp(40px,6vh,72px) 0 28px; scroll-snap-align: start; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr 2fr 3fr 2fr;
+    gap: 40px;
+    margin-bottom: clamp(28px,4vh,56px);
+  }
+  .site-footer .logo img { height: 28px; filter: brightness(1.2); }
+  .site-footer h4 {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 22px; margin-top: 22px;
+  }
+  .site-footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .site-footer a { color: rgba(255,255,255,0.72); text-decoration: none; }
+  .site-footer a:hover { color: var(--or); }
+  .site-footer .col p { line-height: 1.7; color: rgba(255,255,255,0.6); font-size: 13.5px; }
+  .site-footer .col .sublabel { color: #fff; font-weight: 500; margin-top: 12px; margin-bottom: 4px; font-size: 13px; }
+  .footer-bottom {
+    text-align: center;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  @media (max-width: 980px) {
+    .shop-grid { grid-template-columns: 1fr; max-width: 460px; margin-left: auto; margin-right: auto; }
+    .store-grid { grid-template-columns: 1fr; }
+    .store-photo-feature { aspect-ratio: 3 / 4; min-height: 0; max-width: 440px; margin-left: auto; margin-right: auto; width: 100%; }
+    .store-map { min-height: 360px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 720px) {
+    .nav { gap: 14px; margin-right: 8px; }
+    .nav a { font-size: 11px; letter-spacing: 0.03em; }
+    .logo img { height: 32px; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body data-screen-label="Our Shops">
+
+<!-- HEADER -->
+<header class="site-header" id="hdr">
+  <div class="container header-inner">
+    <a class="logo" href="Home.html">
+      <img src="rollun-logo.png" alt="rollun" />
+    </a>
+    <nav class="nav">
+      <a href="Home.html">HOME</a>
+      <a href="About Us.html">ABOUT US</a>
+      <a href="Catalog.html">CATALOG</a>
+      <a href="Our Shops.html" class="active">OUR STORES</a>
+      <a href="Our Brands.html">OUR BRANDS</a>
+      <a href="Contact.html">CONTACT US</a>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero" data-screen-label="01 Hero">
+  <div class="container page-hero-inner">
+    <div class="eyebrow">Where to buy</div>
+    <h1>Our stores</h1>
+    <p>Visit us in person at our store in Texas, or shop the full Rollun catalog online across the marketplaces you trust.</p>
+  </div>
+</section>
+
+<!-- PHYSICAL STORE -->
+<section class="store" data-screen-label="02 Visit our store">
+  <div class="container">
+    <div class="section-eyebrow">In person</div>
+    <h2 class="section-title">Visit our store in Texas</h2>
+    <p class="section-intro">Drop by our Texas location for parts, accessories, and friendly face-to-face support.</p>
+
+    <div class="store-grid">
+      <div class="store-media">
+        <div class="store-photo-feature">
+          <img src="shop/storefront-2.png" alt="Rollun storefront entrance in Texas with the rollun sign above the door" loading="lazy">
+        </div>
+      </div>
+
+      <div class="store-info">
+        <h3>Location</h3>
+        <div class="city" style="font-size: 30px">Houston,Texas</div>
+        <div class="addr">5327 Aldine Mail Route Rd
+77039</div>
+
+        <table class="hours-table">
+          <tr><td class="day">Monday</td><td class="time">10 AM – 4 PM</td></tr>
+          <tr><td class="day">Tuesday</td><td class="time">10 AM – 4 PM</td></tr>
+          <tr><td class="day">Wednesday</td><td class="time">10 AM – 4 PM</td></tr>
+          <tr><td class="day">Thursday</td><td class="time">10 AM – 4 PM</td></tr>
+          <tr><td class="day">Friday</td><td class="time">10 AM – 4 PM</td></tr>
+          <tr class="closed"><td class="day">Saturday</td><td class="time">Closed</td></tr>
+          <tr class="closed"><td class="day">Sunday</td><td class="time">Closed</td></tr>
+        </table>
+
+        <div class="store-phone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (832) 461-2525
+        </div>
+
+        <a class="btn btn-or" href="https://maps.google.com/maps?q=Conroe%2C%20Texas" target="_blank" rel="noopener">GET DIRECTIONS</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONLINE SHOPS -->
+<section class="shops" id="online" data-screen-label="03 Online shops">
+  <div class="container">
+    <div class="section-eyebrow">Buy online</div>
+    <h2 class="section-title">Shop on marketplaces</h2>
+    <p class="section-intro">Same Rollun catalog, backed by thousands of verified ratings across major platforms.</p>
+
+    <div class="shop-grid">
+      <!-- Amazon -->
+      <article class="shop-card">
+        <a class="shop-shot scroll-shot" href="https://www.amazon.com/s?i=merchant-items&me=A11L6NMVUXNX47" target="_blank" rel="noopener">
+          <img src="shop/store-amazon.png" alt="Rollun storefront on Amazon" loading="lazy">
+        </a>
+        <div class="shop-body">
+          <div class="shop-logo">
+            <div class="amazon-wrap">
+              <span class="amazon">amazon</span>
+              <svg class="amazon-smile" viewBox="0 0 140 22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+                <path d="M6 4 C 30 22, 110 22, 134 4" />
+                <path d="M126 4 L 134 4 L 134 12" stroke-width="3"/>
+              </svg>
+            </div>
+          </div>
+          <div class="rating">
+            <span class="stars" style="--pct:94%"></span>
+            <span class="score">4.7 out of 5</span>
+            <span class="meta">94% positive · 153 ratings</span>
+          </div>
+          <p>Fast Prime-eligible shipping and A-to-z buyer protection on our full Amazon storefront.</p>
+          <a class="btn btn-or" href="https://www.amazon.com/s?i=merchant-items&me=A11L6NMVUXNX47" target="_blank" rel="noopener">VISIT STORE</a>
+        </div>
+      </article>
+
+      <!-- eBay -->
+      <article class="shop-card">
+        <a class="shop-shot scroll-shot" href="https://www.ebay.com/str/Rollun" target="_blank" rel="noopener">
+          <img src="shop/store-ebay.png" alt="Rollun store on eBay" loading="lazy">
+        </a>
+        <div class="shop-body">
+          <div class="shop-logo">
+            <img src="shop/ebay-logo.png" alt="eBay" style="height: 46px; width: auto;">
+          </div>
+          <div class="rating">
+            <span class="stars" style="--pct:100%"></span>
+            <span class="score">99.8% positive feedback</span>
+            <span class="meta">59K+ items sold · 843 followers</span>
+          </div>
+          <p>Our top-rated eBay store with 2,200+ live listings of parts and accessories.</p>
+          <a class="btn btn-or" href="https://www.ebay.com/str/Rollun" target="_blank" rel="noopener">VISIT STORE</a>
+        </div>
+      </article>
+
+      <!-- Walmart -->
+      <article class="shop-card">
+        <a class="shop-shot scroll-shot" href="https://www.walmart.com/global/seller/101022720" target="_blank" rel="noopener">
+          <img src="shop/store-walmart-reviews.png" alt="Rollun LC seller page on Walmart Marketplace" loading="lazy">
+        </a>
+        <div class="shop-body">
+          <div class="shop-logo">
+            <div class="walmart-wrap">
+              <svg class="walmart-spark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+                <line x1="24" y1="17" x2="24" y2="4"/>
+                <line x1="30.1" y1="20.5" x2="41.3" y2="14"/>
+                <line x1="30.1" y1="27.5" x2="41.3" y2="34"/>
+                <line x1="24" y1="31" x2="24" y2="44"/>
+                <line x1="17.9" y1="27.5" x2="6.7" y2="34"/>
+                <line x1="17.9" y1="20.5" x2="6.7" y2="14"/>
+              </svg>
+              <span class="walmart">Walmart</span>
+            </div>
+          </div>
+          <div class="rating">
+            <span class="stars" style="--pct:80%"></span>
+            <span class="score">4.0 out of 5</span>
+            <span class="meta">Rollun LC seller · 4 ratings</span>
+          </div>
+          <p>Shop our growing Walmart Marketplace catalog with easy checkout and returns.</p>
+          <a class="btn btn-or" href="https://www.walmart.com/global/seller/101022720" target="_blank" rel="noopener">VISIT STORE</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" data-screen-label="04 Footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="col">
+        <a class="logo" href="Home.html"><img src="rollun-logo.png" alt="rollun"/></a>
+        <p style="margin-top:22px;">
+          Rollun is a U.S.-based e-commerce and distribution company specializing
+          in automotive parts, motorcycle accessories, and health products,
+          operating across leading marketplaces and our own sales channels.
+        </p>
+      </div>
+      <div class="col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="Home.html">Home</a></li>
+          <li><a href="About Us.html">About Us</a></li>
+          <li><a href="Catalog.html">Catalog</a></li>
+          <li><a href="Our Shops.html">Our Shops</a></li>
+          <li><a href="Our Brands.html">Our Brands</a></li>
+          <li><a href="Contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Contacts</h4>
+        <p>(307) 920-0149<br><span style="color:rgba(255,255,255,0.4);font-size:12px;">only for legal purposes</span></p>
+        <p style="margin-top:10px;">(832) 461-2525<br><span style="color:rgba(255,255,255,0.4);font-size:12px;">shop and return center</span></p>
+        <p style="margin-top:10px;"><a href="mailto:info@rollun.com">info@rollun.com</a></p>
+      </div>
+      <div class="col">
+        <h4>Locations</h4>
+        <div class="sublabel">Only for legal purposes</div>
+        <p>Rollun LC<br>30 N Gould St STE 4370<br>Sheridan, WY 82801</p>
+        <div class="sublabel" style="color: rgb(239, 127, 26)">Shop &amp; return center</div>
+        <p>5327 Aldine Mail Route Rd<br>77039</p>
+      </div>
+      <div class="col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">Rollun © 2026</div>
+  </div>
+</footer>
+
+<script>
+// Header hide on scroll-down
+(function(){
+  const hdr = document.getElementById('hdr');
+  let lastY = 0;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    hdr.classList.toggle('scrolled', y > 30);
+    if (y > lastY && y > 200) hdr.classList.add('hide');
+    else hdr.classList.remove('hide');
+    lastY = y;
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>

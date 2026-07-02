@@ -1,0 +1,244 @@
+/* ============================================================
+   ROLLUN DESIGN SYSTEM — Colors & Type
+   Brand: charcoal + orange + neutral grey. Industrial,
+   sturdy, e-commerce. Sampled from the rollun wordmark:
+     orange  = rgb(234,123,8)  -> #EA7B08
+     charcoal= rgb(85,88,89)   -> #54585A
+   ------------------------------------------------------------
+   Fonts are loaded from Google Fonts (see @import below).
+   These are SUBSTITUTES for the (unknown) original brand font
+   — see README "Visual Foundations". Swap if the real face
+   is provided.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ---------- BRAND ORANGE SCALE ---------- */
+  --orange-50:  #FEF4E8;
+  --orange-100: #FBDFBC;
+  --orange-200: #F7C385;
+  --orange-300: #F3A44B;
+  --orange-400: #F08C22;
+  --orange-500: #EA7B08;  /* PRIMARY — the wordmark orange */
+  --orange-600: #C86808;
+  --orange-700: #9C5109;
+  --orange-800: #6E3A0A;
+
+  /* ---------- NEUTRAL (cool charcoal) SCALE ---------- */
+  --neutral-0:   #FFFFFF;
+  --neutral-50:  #F6F7F7;
+  --neutral-100: #ECEDEE;
+  --neutral-200: #DCDEDF;
+  --neutral-300: #C2C5C6;
+  --neutral-400: #969A9C;
+  --neutral-500: #6E7274;
+  --neutral-600: #54585A;  /* the wordmark charcoal */
+  --neutral-700: #3E4143;
+  --neutral-800: #2A2D2E;  /* primary dark surface */
+  --neutral-900: #1A1C1D;
+  --neutral-950: #121314;  /* "black" */
+
+  /* ---------- SEMANTIC STATUS ---------- */
+  --success-50:  #E9F4ED;
+  --success-500: #2E7D46;
+  --success-600: #246138;
+  --warning-50:  #FBF3DF;
+  --warning-500: #E5A100;
+  --warning-600: #B97F00;
+  --danger-50:   #FBEBE8;
+  --danger-500:  #C53A2B;
+  --danger-600:  #9E2C20;
+  --info-50:     #E9F1F8;
+  --info-500:    #2A6FB0;
+  --info-600:    #215888;
+
+  /* ---------- SEMANTIC ROLES ---------- */
+  --bg:            var(--neutral-0);     /* page background          */
+  --surface:       var(--neutral-50);    /* cards / subtle panels    */
+  --surface-2:     var(--neutral-100);   /* deeper panels / hovers   */
+  --bg-inverse:    var(--neutral-800);   /* dark sections / footer   */
+
+  --fg1:           var(--neutral-900);   /* primary text             */
+  --fg2:           var(--neutral-600);   /* secondary text           */
+  --fg3:           var(--neutral-400);   /* muted / placeholder      */
+  --fg-on-dark:    var(--neutral-0);     /* text on dark surfaces    */
+  --fg-on-orange:  var(--neutral-0);     /* text on orange           */
+
+  --border:        var(--neutral-200);   /* default hairline border  */
+  --border-strong: var(--neutral-300);   /* emphasized border        */
+  --divider:       var(--neutral-100);
+
+  --primary:        var(--orange-500);
+  --primary-hover:  var(--orange-600);
+  --primary-active: var(--orange-700);
+  --primary-soft:   var(--orange-50);
+  --focus-ring:     var(--orange-300);
+
+  --price:          var(--danger-500);   /* sale/price emphasis      */
+  --link:           var(--info-500);
+
+  /* ---------- TYPE FAMILIES ---------- */
+  --font-display: 'Archivo', 'Arial Narrow', system-ui, sans-serif;   /* headings, hero, industrial */
+  --font-sans:    'Hanken Grotesk', system-ui, -apple-system, sans-serif; /* body & UI */
+  --font-mono:    'Spline Sans Mono', ui-monospace, 'SF Mono', monospace; /* SKUs, part #s, specs */
+
+  /* ---------- TYPE SCALE (1.250 major-third-ish) ---------- */
+  --text-xs:   0.75rem;   /* 12 */
+  --text-sm:   0.875rem;  /* 14 */
+  --text-base: 1rem;      /* 16 */
+  --text-md:   1.125rem;  /* 18 */
+  --text-lg:   1.375rem;  /* 22 */
+  --text-xl:   1.75rem;   /* 28 */
+  --text-2xl:  2.25rem;   /* 36 */
+  --text-3xl:  3rem;      /* 48 */
+  --text-4xl:  3.75rem;   /* 60 */
+
+  --leading-tight: 1.1;
+  --leading-snug:  1.25;
+  --leading-normal:1.5;
+  --leading-relaxed:1.65;
+
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;
+  --tracking-caps:   0.08em;   /* uppercase labels / eyebrows */
+
+  /* ---------- RADII ---------- */
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;     /* default control / card radius */
+  --radius-lg: 12px;
+  --radius-xl: 18px;
+  --radius-pill: 999px;
+
+  /* ---------- SPACING (4px base) ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ---------- ELEVATION ---------- */
+  --shadow-xs: 0 1px 2px rgba(26,28,29,.06);
+  --shadow-sm: 0 1px 3px rgba(26,28,29,.08), 0 1px 2px rgba(26,28,29,.05);
+  --shadow-md: 0 4px 10px rgba(26,28,29,.08), 0 2px 4px rgba(26,28,29,.05);
+  --shadow-lg: 0 12px 28px rgba(26,28,29,.12), 0 4px 8px rgba(26,28,29,.06);
+  --shadow-orange: 0 6px 18px rgba(234,123,8,.28);
+
+  /* ---------- MOTION ---------- */
+  --ease-out: cubic-bezier(.22,.61,.36,1);
+  --ease-in-out: cubic-bezier(.45,0,.25,1);
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 280ms;
+}
+
+/* ============================================================
+   SEMANTIC TYPE CLASSES
+   Use these directly, or copy the property blocks.
+   ============================================================ */
+
+.rl-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-4xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg1);
+}
+.rl-h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg1);
+}
+.rl-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-2xl);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg1);
+}
+.rl-h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
+  color: var(--fg1);
+}
+.rl-h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  color: var(--fg1);
+}
+.rl-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  line-height: 1;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.rl-lead {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--fg2);
+}
+.rl-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--fg1);
+}
+.rl-small {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--fg2);
+}
+.rl-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  line-height: 1.3;
+  color: var(--fg1);
+}
+.rl-caps-label {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--fg2);
+}
+.rl-mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  letter-spacing: 0.01em;
+  color: var(--fg2);
+}
+.rl-price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-xl);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg1);
+}

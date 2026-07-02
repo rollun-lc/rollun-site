@@ -1,0 +1,22 @@
+# Rollun team override for the rollun-knowledge skill.
+# Installed into {project-root}/_bmad/custom/rollun-knowledge.toml by the
+# rollun-init skill (the BMAD installer ships skills only, never this file).
+# Committed in the target project — applies to every developer there.
+# Merges over the skill's customize.toml: scalars override; plain arrays append.
+#
+# Purpose: load the datastore-description snapshot that rollun-init captures from
+# the live DB as PERSISTENT MEMORY. rollun-knowledge reads every persistent_facts
+# entry as foundational background context, so once this file exists every
+# Knowledge run already knows each table/datastore's short human description and
+# can auto-attach it without re-querying SQL.
+#
+# `persistent_facts` is a plain array → entries APPEND on merge, so this adds the
+# snapshot WITHOUT dropping the default project-context.md fact. The path must
+# match rollun-init's `descriptions_output` (same default below); if you retarget
+# one, retarget the other.
+
+[workflow]
+
+persistent_facts = [
+  "file:{project-root}/_bmad/rollun/knowledge/datastore-descriptions.md",
+]

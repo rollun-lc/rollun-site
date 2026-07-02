@@ -1,0 +1,53 @@
+{
+  "mcpServers": {
+    "nexus": {
+      "type": "http",
+      "url": "https://nexus.nollun.com/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${NEXUS_TOKEN}"
+      }
+    },
+    "es": {
+      "type": "http",
+      "url": "https://mcp.rollun.net/es/mcp",
+      "headers": {
+        "Authorization": "Bearer ${ES_TOKEN}"
+      }
+    },
+    "lightrag": {
+      "type": "http",
+      "url": "https://mcp.rollun.net/lightrag/mcp",
+      "headers": {
+        "Authorization": "Bearer ${LIGHTRAG_TOKEN}"
+      }
+    },
+    "mysql": {
+      "type": "http",
+      "url": "https://mcp.rollun.net/mysql/mcp",
+      "headers": {
+        "Authorization": "Bearer ${MYSQL_TOKEN}"
+      }
+    },
+    "github": {
+      "type": "http",
+      "url": "https://mcp.rollun.net/github/mcp",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_TOKEN}"
+      }
+    },
+    "trello": {
+      "type": "http",
+      "url": "https://mcp.rollun.net/trello/mcp",
+      "headers": {
+        "Authorization": "Bearer ${TRELLO_TOKEN}"
+      }
+    },
+    "clockify": {
+      "type": "http",
+      "url": "https://mcp.rollun.net/clockify/mcp",
+      "headers": {
+        "Authorization": "Bearer ${CLOCKIFY_TOKEN}"
+      }
+    }
+  }
+}

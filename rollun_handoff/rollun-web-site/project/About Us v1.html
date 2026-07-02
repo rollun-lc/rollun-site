@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Us — Rollun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&family=Hind:wght@400;500;600;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #D2D2D2;
+    --bg-deep: #1a1a1a;
+    --bg-dark: #232323;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --line: rgba(26,26,26,0.12);
+    --line-light: rgba(255,255,255,0.14);
+    --or: #EF7F1A;
+    --or-deep: #C56712;
+    --or-soft: #f5a35a;
+    --paper: #ECECEC;
+    --paper-2: #E2E2E2;
+    --green: #2f6b48;
+    --green-deep: #1f4a30;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Karla', 'Hind', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.08;
+  }
+  p { margin: 0; }
+  .or-txt { color: var(--or); }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .container-wide { max-width: 1440px; margin: 0 auto; padding: 0 32px; }
+
+  /* === HEADER === */
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(210,210,210,0.92);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 78px;
+  }
+  .logo {
+    font-family: 'Karla', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .logo-mark {
+    width: 32px; height: 32px;
+    background: var(--ink);
+    color: var(--or);
+    border-radius: 6px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 18px;
+  }
+  .nav { display: flex; gap: 36px; }
+  .nav a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav a:hover, .nav a.active { color: var(--or); }
+  .header-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ink);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 22px;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background .2s;
+  }
+  .header-cta:hover { background: var(--or); }
+
+  /* === SECTION COMMON === */
+  section { position: relative; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--or);
+    margin-bottom: 24px;
+  }
+  .eyebrow::before {
+    content: ""; width: 28px; height: 2px; background: var(--or);
+  }
+  .eyebrow.on-dark { color: var(--or-soft); }
+
+  /* === HERO === */
+  .hero {
+    padding: 110px 0 130px;
+    background:
+      radial-gradient(ellipse 60% 40% at 85% 30%, rgba(239,127,26,0.10), transparent 60%),
+      var(--bg);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: clamp(48px, 6vw, 92px);
+    letter-spacing: -0.025em;
+    margin-bottom: 32px;
+  }
+  .hero h1 .line { display: block; }
+  .hero-lede {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 560px;
+    margin-bottom: 36px;
+  }
+  .hero-meta {
+    display: flex; gap: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  .hero-meta-item .num {
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .hero-meta-item .lbl {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  /* hero visual: tilted stack of "documents/proof" */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 1 / 1.1;
+    perspective: 1200px;
+  }
+  .hv-card {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.25);
+    padding: 28px;
+    transform-style: preserve-3d;
+  }
+  .hv-card.c1 {
+    transform: rotate(-8deg) translate(-30px, 20px);
+    background: var(--ink);
+    color: #fff;
+  }
+  .hv-card.c2 {
+    transform: rotate(4deg) translate(20px, -10px);
+    background: var(--or);
+    color: var(--ink);
+  }
+  .hv-card.c3 {
+    transform: rotate(-2deg) translate(10px, 40px);
+    background: #fff;
+  }
+  .hv-card .corner {
+    display: flex; justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.7;
+  }
+  .hv-card h4 {
+    font-size: 28px;
+    margin-top: 60%;
+  }
+  .hv-card .sub { font-size: 13px; opacity: 0.7; margin-top: 6px; }
+  .hv-stamp {
+    position: absolute;
+    bottom: -30px; right: -10px;
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--or);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'Karla', sans-serif;
+    z-index: 5;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
+    transform: rotate(-12deg);
+  }
+  .hv-stamp .big { font-size: 32px; font-weight: 800; line-height: 1; }
+  .hv-stamp .sm { font-size: 10px; letter-spacing: 0.2em; margin-top: 6px; text-transform: uppercase; }
+
+  /* === SNAPSHOT === */
+  .snapshot {
+    padding: 100px 0;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .snap-head {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 64px;
+  }
+  .snap-head h2 {
+    font-size: clamp(36px, 4vw, 56px);
+  }
+  .snap-head .lede {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .focus-card {
+    background: #fff;
+    padding: 36px 32px 32px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+    transition: transform .35s ease, box-shadow .35s ease;
+    cursor: pointer;
+  }
+  .focus-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.18);
+  }
+  .focus-card::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 3px;
+    background: var(--or);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+  }
+  .focus-card:hover::after { transform: scaleX(1); }
+  .focus-num {
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--or);
+    letter-spacing: 0.18em;
+    margin-bottom: 24px;
+  }
+  .focus-card h3 {
+    font-size: 24px;
+    margin-bottom: 14px;
+  }
+  .focus-card p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .focus-icon {
+    width: 64px; height: 64px;
+    background: var(--bg);
+    border-radius: 4px;
+    margin-bottom: 28px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+  }
+
+  /* === APPROACH === */
+  .approach { padding: 120px 0; }
+  .approach-head {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .approach-head h2 {
+    font-size: clamp(42px, 5vw, 68px);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .principle {
+    background: var(--bg);
+    padding: 48px 44px;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    transition: background .25s;
+  }
+  .principle:hover { background: #fff; }
+  .principle-num {
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    color: var(--or);
+    flex-shrink: 0;
+    padding-top: 8px;
+  }
+  .principle-body h3 {
+    font-size: 26px;
+    margin-bottom: 12px;
+  }
+  .principle-body p {
+    color: var(--ink-soft);
+    font-size: 16px;
+  }
+
+  /* === WAVE DIVIDER === */
+  .wave {
+    background: var(--bg);
+    height: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .wave svg { display: block; width: 100%; height: 100%; }
+
+  /* === AUTOMATION === */
+  .automation {
+    background: var(--bg-deep);
+    color: #fff;
+    padding: 130px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .automation::before {
+    content: "";
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(239,127,26,0.18), transparent 70%);
+    pointer-events: none;
+  }
+  .auto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .auto-grid h2 {
+    font-size: clamp(40px, 4.5vw, 64px);
+    margin-bottom: 28px;
+  }
+  .auto-grid .lede {
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.72);
+    max-width: 520px;
+  }
+  .auto-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat {
+    background: var(--bg-deep);
+    padding: 44px 36px;
+    position: relative;
+  }
+  .stat.big { grid-column: span 2; background: var(--bg-dark); }
+  .stat-val {
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+    font-size: clamp(56px, 6vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--or);
+  }
+  .stat-val .unit { font-size: 0.5em; color: #fff; margin-left: 4px; }
+  .stat-lbl {
+    margin-top: 16px;
+    font-size: 14px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .stat.big .stat-val { font-size: clamp(72px, 8vw, 120px); }
+
+  /* === KEEPTOSHIP === */
+  .kts {
+    padding: 130px 0;
+    background: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+  .kts-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .kts h2 {
+    font-size: clamp(42px, 5vw, 72px);
+    margin-bottom: 28px;
+  }
+  .kts-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--ink);
+    color: var(--or);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .kts-body p { font-size: 17px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 20px; }
+  .kts-cta-block {
+    margin-top: 40px;
+    padding: 28px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .kts-cta-block .kts-cta-text {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+  }
+  .kts-cta-block .kts-cta-text strong {
+    color: #fff;
+    font-size: 20px;
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+  .btn-or {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--or);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 14px 26px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: all .2s;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-or:hover { background: #fff; transform: translateX(4px); }
+  .btn-dark {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--ink);
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 26px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-dark:hover { background: var(--or); transform: translateX(4px); }
+
+  /* KTS visual: AI network diagram */
+  .kts-visual {
+    position: relative;
+    aspect-ratio: 1/1;
+    background: #fff;
+    border-radius: 4px;
+    padding: 36px;
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.12);
+  }
+
+  /* === MAP === */
+  .map-section {
+    background: var(--bg);
+    padding: 130px 0;
+    overflow: hidden;
+  }
+  .map-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
+  .map-head h2 {
+    font-size: clamp(42px, 5vw, 72px);
+  }
+  .map-head .lede {
+    font-size: 17px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .map-wrap {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+  }
+  .map-svg-wrap {
+    position: relative;
+  }
+  .map-svg { width: 100%; height: auto; display: block; }
+  .map-pin {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    cursor: pointer;
+  }
+  .map-legend h3 {
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .legend-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 28px;
+  }
+  .legend-item {
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 14px 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    cursor: pointer;
+    transition: all .2s;
+    border-left: 3px solid transparent;
+  }
+  .legend-item:hover, .legend-item.active {
+    border-left-color: var(--or);
+    background: var(--bg);
+  }
+  .legend-marker {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .legend-marker.hq { background: var(--or); box-shadow: 0 0 0 3px rgba(239,127,26,0.25); }
+  .legend-marker.store { background: var(--ink); }
+  .legend-marker.ship { background: #fff; border: 2px solid var(--ink); }
+  .legend-item .meta {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .legend-item .place {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .map-key {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .map-key-row {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .pulse {
+    animation: pulse 2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(239,127,26,0.5); }
+    100% { box-shadow: 0 0 0 18px rgba(239,127,26,0); }
+  }
+
+  /* === TEAM === */
+  .team {
+    background: var(--green);
+    color: #fff;
+    padding: 130px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .team::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 30%, rgba(255,255,255,0.06), transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(0,0,0,0.18), transparent 50%);
+    pointer-events: none;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+  }
+  .team-mark {
+    aspect-ratio: 1/1;
+    background: var(--green-deep);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .team-mark::before {
+    content: "";
+    position: absolute;
+    inset: 30px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .team-mark-glyph {
+    width: 45%;
+    aspect-ratio: 1/1;
+    background: var(--or);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+    font-size: clamp(60px, 8vw, 120px);
+    color: var(--ink);
+    letter-spacing: -0.05em;
+    transform: rotate(-4deg);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.4);
+  }
+  .team-text h2 {
+    font-size: clamp(48px, 6vw, 92px);
+    margin-bottom: 32px;
+  }
+  .team-text .quote {
+    font-size: 19px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.85);
+    max-width: 580px;
+    margin-bottom: 36px;
+  }
+  .team-sig {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.18);
+    max-width: 360px;
+  }
+  .team-sig .av {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--or);
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .team-sig .name { font-weight: 700; font-size: 15px; }
+  .team-sig .role { font-size: 13px; color: rgba(255,255,255,0.7); }
+
+  /* === CTA === */
+  .cta {
+    background: var(--bg-deep);
+    color: #fff;
+    padding: 130px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 50% at 50% 40%, rgba(239,127,26,0.18), transparent 60%);
+  }
+  .cta-inner { position: relative; }
+  .cta h2 {
+    font-size: clamp(56px, 7vw, 110px);
+    margin-bottom: 20px;
+    letter-spacing: -0.03em;
+  }
+  .cta .sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 14px;
+  }
+  .cta .hours {
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--or-soft);
+    margin-bottom: 48px;
+    font-weight: 600;
+  }
+  .cta .btn-or { padding: 20px 40px; font-size: 14px; }
+
+  /* footer */
+  .footer {
+    background: #0e0e0e;
+    color: rgba(255,255,255,0.7);
+    padding: 50px 0;
+    font-size: 14px;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer .logo { color: #fff; }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { color: inherit; text-decoration: none; }
+  .footer-links a:hover { color: var(--or); }
+
+  /* reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-grid, .snap-head, .auto-grid, .kts-grid, .map-head, .map-wrap, .team-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .focus-grid, .principles { grid-template-columns: 1fr; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body data-screen-label="About Us">
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="#">
+      <span class="logo-mark">R</span>
+      Rollun
+    </a>
+    <nav class="nav">
+      <a href="#">Home</a>
+      <a href="#" class="active">About</a>
+      <a href="#">Shops</a>
+      <a href="#">Brands</a>
+      <a href="#">Contact</a>
+    </nav>
+    <a class="header-cta" href="#cta">Get in touch →</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">About Rollun · Est. 2015</div>
+      <h1>
+        <span class="line">Why partners</span>
+        <span class="line">choose <span class="or-txt">Rollun.</span></span>
+      </h1>
+      <p class="hero-lede">
+        A traditional business mindset powered by modern operations and automation.
+        Rollun is a U.S.‑based LLC registered in Sheridan, Wyoming, founded by a Ukrainian
+        team. Since April 2015 we've been building automated e‑commerce distribution
+        — and the software that runs it.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="num">11</div>
+          <div class="lbl">Years operating</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="num">80K+</div>
+          <div class="lbl">Customers served</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="num">3</div>
+          <div class="lbl">Marketplaces</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hv-card c1">
+        <div class="corner"><span>LLC · Wyoming</span><span>2015</span></div>
+        <h4>Sheridan,<br>WY · USA</h4>
+        <div class="sub">Registered entity</div>
+      </div>
+      <div class="hv-card c2">
+        <div class="corner"><span>Operations</span><span>Houston</span></div>
+        <h4>Brick &amp; mortar +<br>fulfillment</h4>
+        <div class="sub">Texas hub</div>
+      </div>
+      <div class="hv-card c3">
+        <div class="corner" style="color:var(--ink)"><span>Tech stack</span><span>Built in-house</span></div>
+        <h4>Automation<br>platform</h4>
+        <div class="sub" style="color:var(--ink-soft)">Proprietary tools, ~80% workflow coverage</div>
+      </div>
+      <div class="hv-stamp">
+        <div class="big">EST.</div>
+        <div class="big">2015</div>
+        <div class="sm">Trusted</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SNAPSHOT -->
+<section class="snapshot" data-screen-label="02 Snapshot">
+  <div class="container">
+    <div class="snap-head">
+      <div>
+        <div class="eyebrow">Company snapshot</div>
+        <h2>Who we are<br>and what we do.</h2>
+      </div>
+      <p class="lede">
+        We focus on a small number of categories and do them well — from sourcing,
+        to listing, to fulfillment, to support. Three product lines, one operating
+        playbook, built on technology we own.
+      </p>
+    </div>
+    <div class="focus-grid">
+      <div class="focus-card">
+        <div class="focus-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="9" cy="22" r="3"/>
+            <circle cx="23" cy="22" r="3"/>
+            <path d="M3 22h3M12 22h8M26 22h3M5 16l3-7h12l3 4 4 1v6"/>
+          </svg>
+        </div>
+        <div class="focus-num">01 · CATEGORY</div>
+        <h3>Automotive parts<br>&amp; accessories</h3>
+        <p>Motorcycle and automotive products — oils &amp; fluids, electrical systems, tires &amp; wheels, batteries.</p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M16 28s-10-6-10-14a6 6 0 0 1 10-4.5A6 6 0 0 1 26 14c0 8-10 14-10 14z"/>
+          </svg>
+        </div>
+        <div class="focus-num">02 · CATEGORY</div>
+        <h3>Health &amp; wellness<br>products</h3>
+        <p>Orthopedic supports, pain relief &amp; recovery rubs, dietary and sport supplements, energy &amp; focus.</p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="6" y="6" width="20" height="20" rx="2"/>
+            <path d="M12 12h8M12 16h8M12 20h5"/>
+          </svg>
+        </div>
+        <div class="focus-num">03 · PLATFORM</div>
+        <h3>AI‑driven automation<br>solutions</h3>
+        <p>Tools developed, used, and tested by our own team — then offered to partners.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+    <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#ECECEC"/>
+  </svg>
+</div>
+
+<!-- APPROACH -->
+<section class="approach" data-screen-label="03 Approach">
+  <div class="container">
+    <div class="approach-head">
+      <div class="eyebrow" style="justify-content:center;">Our approach</div>
+      <h2>Four principles<br>that compound <span class="or-txt">over time.</span></h2>
+    </div>
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <div class="principle-body">
+          <h3>Integrity above all</h3>
+          <p>Honest, transparent, ethical. Partners, suppliers, customers — same standard for everyone.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <div class="principle-body">
+          <h3>Innovation as growth engine</h3>
+          <p>Automation, analytics, AI. We compound by improving the machine, not by adding people.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <div class="principle-body">
+          <h3>Efficiency, long‑term focus</h3>
+          <p>Durable value over quick wins. Decisions are made on a multi‑year horizon.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">04</div>
+        <div class="principle-body">
+          <h3>Small, stable team</h3>
+          <p>Led by an experienced CEO — an expert in business development and operations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATION (dark, with animated counters) -->
+<section class="automation" data-screen-label="04 Automation">
+  <div class="container">
+    <div class="auto-grid">
+      <div>
+        <div class="eyebrow on-dark">Automation &amp; technology</div>
+        <h2>Automation that improves <span class="or-txt">reliability.</span></h2>
+        <p class="lede">
+          We scale through innovation and technology, not by expanding headcount.
+          Internal tools and process automation reduce operational costs and keep
+          execution consistent — week after week, year after year.
+        </p>
+      </div>
+      <div class="auto-stats">
+        <div class="stat big">
+          <div class="stat-val"><span data-count="50000">0</span><span class="unit">+</span></div>
+          <div class="stat-lbl">Items in inventory handled by a small team</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val"><span data-count="80">0</span><span class="unit">%</span></div>
+          <div class="stat-lbl">Operations completed without human work</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val"><span data-count="30">0</span><span class="unit">%</span></div>
+          <div class="stat-lbl">Cost savings via automation<br><span style="opacity:0.55;font-size:11px;letter-spacing:0.18em">Internal benchmark</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEEPTOSHIP -->
+<section class="kts" data-screen-label="05 KeepToShip">
+  <div class="container">
+    <div class="kts-grid">
+      <div class="kts-body">
+        <div class="kts-tag">Our technological startup</div>
+        <h2><span class="or-txt">KeepToShip</span><br>logistics, distributed.</h2>
+        <p>
+          KeepToShip is an AI‑powered logistics platform that connects online sellers
+          with a distributed network of independent keep‑and‑ship partners.
+        </p>
+        <p>
+          Our Uber‑like system replaces complex centralized logistics by storing
+          products closer to customers — enabling faster delivery, lower shipping
+          costs, and scalable fulfillment without expensive warehouses.
+        </p>
+
+        <div class="kts-cta-block">
+          <div class="kts-cta-text">
+            <strong>Want to work with us?</strong>
+            Invest, store products in your area, or use KeepToShip in your free time.
+          </div>
+          <a class="btn-or" href="https://keeptoship.com/" target="_blank" rel="noopener">Learn more →</a>
+        </div>
+      </div>
+      <div class="kts-visual">
+        <svg viewBox="0 0 400 400" width="100%" height="100%" aria-hidden="true">
+          <!-- background grid -->
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M40 0 L0 0 0 40" fill="none" stroke="#eee" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="400" fill="url(#grid)"/>
+
+          <!-- connections -->
+          <g stroke="#1a1a1a" stroke-width="1" opacity="0.25" stroke-dasharray="3 3">
+            <line x1="200" y1="200" x2="80" y2="100"/>
+            <line x1="200" y1="200" x2="320" y2="110"/>
+            <line x1="200" y1="200" x2="90" y2="290"/>
+            <line x1="200" y1="200" x2="320" y2="280"/>
+            <line x1="200" y1="200" x2="200" y2="60"/>
+            <line x1="200" y1="200" x2="200" y2="340"/>
+          </g>
+
+          <!-- partner nodes -->
+          <g fill="#1a1a1a">
+            <circle cx="80" cy="100" r="6"/>
+            <circle cx="320" cy="110" r="6"/>
+            <circle cx="90" cy="290" r="6"/>
+            <circle cx="320" cy="280" r="6"/>
+            <circle cx="200" cy="60" r="6"/>
+            <circle cx="200" cy="340" r="6"/>
+          </g>
+
+          <!-- center: AI -->
+          <circle cx="200" cy="200" r="50" fill="#EF7F1A"/>
+          <circle cx="200" cy="200" r="50" fill="none" stroke="#EF7F1A" stroke-width="2" opacity="0.4">
+            <animate attributeName="r" from="50" to="80" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.5" to="0" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <text x="200" y="195" text-anchor="middle" font-family="Karla" font-weight="800" font-size="22" fill="#1a1a1a">AI</text>
+          <text x="200" y="215" text-anchor="middle" font-family="Karla" font-weight="600" font-size="10" fill="#1a1a1a" letter-spacing="2">ROUTING</text>
+
+          <!-- labels -->
+          <g font-family="Karla" font-size="10" fill="#666" font-weight="600">
+            <text x="80" y="85" text-anchor="middle">PARTNER · WA</text>
+            <text x="320" y="95" text-anchor="middle">PARTNER · NY</text>
+            <text x="90" y="310" text-anchor="middle">PARTNER · CA</text>
+            <text x="320" y="300" text-anchor="middle">PARTNER · FL</text>
+            <text x="200" y="48" text-anchor="middle">PARTNER · MN</text>
+            <text x="200" y="358" text-anchor="middle">PARTNER · TX</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- US MAP -->
+<section class="map-section" data-screen-label="06 US Presence">
+  <div class="container">
+    <div class="map-head">
+      <div>
+        <div class="eyebrow">US presence</div>
+        <h2>A real, operating <span class="or-txt">U.S. company.</span></h2>
+      </div>
+      <p class="lede">
+        Registered in Wyoming, operating from Texas, shipping across the country
+        through a network of partner nodes. Hover any pin to see the details.
+      </p>
+    </div>
+
+    <div class="map-wrap" id="map">
+      <div class="map-svg-wrap">
+        <svg class="map-svg" viewBox="0 0 1000 600" id="us-map">
+          <!-- Simplified US silhouette (approximation) -->
+          <path d="M150,180 L180,150 L220,140 L260,135 L310,140 L360,150 L420,145 L480,140 L540,135 L600,130 L660,128 L720,135 L780,150 L820,170 L850,200 L860,240 L855,280 L840,320 L820,355 L795,385 L760,410 L720,430 L680,445 L640,455 L600,460 L560,460 L520,460 L480,460 L440,460 L400,458 L360,452 L320,440 L280,425 L245,405 L215,380 L190,350 L170,315 L155,275 L148,235 Z" fill="#fff" stroke="#1a1a1a" stroke-width="1.5" opacity="1"/>
+
+          <!-- State texture lines (decorative) -->
+          <g stroke="#1a1a1a" stroke-width="0.6" opacity="0.15" fill="none">
+            <path d="M250,180 L260,360"/>
+            <path d="M340,160 L340,400"/>
+            <path d="M430,150 L430,440"/>
+            <path d="M520,145 L520,455"/>
+            <path d="M610,140 L610,455"/>
+            <path d="M700,140 L700,440"/>
+            <path d="M780,170 L780,400"/>
+            <path d="M170,220 L840,220"/>
+            <path d="M160,280 L850,280"/>
+            <path d="M180,340 L820,340"/>
+            <path d="M220,400 L780,400"/>
+          </g>
+
+          <!-- pins will be overlaid in HTML for interactivity -->
+        </svg>
+
+        <!-- Pins (positioned as % of map svg viewport) -->
+        <!-- Sheridan WY ~ 44.8N -107W -> approx in 1000x600 -->
+        <div class="map-pin pin-hq" style="left: 39%; top: 28%;" data-loc="hq">
+          <svg width="28" height="36" viewBox="0 0 28 36"><path d="M14 0C6 0 0 6 0 14c0 10 14 22 14 22s14-12 14-22c0-8-6-14-14-14z" fill="#EF7F1A"/><circle cx="14" cy="14" r="5" fill="#1a1a1a"/></svg>
+        </div>
+        <!-- Houston TX -->
+        <div class="map-pin pin-store" style="left: 53%; top: 73%;" data-loc="store">
+          <svg width="28" height="36" viewBox="0 0 28 36"><path d="M14 0C6 0 0 6 0 14c0 10 14 22 14 22s14-12 14-22c0-8-6-14-14-14z" fill="#1a1a1a"/><circle cx="14" cy="14" r="5" fill="#fff"/></svg>
+        </div>
+        <!-- Shipping nodes -->
+        <div class="map-pin pin-ship" style="left: 22%; top: 35%;" data-loc="ship-wa"><div class="ship-dot"></div></div>
+        <div class="map-pin pin-ship" style="left: 25%; top: 65%;" data-loc="ship-ca"><div class="ship-dot"></div></div>
+        <div class="map-pin pin-ship" style="left: 44%; top: 58%;" data-loc="ship-co"><div class="ship-dot"></div></div>
+        <div class="map-pin pin-ship" style="left: 60%; top: 50%;" data-loc="ship-mo"><div class="ship-dot"></div></div>
+        <div class="map-pin pin-ship" style="left: 70%; top: 38%;" data-loc="ship-il"><div class="ship-dot"></div></div>
+        <div class="map-pin pin-ship" style="left: 78%; top: 60%;" data-loc="ship-ga"><div class="ship-dot"></div></div>
+        <div class="map-pin pin-ship" style="left: 82%; top: 27%;" data-loc="ship-ny"><div class="ship-dot"></div></div>
+        <div class="map-pin pin-ship" style="left: 80%; top: 75%;" data-loc="ship-fl"><div class="ship-dot"></div></div>
+      </div>
+
+      <aside class="map-legend">
+        <h3>Locations</h3>
+        <div class="legend-list" id="legend-list">
+          <div class="legend-item active" data-loc="hq">
+            <div class="legend-marker hq"></div>
+            <div>
+              <div class="meta">Registered HQ</div>
+              <div class="place">Sheridan, Wyoming</div>
+            </div>
+          </div>
+          <div class="legend-item" data-loc="store">
+            <div class="legend-marker store"></div>
+            <div>
+              <div class="meta">Brick &amp; mortar · Operations</div>
+              <div class="place">Houston, Texas</div>
+            </div>
+          </div>
+          <div class="legend-item" data-loc="ship-ca">
+            <div class="legend-marker ship"></div>
+            <div>
+              <div class="meta">Shipping node</div>
+              <div class="place">Los Angeles, CA</div>
+            </div>
+          </div>
+          <div class="legend-item" data-loc="ship-il">
+            <div class="legend-marker ship"></div>
+            <div>
+              <div class="meta">Shipping node</div>
+              <div class="place">Chicago, IL</div>
+            </div>
+          </div>
+          <div class="legend-item" data-loc="ship-ny">
+            <div class="legend-marker ship"></div>
+            <div>
+              <div class="meta">Shipping node</div>
+              <div class="place">New York, NY</div>
+            </div>
+          </div>
+          <div class="legend-item" data-loc="ship-fl">
+            <div class="legend-marker ship"></div>
+            <div>
+              <div class="meta">Shipping node</div>
+              <div class="place">Miami, FL</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-key">
+          <div class="map-key-row"><span class="legend-marker hq" style="width:10px;height:10px;"></span> Registered HQ</div>
+          <div class="map-key-row"><span class="legend-marker store" style="width:10px;height:10px;"></span> Operations / store</div>
+          <div class="map-key-row"><span class="legend-marker ship" style="width:10px;height:10px;"></span> Shipping origin</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" data-screen-label="07 Team">
+  <div class="container team-grid">
+    <div class="team-mark">
+      <div class="team-mark-glyph">R</div>
+    </div>
+    <div class="team-text">
+      <div class="eyebrow on-dark" style="color:rgba(255,255,255,0.7);">The team</div>
+      <h2>We love what<br>we do.</h2>
+      <p class="quote">
+        A small, stable team that has worked together for years — disciplined operators
+        on the business side, sharp engineers on the platform side. We hire slowly,
+        invest in tooling, and let the work speak for itself.
+      </p>
+      <div class="team-sig">
+        <div class="av">CEO</div>
+        <div>
+          <div class="name">Rollun leadership</div>
+          <div class="role">Business development &amp; operations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta" data-screen-label="08 CTA">
+  <div class="container cta-inner">
+    <div class="eyebrow on-dark" style="justify-content:center;">Let's talk business</div>
+    <h2>Let's talk<br><span class="or-txt">business.</span></h2>
+    <p class="sub">Wholesale, partnership, and marketplace operations.</p>
+    <p class="hours">Mon–Fri · 09:00–21:00 UTC+2</p>
+    <a class="btn-or" href="#" style="padding:22px 48px;">Get in touch →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <a class="logo" href="#">
+      <span class="logo-mark">R</span>
+      Rollun
+    </a>
+    <div class="footer-links">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Shops</a>
+      <a href="#">Brands</a>
+      <a href="#">Contact</a>
+    </div>
+    <div>© 2026 Rollun LLC · Sheridan, WY</div>
+  </div>
+</footer>
+
+<style>
+  .map-pin .ship-dot {
+    width: 14px; height: 14px;
+    background: #fff;
+    border: 2px solid #1a1a1a;
+    border-radius: 50%;
+    transition: transform .2s;
+  }
+  .map-pin.pin-ship { transform: translate(-50%, -50%); }
+  .map-pin:hover .ship-dot { transform: scale(1.4); background: var(--or); border-color: var(--or); }
+  .map-pin.active .ship-dot { background: var(--or); border-color: var(--or); transform: scale(1.4); }
+  .map-pin.pin-hq svg, .map-pin.pin-store svg {
+    transition: transform .2s;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  }
+  .map-pin:hover svg { transform: scale(1.15); }
+</style>
+
+<script>
+  // Animated counters
+  const counters = document.querySelectorAll('[data-count]');
+  const animateCounter = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const duration = 1800;
+    const start = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const tick = (now) => {
+      const p = Math.min(1, (now - start) / duration);
+      const v = Math.floor(ease(p) * target);
+      el.textContent = v.toLocaleString('en-US');
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString('en-US');
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        if (e.target.dataset.count) animateCounter(e.target);
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  counters.forEach(c => io.observe(c));
+  document.querySelectorAll('section').forEach(s => s.classList.add('reveal'));
+  document.querySelectorAll('.reveal').forEach(r => io.observe(r));
+
+  // Map interactivity
+  const legendItems = document.querySelectorAll('.legend-item');
+  const pins = document.querySelectorAll('.map-pin');
+
+  const activate = (loc) => {
+    legendItems.forEach(li => li.classList.toggle('active', li.dataset.loc === loc));
+    pins.forEach(p => p.classList.toggle('active', p.dataset.loc === loc));
+  };
+
+  legendItems.forEach(li => {
+    li.addEventListener('mouseenter', () => activate(li.dataset.loc));
+    li.addEventListener('click', () => activate(li.dataset.loc));
+  });
+  pins.forEach(p => {
+    p.addEventListener('mouseenter', () => activate(p.dataset.loc));
+    p.addEventListener('click', () => activate(p.dataset.loc));
+  });
+
+  // Subtle parallax for hero visual
+  const hv = document.querySelector('.hero-visual');
+  if (hv) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < 800) {
+        hv.style.transform = `translateY(${y * -0.08}px)`;
+      }
+    }, { passive: true });
+  }
+</script>
+
+</body>
+</html>

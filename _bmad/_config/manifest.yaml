@@ -1,0 +1,57 @@
+installation:
+  version: 6.9.0
+  installDate: 2026-07-02T15:56:41.984Z
+  lastUpdated: 2026-07-02T15:56:41.984Z
+modules:
+  - name: core
+    version: 6.9.0
+    installDate: 2026-07-02T15:56:40.275Z
+    lastUpdated: 2026-07-02T15:56:41.966Z
+    source: built-in
+    npmPackage: null
+    repoUrl: null
+  - name: bmm
+    version: 6.9.0
+    installDate: 2026-07-02T15:56:40.519Z
+    lastUpdated: 2026-07-02T15:56:41.967Z
+    source: built-in
+    npmPackage: null
+    repoUrl: null
+  - name: tea
+    version: v1.19.0
+    installDate: 2026-07-02T15:56:41.271Z
+    lastUpdated: 2026-07-02T15:56:41.973Z
+    source: external
+    npmPackage: bmad-method-test-architecture-enterprise
+    repoUrl: https://github.com/bmad-code-org/bmad-method-test-architecture-enterprise
+    channel: stable
+    sha: 8734d51f24071ddbcb3617390b5fcddb4128ef77
+  - name: automator
+    version: main
+    installDate: 2026-07-02T15:56:41.408Z
+    lastUpdated: 2026-07-02T15:56:41.976Z
+    source: external
+    npmPackage: bmad-story-automator
+    repoUrl: https://github.com/bmad-code-org/bmad-automator
+    channel: next
+    sha: f332173a692ffbabb24734c31dedadfcf78b9ed1
+  - name: bmb
+    version: v2.1.0
+    installDate: 2026-07-02T15:56:41.555Z
+    lastUpdated: 2026-07-02T15:56:41.979Z
+    source: external
+    npmPackage: bmad-builder
+    repoUrl: https://github.com/bmad-code-org/bmad-builder
+    channel: stable
+    sha: d54981a8ba3b990148256455ccf4e6c1cb4918f0
+  - name: rollun
+    version: main
+    installDate: 2026-07-02T15:56:41.768Z
+    lastUpdated: 2026-07-02T15:56:41.984Z
+    source: custom
+    npmPackage: null
+    repoUrl: git@github.com:rollun-lc/bmad-kit.git
+    channel: next
+ides:
+  - claude-code
+  - codex

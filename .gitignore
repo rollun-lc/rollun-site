@@ -1,0 +1,7 @@
+.claude
+.agents
+.env
+.env.local
+
+# Large binary archives (exceed GitHub 100MB limit) — keep out of git
+*.zip
