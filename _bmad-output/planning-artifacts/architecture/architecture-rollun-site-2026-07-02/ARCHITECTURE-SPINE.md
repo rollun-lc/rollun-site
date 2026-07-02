@@ -257,7 +257,7 @@ rollun-site/
 | FR-2…FR-8 Страницы (Home/About/Catalog/Brands/Shops/Contact) | `app/(site)/*`, `content/*` | AD-1, AD-3, AD-7, AD-13 |
 | FR-4/FR-5 Catalog: линии, слайдер, quick-view, офферы | `components/islands`, `lib/offers.ts` | AD-1, AD-9 |
 | FR-9/FR-10/FR-11 Contact-форма (3 режима, CRM, анти-спам) | `components/contact-form` | AD-8 |
-| FR-12 Паспорт компании из одного места | `globals/SiteSettings` | AD-5, AD-6 |
+| FR-12 Паспорт компании из одного места | `globals/SiteSettings` | AD-5, AD-6, AD-14 |
 | FR-13 Правка контента без разработчика | `globals/*` + хуки ревалидации | AD-5, AD-6, AD-7, AD-10 |
 | NFR-1 Одна DS | `styles/theme.css` | AD-2 |
 | NFR-2 Брейкпоинты / переход на 768px | `shell` + композиции страниц | AD-3 |
