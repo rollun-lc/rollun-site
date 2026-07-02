@@ -5,7 +5,7 @@ purpose: build-substrate
 altitude: initiative
 paradigm: 'Islands architecture поверх захардкоженной оболочки с типизированными слотами контента'
 scope: 'Весь сайт Rollun как один контракт: 6 страниц (desktop+mobile), общий layout, единый компонент Contact-формы, фазированная контент-архитектура Payload CMS (Фазы 0–4). Фиксирует инварианты, по которым независимо строящиеся страницы/островки/слоты/фазы не разъезжаются.'
-status: draft
+status: final
 created: '2026-07-02'
 updated: '2026-07-02'
 binds: [FR-1, FR-2, FR-3, FR-4, FR-5, FR-6, FR-7, FR-8, FR-9, FR-10, FR-11, FR-12, FR-13, NFR-1, NFR-2, NFR-3, NFR-4, NFR-5]
