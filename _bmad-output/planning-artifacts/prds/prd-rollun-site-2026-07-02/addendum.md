@@ -29,9 +29,9 @@
 **Globals:** `SiteSettings` (паспорт: телефоны, адреса, email, GitHub, LinkedIn, часы) + по одному на страницу: `HomeContent`, `AboutContent`, `CatalogContent`, `BrandsContent`, `ShopsContent`, `ContactContent` (поля строго под слоты).
 
 **Collections:**
-- `Products` — шов `sku`/`externalId` заложен сразу. **Перезаписываемые фидом поля (Фаза 4):** цена, картинка(и), наличие — дописываются поверх ручного ввода без переделки модели. Прочие поля по дизайну Catalog: brand, domain/категория, name, images, rating, specs, fits/совместимость, офферы (Amazon/eBay/Walmart). Категории: Automotive (масла и жидкости, электрика, шины и диски, АКБ), Health (ортопедия, обезболивание, добавки, energy & focus).
-- `Brands` — лого брендов «Brands we work with» для **Marquee брендов на Catalog** (не для страницы Our Brands — та про собственный бренд MOTOTOU, см. §4.5 PRD). MOTOTOU и его контент (story/products/сертификат) — отдельная сущность/контент страницы Our Brands.
-- `Shops`/`Locations` — точки магазинов (Conroe TX для Our Shops; Houston TX 77039 / Sheridan WY для табов карты Contact), ссылки/embeds Google Maps.
+- `Products` — шов `sku`/`externalId` заложен сразу. **Перезаписываемые фидом поля (Фаза 4):** цена, картинка(и), наличие. Реальная модель карточки из прототипа: `{ brand, domain (сайт бренда, источник фавиконки — не категория), name, imgs, rating, reviews, specs, fits, desc }`. Категория — неявный ключ группировки (tires/oils/elec/health), отдельного поля нет. **`offers` — не поле, а рантайм-генерация** (`buildOffers` + псевдо-цена): Health → Amazon/eBay, Automotive → Amazon/eBay/Walmart. Изображения в прототипе — плейсхолдеры («Photo N»). Категории: Automotive (масла и жидкости, электрика, шины и диски, АКБ), Health (ортопедия, обезболивание, добавки, energy & focus).
+- `Brands` — лого брендов «Brands we work with» для **Marquee брендов на Catalog** (не для страницы Our Brands — та про собственный бренд MOTOTOU, см. §4.5 PRD). Страница-контент Our Brands = глобал `BrandsContent` (MOTOTOU: story/products/сертификат) — это отдельная сущность, не коллекция `Brands`.
+- `Shops`/`Locations` — магазин Houston TX 77039 (5327 Aldine Mail Route Rd — видимый и на Our Shops, и на Contact); Sheridan WY (legal) для таба карты Contact. «Conroe TX» — только в ссылке GET DIRECTIONS на Our Shops (нестыковка дизайна). Ссылки/embeds Google Maps.
 - `Media` — авто-оптимизация изображений.
 - `Posts` — новости (Фаза 4).
 - `Users` — встроенный auth Payload, роли `admin`/`manager`, access control.
