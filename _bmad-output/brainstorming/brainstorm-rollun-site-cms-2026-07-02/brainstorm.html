@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rollun · Брейншторм CMS-сайта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --o-50:#FEF4E8; --o-100:#FCE3C6; --o-300:#F5B36A; --o-500:#EA7B08; --o-700:#B75F06; --o-900:#6E3A0A;
+  --c-400:#54585A; --c-600:#3A3E40; --c-800:#2A2D2E; --c-900:#1A1C1D;
+  --white:#ffffff; --paper:#F7F6F4; --line:rgba(84,88,90,.16);
+  --live:#E5484D; --edit:#E0A800; --passport:#2E9E5B; --nailed:#2A2D2E;
+  --sh-sm:0 1px 2px rgba(26,28,29,.06),0 1px 3px rgba(26,28,29,.10);
+  --sh-md:0 4px 12px rgba(26,28,29,.08),0 2px 4px rgba(26,28,29,.06);
+  --sh-lg:0 18px 48px rgba(26,28,29,.14),0 6px 16px rgba(26,28,29,.10);
+  --r-sm:8px; --r-md:12px; --r-lg:18px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Hanken Grotesk',system-ui,sans-serif;
+  color:var(--c-800); background:var(--paper);
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(circle at 12% -5%, rgba(234,123,8,.07), transparent 40%),
+    radial-gradient(circle at 92% 8%, rgba(234,123,8,.05), transparent 35%);
+}
+.mono{font-family:'Spline Sans Mono',monospace}
+h1,h2,h3,h4{font-family:'Archivo',sans-serif;line-height:1.08;letter-spacing:-.02em;color:var(--c-900)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:76px 0}
+
+/* ---------- badges / labels ---------- */
+.eyebrow{
+  font-family:'Spline Sans Mono',monospace; font-size:12.5px; font-weight:600;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--o-700);
+  display:inline-flex; align-items:center; gap:9px; margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--o-500);border-radius:2px}
+.who{
+  display:inline-flex;align-items:center;gap:6px;font-family:'Spline Sans Mono',monospace;
+  font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 9px;border-radius:100px;
+  text-transform:uppercase;white-space:nowrap;
+}
+.who.user{background:var(--o-50);color:var(--o-700);border:1px solid var(--o-100)}
+.who.coach{background:#EAF7F0;color:#1E7A45;border:1px solid #CDEBDA}
+.who.dec{background:var(--c-900);color:#fff}
+.who::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.85}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;overflow:hidden;color:#fff;
+  background:
+    linear-gradient(155deg, var(--c-900) 0%, var(--c-800) 46%, var(--c-600) 100%);
+  padding:96px 0 108px;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:52px 52px;
+  -webkit-mask-image:radial-gradient(circle at 78% 22%,#000,transparent 72%);
+          mask-image:radial-gradient(circle at 78% 22%,#000,transparent 72%);
+}
+.hero::after{
+  content:"";position:absolute;right:-140px;top:-120px;width:560px;height:560px;border-radius:50%;
+  background:radial-gradient(circle,rgba(234,123,8,.55),rgba(234,123,8,0) 62%);filter:blur(8px);
+}
+.hero .wrap{position:relative;z-index:2}
+.hero .eyebrow{color:var(--o-300)}
+.hero .eyebrow::before{background:var(--o-300)}
+.hero h1{
+  color:#fff;font-weight:900;font-size:clamp(38px,6.4vw,74px);max-width:15ch;margin-bottom:22px;
+}
+.hero h1 .hl{color:var(--o-500)}
+.goal-card{
+  margin-top:30px;display:inline-flex;gap:16px;align-items:flex-start;max-width:640px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  border-left:4px solid var(--o-500);border-radius:var(--r-md);padding:20px 24px;backdrop-filter:blur(4px);
+}
+.goal-card .tag{font-family:'Spline Sans Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--o-300);text-transform:uppercase;margin-bottom:6px;display:block}
+.goal-card p{color:#ECECEA;font-size:17px;font-weight:500}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.chip{
+  font-family:'Spline Sans Mono',monospace;font-size:12px;font-weight:500;color:#D6D6D4;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);
+  padding:8px 14px;border-radius:100px;display:inline-flex;align-items:center;gap:8px;
+}
+.chip b{color:#fff;font-weight:600}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--o-500);box-shadow:0 0 0 4px rgba(234,123,8,.2)}
+
+/* ---------- section head ---------- */
+.sec-head{margin-bottom:44px;max-width:760px}
+.sec-head h2{font-size:clamp(28px,3.8vw,42px);font-weight:800;margin-bottom:14px}
+.sec-head p{color:var(--c-400);font-size:17px}
+
+/* ---------- pivot banner ---------- */
+.pivot{
+  position:relative;background:var(--o-500);color:#fff;border-radius:var(--r-lg);
+  padding:34px 38px;box-shadow:var(--sh-lg);overflow:hidden;
+  display:flex;gap:26px;align-items:center;flex-wrap:wrap;
+}
+.pivot::after{content:"⟲";position:absolute;right:-18px;bottom:-56px;font-size:230px;line-height:1;color:rgba(255,255,255,.10);font-family:'Archivo'}
+.pivot .ico{font-size:40px;flex-shrink:0;position:relative;z-index:2}
+.pivot .body{position:relative;z-index:2;flex:1;min-width:280px}
+.pivot .tag{font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--o-50);display:block;margin-bottom:6px}
+.pivot h3{color:#fff;font-size:23px;margin-bottom:8px}
+.pivot p{color:#FFF3E6;font-size:16px;max-width:64ch}
+
+/* ---------- journey / technique flow ---------- */
+.flow-rail{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:56px}
+.flow-step{
+  flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:var(--r-md);
+  padding:16px 18px;position:relative;box-shadow:var(--sh-sm);
+}
+.flow-step .n{font-family:'Spline Sans Mono',monospace;font-size:12px;color:var(--o-700);font-weight:600}
+.flow-step .t{font-family:'Archivo';font-weight:700;font-size:16px;color:var(--c-900);margin-top:3px}
+.flow-step .m{font-size:12px;color:var(--c-400);margin-top:4px}
+.flow-step.auto{background:var(--c-900);border-color:var(--c-900)}
+.flow-step.auto .t{color:#fff}.flow-step.auto .n{color:var(--o-300)}.flow-step.auto .m{color:#B9BBBB}
+.flow-step::after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--o-500);font-weight:700;z-index:3}
+.flow-step:last-child::after{display:none}
+
+/* technique block generic */
+.tech{margin-bottom:40px;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-md);background:#fff;border:1px solid var(--line)}
+.tech-head{display:flex;align-items:center;gap:16px;padding:22px 26px;border-bottom:1px solid var(--line)}
+.tech-num{
+  width:52px;height:52px;flex-shrink:0;border-radius:14px;display:grid;place-items:center;
+  font-family:'Archivo';font-weight:900;font-size:22px;color:#fff;background:var(--c-900);
+}
+.tech-head .meta h3{font-size:22px}
+.tech-head .meta .sub{font-family:'Spline Sans Mono',monospace;font-size:12px;color:var(--c-400);letter-spacing:.05em}
+.tech-mode{margin-left:auto;font-family:'Spline Sans Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--o-700);background:var(--o-50);border:1px solid var(--o-100);padding:6px 12px;border-radius:100px}
+.tech-mode.autonomous{color:#fff;background:var(--c-900);border-color:var(--c-900)}
+.tech-body{padding:24px 26px}
+
+/* JTBD - list of jobs as tickets */
+.jtbd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.job{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:14px 16px;
+  border-left:3px solid var(--o-500);display:flex;flex-direction:column;gap:8px;
+}
+.job .txt{font-size:15px;color:var(--c-800);font-weight:500}
+.insight-line{
+  margin-top:18px;background:#EAF7F0;border:1px dashed #9FD5B6;border-radius:var(--r-md);
+  padding:16px 18px;display:flex;gap:12px;align-items:flex-start;
+}
+.insight-line .b{font-size:22px;line-height:1}
+.insight-line .c{font-size:15px;color:#1E5637}
+.insight-line .c strong{color:#0F4325}
+
+/* Role Playing - dialogue style */
+.tech.rp .tech-num{background:var(--o-700)}
+.rp-note{
+  display:flex;gap:14px;align-items:flex-start;background:var(--o-50);border:1px solid var(--o-100);
+  border-radius:var(--r-md);padding:18px 20px;
+}
+.rp-note .q{font-size:34px;line-height:1;color:var(--o-500)}
+.rp-note p{font-size:15.5px;color:var(--c-800)}
+
+/* SCAMPER - grid of moves */
+.tech.sc{border:2px solid var(--c-900)}
+.tech.sc .tech-num{background:var(--o-500)}
+.scamper{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:14px}
+.sc-card{
+  position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:16px 18px 18px;transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+  border-top:3px solid var(--o-500);
+}
+.sc-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.sc-letter{
+  font-family:'Archivo';font-weight:900;font-size:13px;letter-spacing:.14em;color:var(--o-700);
+  display:flex;align-items:baseline;gap:8px;margin-bottom:8px;
+}
+.sc-letter .big{font-size:26px;color:var(--o-500);-webkit-text-stroke:0}
+.sc-card p{font-size:14.5px;color:var(--c-800)}
+.sc-card p b{color:var(--c-900)}
+
+/* Backcasting - reverse track */
+.tech.bc .tech-num{background:var(--c-600)}
+.bc-final{
+  background:linear-gradient(135deg,var(--c-900),var(--c-800));color:#fff;border-radius:var(--r-md);
+  padding:22px 24px;margin-bottom:20px;position:relative;overflow:hidden;
+}
+.bc-final::after{content:"◎";position:absolute;right:20px;top:-8px;font-size:110px;color:rgba(234,123,8,.18);font-family:'Archivo'}
+.bc-final .tag{font-family:'Spline Sans Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--o-300);text-transform:uppercase}
+.bc-final p{color:#F0F0EE;font-size:16.5px;margin-top:8px;max-width:70ch;position:relative;z-index:2}
+
+/* ---------- fluidity levels stacked ---------- */
+.levels{display:flex;flex-direction:column;gap:14px;max-width:820px;margin:0 auto}
+.level{
+  display:flex;align-items:center;gap:20px;border-radius:var(--r-md);padding:20px 24px;color:#fff;
+  box-shadow:var(--sh-md);position:relative;overflow:hidden;
+}
+.level .lv-dot{font-size:22px;line-height:1}
+.level .lv-main{flex:1}
+.level .lv-name{font-family:'Archivo';font-weight:800;font-size:20px}
+.level .lv-desc{font-size:14px;opacity:.92}
+.level .lv-where{font-family:'Spline Sans Mono',monospace;font-size:11.5px;letter-spacing:.06em;padding:6px 12px;border-radius:100px;background:rgba(255,255,255,.16);white-space:nowrap}
+.level.l-live{background:linear-gradient(100deg,#C93B40,#E5484D);width:100%}
+.level.l-edit{background:linear-gradient(100deg,#C08800,#E0A800);width:92%;margin-left:auto;margin-right:auto}
+.level.l-pass{background:linear-gradient(100deg,#237A47,#2E9E5B);width:84%;margin-left:auto;margin-right:auto}
+.level.l-nail{background:linear-gradient(100deg,#141617,#2A2D2E);width:76%;margin-left:auto;margin-right:auto;border:1px solid #3A3E40}
+.levels-cap{text-align:center;margin-top:22px;font-family:'Spline Sans Mono',monospace;font-size:12.5px;color:var(--c-400);letter-spacing:.05em}
+.levels-cap .grad{display:inline-block;vertical-align:middle}
+
+/* ---------- content model schema ---------- */
+.model-cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.model-panel{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-md);overflow:hidden}
+.model-panel .ph{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.model-panel .ph .badge{font-family:'Spline Sans Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;border-radius:6px}
+.gl .ph .badge{background:var(--o-500);color:#fff}
+.co .ph .badge{background:var(--c-900);color:#fff}
+.model-panel .ph h3{font-size:19px}
+.model-panel .ph p{font-size:12.5px;color:var(--c-400);font-family:'Spline Sans Mono',monospace}
+.schema{padding:16px 18px;display:grid;gap:10px}
+.node{
+  border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;background:var(--paper);
+  display:flex;flex-direction:column;gap:6px;
+}
+.node .nh{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.node .nn{font-family:'Spline Sans Mono',monospace;font-weight:600;font-size:14px;color:var(--c-900)}
+.node .nt{font-size:10.5px;font-family:'Spline Sans Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--o-700);background:var(--o-50);padding:2px 8px;border-radius:5px}
+.node .nd{font-size:13px;color:var(--c-400)}
+.node.seam{border-color:var(--o-500);border-style:dashed;background:var(--o-50)}
+.node.seam .nt{background:var(--o-500);color:#fff}
+.node.passport{border-left:3px solid var(--o-500)}
+
+/* ---------- roadmap timeline ---------- */
+.track{position:relative;padding-left:8px}
+.track::before{content:"";position:absolute;left:26px;top:14px;bottom:14px;width:3px;background:linear-gradient(var(--o-500),var(--o-100));border-radius:3px}
+.phase{position:relative;display:flex;gap:24px;padding:14px 0}
+.phase .marker{
+  width:54px;height:54px;flex-shrink:0;border-radius:50%;background:#fff;border:3px solid var(--o-500);
+  display:grid;place-items:center;font-family:'Archivo';font-weight:900;font-size:20px;color:var(--o-700);
+  z-index:2;box-shadow:var(--sh-sm);
+}
+.phase.hot .marker{background:var(--o-500);color:#fff;box-shadow:0 0 0 6px rgba(234,123,8,.16)}
+.phase.future .marker{border-color:var(--c-400);color:var(--c-400);border-style:dashed}
+.phase .pc{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:16px 20px;box-shadow:var(--sh-sm);flex:1}
+.phase.hot .pc{border-color:var(--o-300);box-shadow:var(--sh-md)}
+.phase .pc h4{font-size:18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.phase .pc h4 .flag{font-family:'Spline Sans Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:100px;background:var(--o-500);color:#fff}
+.phase.future .pc h4 .flag{background:var(--c-400)}
+.phase .pc p{font-size:14.5px;color:var(--c-400);margin-top:6px}
+
+/* ---------- synthesis climax ---------- */
+.synth{
+  background:linear-gradient(160deg,var(--c-900),var(--c-800) 55%,var(--o-900));color:#fff;
+  border-radius:24px;padding:56px 48px;position:relative;overflow:hidden;box-shadow:var(--sh-lg);
+}
+.synth::before{
+  content:"";position:absolute;inset:0;opacity:.4;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:44px 44px;-webkit-mask-image:radial-gradient(circle at 20% 30%,#000,transparent 75%);mask-image:radial-gradient(circle at 20% 30%,#000,transparent 75%);
+}
+.synth .in{position:relative;z-index:2}
+.synth .eyebrow{color:var(--o-300)}.synth .eyebrow::before{background:var(--o-300)}
+.synth h2{color:#fff;font-size:clamp(26px,3.6vw,40px);font-weight:800;max-width:20ch;margin-bottom:12px}
+.synth .lead{color:#F0EDEA;font-size:18px;max-width:66ch;margin-bottom:34px}
+.synth .lead .hl{color:var(--o-500);font-weight:700}
+.tension-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:34px}
+.tension{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14);border-radius:var(--r-md);padding:20px;position:relative}
+.tension .num{font-family:'Archivo';font-weight:900;font-size:34px;color:var(--o-500);line-height:1}
+.tension .tt{font-family:'Archivo';font-weight:700;font-size:16px;color:#fff;margin:8px 0 4px}
+.tension .td{font-size:13.5px;color:#CFCECB}
+.one-move{
+  display:flex;gap:16px;align-items:center;background:var(--o-500);color:#fff;border-radius:var(--r-md);
+  padding:22px 26px;
+}
+.one-move .k{font-family:'Archivo';font-weight:900;font-size:15px;letter-spacing:.14em;text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);color:#FFE7CC}
+.one-move .fx{flex:1}
+.one-move .fx .code{font-family:'Spline Sans Mono',monospace;font-size:16px;font-weight:600;color:#fff}
+.one-move .fx p{color:#FFF1E1;font-size:14px;margin-top:6px}
+.synth-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:34px}
+.synth-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-sm);padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.synth-item .si-n{font-family:'Spline Sans Mono',monospace;font-weight:600;color:var(--o-300);font-size:14px}
+.synth-item .si-t{font-size:14px;color:#E9E7E4}
+.synth-item .si-t b{color:#fff}
+
+/* ---------- footer ---------- */
+.foot{background:var(--c-900);color:#8C8F90;padding:40px 0;text-align:center;font-family:'Spline Sans Mono',monospace;font-size:12.5px}
+.foot .swatch{display:inline-flex;gap:6px;margin:14px 0}
+.foot .swatch span{width:22px;height:22px;border-radius:5px;display:inline-block;border:1px solid rgba(255,255,255,.1)}
+.foot b{color:#D6D6D4}
+
+@media(max-width:760px){
+  section{padding:52px 0}
+  .model-cols{grid-template-columns:1fr}
+  .tension-row{grid-template-columns:1fr}
+  .flow-step::after{display:none}
+  .one-move .k{writing-mode:horizontal-tb;transform:none}
+  .synth{padding:38px 26px}
+  .level{width:100%!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Брейншторм-сессия · 02.07.2026 · режим autonomous</span>
+    <h1>Сайт <span class="hl">Rollun</span> — пиксель-в-пиксель <span class="hl">и</span> редактируемый менеджерами</h1>
+    <div class="goal-card">
+      <div>
+        <span class="tag">Тема</span>
+        <p>Next.js / TypeScript / React + headless CMS. Пересобрать handoff-дизайн один-в-один, а контент отдать менеджерам без правки кода.</p>
+      </div>
+    </div>
+    <div class="goal-card" style="border-left-color:#2E9E5B">
+      <div>
+        <span class="tag" style="color:#8FE0AE">Цель</span>
+        <p>Менеджеры сами меняют картинки, тексты, даты работы и посты — без единой строчки кода.</p>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <span class="chip"><span class="dot"></span> статус: <b>завершено</b></span>
+      <span class="chip"><span class="dot"></span> техник: <b>4</b></span>
+      <span class="chip"><span class="dot"></span> развязка: <b>один архитектурный ход</b></span>
+      <span class="chip"><span class="dot"></span> итог: <b>Payload CMS 3.0 внутри Next.js</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== PIVOT ===================== -->
+<section style="padding-top:56px;padding-bottom:20px">
+  <div class="wrap">
+    <div class="pivot">
+      <div class="ico">⟲</div>
+      <div class="body">
+        <span class="tag">Разворот посреди сессии</span>
+        <h3>Пользователь передал все решения коучу</h3>
+        <p>На технике Role Playing юзер сказал: «дальше решай ты». Приоритет №1 — <b>дизайн пиксель-в-пиксель</b>. CMS и админка вторичны («на будущее, на закос»), сайт не критичный, с админкой юзер разберётся сам. С этого момента SCAMPER и Backcasting коуч ведёт автономно.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== JOURNEY ===================== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Маршрут сессии</span>
+      <h2>Четыре техники, две руки на штурвале</h2>
+      <p>Начали вдвоём — юзер приносил реальные задачи. После разворота коуч уводит идеацию в автономный режим.</p>
+    </div>
+
+    <div class="flow-rail">
+      <div class="flow-step"><span class="n">01</span><div class="t">Job to Be Done</div><div class="m">реальные задачи менеджеров</div></div>
+      <div class="flow-step"><span class="n">02</span><div class="t">Role Playing</div><div class="m">взгляд менеджера · разворот</div></div>
+      <div class="flow-step auto"><span class="n">03</span><div class="t">SCAMPER</div><div class="m">автономно · 7 ходов</div></div>
+      <div class="flow-step auto"><span class="n">04</span><div class="t">Backcasting</div><div class="m">автономно · от финала назад</div></div>
+    </div>
+
+    <!-- ---- Technique 1: JTBD ---- -->
+    <div class="tech">
+      <div class="tech-head">
+        <div class="tech-num">01</div>
+        <div class="meta">
+          <h3>Job to Be Done</h3>
+          <div class="sub">какие «работы» менеджер нанимает сайт делать</div>
+        </div>
+        <span class="tech-mode">Креативный партнёр</span>
+      </div>
+      <div class="tech-body">
+        <div class="jtbd-grid">
+          <div class="job"><span class="who user">idea · юзер</span><span class="txt">Поменять картинки на главной</span></div>
+          <div class="job"><span class="who user">idea · юзер</span><span class="txt">Обновить контакты — переезд, адрес, номер телефона</span></div>
+          <div class="job"><span class="who user">idea · юзер</span><span class="txt">Обновить соц-ссылки (GitHub, LinkedIn)</span></div>
+          <div class="job"><span class="who user">idea · юзер</span><span class="txt">Home: картинки меняемые, тексты — фиксимые (editable)</span></div>
+          <div class="job"><span class="who user">idea · юзер</span><span class="txt">Каталог: карточки товаров редактируемы вручную в CMS</span></div>
+          <div class="job"><span class="who user">decision · юзер</span><span class="txt">Автоподтяг товаров из внешнего источника — желательно в перспективе, но не сейчас. Пока ручной ввод.</span></div>
+        </div>
+
+        <div class="insight-line">
+          <div class="b">💡</div>
+          <div class="c"><span class="who coach" style="margin-right:8px">insight · коуч</span> Многие «работы» — это правка <strong>единого источника правды о компании</strong> (адрес / телефон / ссылки), который тянется во МНОГО мест на сайте. → зерно будущего Global «Паспорт компании».</div>
+        </div>
+
+        <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="job" style="border-left-color:var(--c-900)"><span class="who dec">decision · юзер</span><span class="txt">Приняты <b>уровни текучести контента</b>: 🔴 Живое · 🟡 Правимое · 🟢 Паспорт · ⚫ Гвоздями</span></div>
+          <div class="job" style="border-left-color:var(--c-900)"><span class="who dec">decision · юзер</span><span class="txt">Граница текста: живые надписи — через CMS; юр./статичный текст остаётся в коде</span></div>
+        </div>
+        <div class="insight-line" style="margin-top:12px">
+          <div class="b">🧵</div>
+          <div class="c"><span class="who coach" style="margin-right:8px">insight · коуч</span> Product в CMS проектировать с полем-швом <strong>sku / externalId</strong> сразу — чтобы будущий автосинк дописывал поверх без переделки модели.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- Technique 2: Role Playing ---- -->
+    <div class="tech rp">
+      <div class="tech-head">
+        <div class="tech-num">02</div>
+        <div class="meta">
+          <h3>Role Playing</h3>
+          <div class="sub">встать в тапки менеджера, который правит сайт</div>
+        </div>
+        <span class="tech-mode">Креативный партнёр</span>
+      </div>
+      <div class="tech-body">
+        <div class="rp-note">
+          <div class="q">”</div>
+          <div>
+            <p style="margin-bottom:10px"><span class="who dec" style="margin-right:8px">direction · юзер</span> <b>РАЗВОРОТ.</b> Пользователь передаёт все решения коучу (autonomous). Приоритет №1 — дизайн пиксель-в-пиксель. CMS / админка вторичны («на будущее, на закос»), сайт не критичный, юзер сам разберётся с админкой.</p>
+            <p style="color:var(--c-400);font-size:14px">С этой точки штурвал у коуча — следующие две техники идут в автономном режиме.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- Technique 3: SCAMPER ---- -->
+    <div class="tech sc">
+      <div class="tech-head">
+        <div class="tech-num">03</div>
+        <div class="meta">
+          <h3>SCAMPER</h3>
+          <div class="sub">семь ходов трансформации решения</div>
+        </div>
+        <span class="tech-mode autonomous">Autonomous · коуч</span>
+      </div>
+      <div class="tech-body">
+        <div class="job" style="border-left-color:var(--o-500);margin-bottom:18px;background:var(--o-50);border-color:var(--o-100)">
+          <span class="who coach">decision · коуч</span>
+          <span class="txt"><b>Выбор CMS: Payload CMS 3.0.</b> TS-native, работает ВНУТРИ того же Next.js App Router (нет сетевого хопа, local API), self-host на инфре rollun, авто-генерит админку (менеджер не ломает вёрстку), встроенная Media-коллекция с авто-ресайзом/оптимизацией, access control, open-source. Покрывает все найденные сорта контента.</span>
+        </div>
+
+        <div class="scamper">
+          <div class="sc-card"><div class="sc-letter"><span class="big">S</span> Substitute</div><p>Вместо свободного page-builder'а — <b>типизированные слоты</b>. Layout захардкожен в React, CMS заполняет только размеченные поля. Менеджер физически не сломает дизайн.</p></div>
+          <div class="sc-card"><div class="sc-letter"><span class="big">C</span> Combine</div><p>Телефон + адрес + соцссылки + часы = <b>один Global «SiteSettings»</b> (паспорт). Правка в одном месте → обновилось в шапке, футере, Contact, Our Shops.</p></div>
+          <div class="sc-card"><div class="sc-letter"><span class="big">A</span> Adapt</div><p>Каждая страница = <b>отдельный Payload Global</b> с полями ровно под её слоты, а не абстрактная «Page». Проще менеджеру, невозможно сломать структуру.</p></div>
+          <div class="sc-card"><div class="sc-letter"><span class="big">M</span> Modify</div><p>Products — коллекция с <b>полем-швом sku/externalId</b> уже сейчас (ручной ввод), чтобы автосинк дописывал цену/картинку/наличие поверх без переделки.</p></div>
+          <div class="sc-card"><div class="sc-letter"><span class="big">P</span> Put&nbsp;to&nbsp;use</div><p><b>Media-коллекция = авто-оптимизация.</b> Менеджер льёт любую тяжёлую картинку, Payload + next/image режут в нужные размеры/webp. Убирает страх «hero на 8 МБ».</p></div>
+          <div class="sc-card"><div class="sc-letter"><span class="big">E</span> Eliminate</div><p>Юр./статика, вёрстка, микрокопи — <b>НЕ в CMS, гвоздями в коде</b>. В CMS только «живые» слоты. Меньше поверхности для ошибок, быстрее MVP.</p></div>
+          <div class="sc-card"><div class="sc-letter"><span class="big">R</span> Reverse</div><p>Сначала строим пиксель-в-пиксель с <b>захардкоженным контентом</b> (приоритет №1 — дизайн), CMS подключаем слотами ПОТОМ. Дизайн-релиз не блокируется админкой.</p></div>
+        </div>
+
+        <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="job" style="border-left-color:var(--c-900)"><span class="who dec">decision · коуч</span><span class="txt"><b>Дизайн-фиделити (приоритет №1):</b> DS-токены из colors_and_type.css → 1:1 в CSS-переменные / Tailwind theme; шрифты Archivo / Hanken Grotesk / Spline Sans Mono; каждый HTML-прототип пересобирается в React пиксель-в-пиксель (матчим визуал, не копируем DOM). Mobile-HTML → адаптив-брейкпоинты.</span></div>
+          <div class="job" style="border-left-color:var(--c-900)"><span class="who dec">decision · коуч</span><span class="txt"><b>Стек:</b> Next.js App Router + TypeScript + React Server Components тянут данные из Payload local API (тот же процесс). next/image. On-demand revalidation / ISR — правки менеджера появляются быстро без пересборки.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- Technique 4: Backcasting ---- -->
+    <div class="tech bc">
+      <div class="tech-head">
+        <div class="tech-num">04</div>
+        <div class="meta">
+          <h3>Backcasting</h3>
+          <div class="sub">от идеального финала — шагами назад к сегодня</div>
+        </div>
+        <span class="tech-mode autonomous">Autonomous · коуч</span>
+      </div>
+      <div class="tech-body">
+        <div class="bc-final">
+          <span class="tag">Идеальная финальная картина</span>
+          <p>Сайт 1:1 по дизайну в проде. Менеджер меняет картинки / товары / паспорт-контакты через админку Payload, картинки авто-оптимизируются, товары вводятся руками — но модель уже готова к автосинку.</p>
+        </div>
+        <p style="color:var(--c-400);font-size:14px;margin-bottom:6px" class="mono">↓ дорожная карта — ниже отдельным треком</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FLUIDITY LEVELS ===================== -->
+<section style="background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center;margin-left:auto;margin-right:auto">
+      <span class="eyebrow" style="justify-content:center">Опорная идея</span>
+      <h2>Уровни текучести контента</h2>
+      <p>Каждый кусок сайта живёт на своём слое — от «меняем ежедневно» до «прибито гвоздями». Слой решает, где контент лежит.</p>
+    </div>
+    <div class="levels">
+      <div class="level l-live">
+        <span class="lv-dot">🔴</span>
+        <div class="lv-main"><div class="lv-name">Живое</div><div class="lv-desc">картинки, товары — меняются часто</div></div>
+        <span class="lv-where">→ CMS · Media + Products</span>
+      </div>
+      <div class="level l-edit">
+        <span class="lv-dot">🟡</span>
+        <div class="lv-main"><div class="lv-name">Правимое</div><div class="lv-desc">тексты блоков — правятся редко</div></div>
+        <span class="lv-where">→ CMS · слоты страниц</span>
+      </div>
+      <div class="level l-pass">
+        <span class="lv-dot">🟢</span>
+        <div class="lv-main"><div class="lv-name">Паспорт</div><div class="lv-desc">телефон, адрес, ссылки — один источник правды</div></div>
+        <span class="lv-where">→ Global SiteSettings</span>
+      </div>
+      <div class="level l-nail">
+        <span class="lv-dot">⚫</span>
+        <div class="lv-main"><div class="lv-name">Гвоздями</div><div class="lv-desc">вёрстка, структура, юр-текст — только код</div></div>
+        <span class="lv-where">→ React · захардкожено</span>
+      </div>
+    </div>
+    <div class="levels-cap">чем выше слой — тем чаще меняется · чем ниже — тем ближе к коду и невозможнее сломать</div>
+  </div>
+</section>
+
+<!-- ===================== CONTENT MODEL ===================== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Модель контента</span>
+      <h2>Globals против Collections</h2>
+      <p>Globals — единичные сущности (паспорт, страницы). Collections — списки записей (товары, бренды, магазины). Users — встроенный auth Payload для менеджеров.</p>
+    </div>
+    <div class="model-cols">
+      <div class="model-panel gl">
+        <div class="ph"><span class="badge">Globals</span><div><h3>Единичные</h3><p>один экземпляр на сайт</p></div></div>
+        <div class="schema">
+          <div class="node passport"><div class="nh"><span class="nn">SiteSettings</span><span class="nt">Паспорт</span></div><div class="nd">телефон · адрес · соцссылки · часы работы. Тянут ВСЕ страницы.</div></div>
+          <div class="node"><div class="nh"><span class="nn">HomeContent</span><span class="nt">Global</span></div><div class="nd">слоты главной: hero-картинка, заголовки блоков</div></div>
+          <div class="node"><div class="nh"><span class="nn">AboutContent</span><span class="nt">Global</span></div><div class="nd">поля ровно под страницу About</div></div>
+          <div class="node"><div class="nh"><span class="nn">CatalogContent</span><span class="nt">Global</span></div><div class="nd">слоты страницы каталога</div></div>
+          <div class="node"><div class="nh"><span class="nn">BrandsContent</span><span class="nt">Global</span></div><div class="nd">слоты Our Brands</div></div>
+          <div class="node"><div class="nh"><span class="nn">ShopsContent</span><span class="nt">Global</span></div><div class="nd">слоты Our Shops</div></div>
+          <div class="node"><div class="nh"><span class="nn">ContactContent</span><span class="nt">Global</span></div><div class="nd">слоты страницы Contact</div></div>
+        </div>
+      </div>
+      <div class="model-panel co">
+        <div class="ph"><span class="badge">Collections</span><div><h3>Списки</h3><p>много записей</p></div></div>
+        <div class="schema">
+          <div class="node seam"><div class="nh"><span class="nn">Products</span><span class="nt">sku-шов</span></div><div class="nd">поле-шов sku / externalId уже сейчас (ручной ввод) → готово к автосинку</div></div>
+          <div class="node"><div class="nh"><span class="nn">Brands</span><span class="nt">Collection</span></div><div class="nd">записи брендов</div></div>
+          <div class="node"><div class="nh"><span class="nn">Shops / Locations</span><span class="nt">Collection</span></div><div class="nd">точки / магазины</div></div>
+          <div class="node"><div class="nh"><span class="nn">Media</span><span class="nt">авто-ресайз</span></div><div class="nd">льёшь тяжёлую картинку → webp + нужные размеры</div></div>
+          <div class="node"><div class="nh"><span class="nn">Posts</span><span class="nt">на будущее</span></div><div class="nd">новости / блог — заготовка</div></div>
+          <div class="node"><div class="nh"><span class="nn">Users</span><span class="nt">auth</span></div><div class="nd">встроенный auth Payload для менеджеров</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ROADMAP ===================== -->
+<section style="background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Backcasting · дорожная карта</span>
+      <h2>Фазы 0 → 4</h2>
+      <p>Дизайн релизится первым, CMS наслаивается потом. Ключ: Фаза 1 не ждёт Фаз 2–3.</p>
+    </div>
+    <div class="track">
+      <div class="phase">
+        <div class="marker">0</div>
+        <div class="pc"><h4>Скаффолд</h4><p>Next.js + Payload в одном проекте, порт DS-токенов и шрифтов, базовый layout (шапка / футер).</p></div>
+      </div>
+      <div class="phase hot">
+        <div class="marker">1</div>
+        <div class="pc"><h4>Дизайн 1:1 <span class="flag">Главная ценность</span></h4><p>Все 6 страниц пиксель-в-пиксель с ЗАХАРДКОЖЕННЫМ контентом. Это и есть «дизайн один-в-один» — релизится первым, без CMS.</p></div>
+      </div>
+      <div class="phase">
+        <div class="marker">2</div>
+        <div class="pc"><h4>Паспорт + Media</h4><p>Global SiteSettings + Media-коллекция. Перевод контактов / ссылок / картинок на CMS-слоты.</p></div>
+      </div>
+      <div class="phase">
+        <div class="marker">3</div>
+        <div class="pc"><h4>Коллекции контента</h4><p>Products / Brands / Shops. Catalog и Our Brands — из CMS, ручной ввод карточек.</p></div>
+      </div>
+      <div class="phase future">
+        <div class="marker">4</div>
+        <div class="pc"><h4>Автосинк <span class="flag">на будущее · «закос»</span></h4><p>Авто-подтяг товаров по sku-шву из внешнего фида. Posts / новости.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SYNTHESIS ===================== -->
+<section>
+  <div class="wrap">
+    <div class="synth">
+      <div class="in">
+        <span class="eyebrow">Синтез · кульминация</span>
+        <h2>Один архитектурный ход снимает три напряжения разом</h2>
+        <p class="lead"><span class="hl">Захардкоженный layout + типизированные CMS-слоты.</span> Layout прибит в React, CMS лишь заполняет размеченные поля. Это развязывает узел, вокруг которого крутилась вся сессия.</p>
+
+        <div class="tension-row">
+          <div class="tension"><div class="num">1</div><div class="tt">Дизайн 1:1 не ждёт CMS</div><div class="td">Фаза 1 релизится с захардкоженным контентом. Админка подключается слоями позже.</div></div>
+          <div class="tension"><div class="num">2</div><div class="tt">Менеджер не ломает вёрстку</div><div class="td">Он физически может править только размеченные слоты — структура недоступна.</div></div>
+          <div class="tension"><div class="num">3</div><div class="tt">MVP быстрее</div><div class="td">Меньше поверхности для ошибок: в CMS только «живое», всё остальное — гвоздями.</div></div>
+        </div>
+
+        <div class="one-move">
+          <div class="k">Один ход</div>
+          <div class="fx">
+            <div class="code">layout := hardcoded(React) · content := typed_slots(Payload)</div>
+            <p>Приоритет «дизайн 1:1» и вторичность CMS решаются одним и тем же архитектурным решением. Одно решение — три развязанных напряжения.</p>
+          </div>
+        </div>
+
+        <div class="synth-list">
+          <div class="synth-item"><span class="si-n">1</span><span class="si-t"><b>Payload CMS 3.0</b> внутри Next.js App Router (local API, self-host)</span></div>
+          <div class="synth-item"><span class="si-n">2</span><span class="si-t"><b>Захардкоженный layout + типизированные слоты</b> — снимает три напряжения</span></div>
+          <div class="synth-item"><span class="si-n">3</span><span class="si-t"><b>Паспорт компании</b> = один Global SiteSettings</span></div>
+          <div class="synth-item"><span class="si-n">4</span><span class="si-t"><b>Products с sku-швом</b> готов к будущему автосинку</span></div>
+          <div class="synth-item"><span class="si-n">5</span><span class="si-t"><b>Поэтапный роадмап</b>: дизайн 1:1 первым (Ф1), CMS слоями потом (Ф2–4)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="foot">
+  <div class="wrap">
+    <div>Rollun · industrial e-commerce — брейншторм CMS-сайта</div>
+    <div class="swatch">
+      <span style="background:#FEF4E8"></span>
+      <span style="background:#F5B36A"></span>
+      <span style="background:#EA7B08"></span>
+      <span style="background:#6E3A0A"></span>
+      <span style="background:#54585A"></span>
+      <span style="background:#2A2D2E"></span>
+      <span style="background:#1A1C1D"></span>
+    </div>
+    <div>Job to Be Done → Role Playing → <b>SCAMPER</b> → <b>Backcasting</b> · режим autonomous · 02.07.2026 · статус <b>завершено</b></div>
+  </div>
+</footer>
+
+</body>
+</html>
