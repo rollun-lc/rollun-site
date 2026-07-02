@@ -10,7 +10,7 @@
 - **Ревалидация:** правки менеджера появляются на проде через on-demand revalidation / ISR без пересборки.
 - **Изображения:** коллекция `Media` + `next/image` → авто-оптимизация webp и нужные размеры («снимает страх hero на 8 МБ»).
 - **Дизайн-токены (два источника):** desktop — 1:1 из `_ds/rollun-design-system-…/colors_and_type.css`; mobile — из `mobile.css`. Портируются в CSS-переменные / Tailwind theme. Портировать **оба** источника.
-- **Внешние зависимости ассетов (вендорить под self-host, NFR-3):** шрифты — Google Fonts → `next/font`; карта About — `d3@7`, `topojson-client@3`, `us-atlas@3/states-10m.json` (jsDelivr) → в бандл; лого брендов для marquee — сейчас `google.com/s2/favicons`, реальных лого в бандле нет → заменить на реальные ассеты.
+- **Внешние зависимости ассетов (вендорить под self-host, NFR-3):** шрифты — Google Fonts → `next/font`; карта About — `d3@7`, `topojson-client@3`, `us-atlas@3/states-10m.json` (jsDelivr) → в бандл; лого для Marquee брендов — сейчас `google.com/s2/favicons`, реальных лого в бандле нет → заменить на реальные ассеты.
 
 ## B. Две дизайн-системы (развилка «пиксель-в-пиксель»)
 
