@@ -230,7 +230,7 @@ admin/manager меняет размеченные слоты (картинки, 
 
 - **Фаза 0:** скаффолд Next.js (App Router) + Payload 3.0 в одном проекте; порт DS-токенов и шрифтов; базовый layout (шапка/футер).
 - **Фаза 1:** все 6 страниц пиксель-в-пиксель, desktop + mobile, с захардкоженным контентом: Home, About Us, Catalog, Our Shops, Our Brands, Contact.
-- **Рабочая Contact-форма** (email на `llc@rollun.com` + сохранение в `Submissions`); коллекция `Submissions` добавляется уже в Фазе 1.
+- **Рабочая Contact-форма** — доставка заявки POST-запросом на CRM API Rollun (без почты и без хранения на сайте).
 
 ### 6.2 Вне скоупа MVP
 
