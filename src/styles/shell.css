@@ -1,0 +1,176 @@
+/*
+ * Shell chrome — site Header (Story 1.3). Imported in (site)/layout.tsx AFTER
+ * components.css so the DS tokens (theme.css) are already resolved.
+ *
+ * TWO compositions live here — desktop (`.site-header--dk`) and mobile
+ * (`.site-header--mb`) — both SSR-rendered into one DOM by Header.client.tsx.
+ * The visible one is switched ONLY by the CSS `@media` at 768px below
+ * (desktop ≥768, mobile <768). NO JS width-gating (AD-3 / NFR-2). The two
+ * compositions use distinct modifier classes so the identical `.site-header`
+ * name from the two prototype files never collides.
+ *
+ * Rules ported VERBATIM from the Handoff:
+ *   desktop → rollun_handoff/.../Home.html  (`/about` scroll threshold 60 lives in JS)
+ *   mobile  → rollun_handoff/.../mobile.css
+ * Where a value exists as a DS token it is written through the token; prototype
+ * literals with no token (#141414 header bg, mobile shadow) stay verbatim (AD-13 > AD-2).
+ *
+ * Rules live in `@layer components` (same layer as buttons) so Tailwind
+ * utilities can still override them.
+ */
+
+@layer components {
+  /* Both compositions are hidden by default; the media queries below reveal the
+     one that matches the viewport. This is the only switch — pure CSS. */
+  .site-header--dk,
+  .site-header--mb {
+    display: none;
+  }
+
+  /* ─────────────────────────  DESKTOP (≥768px)  ───────────────────────── */
+  @media (min-width: 768px) {
+    .site-header--dk {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      background: #141414; /* prototype header bg — distinct from --color-dark (AD-13) */
+      transition: transform var(--duration-medium) ease, height var(--duration-quick) ease,
+        box-shadow var(--duration-quick) ease;
+    }
+    .site-header--dk.scrolled {
+      height: 76px;
+      box-shadow: var(--shadow-header);
+    }
+    .site-header--dk.hide {
+      transform: translateY(-100%);
+    }
+
+    /* `.container.header-inner` from the prototype, scoped to the header. */
+    .site-header--dk .header-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      width: 100%;
+      max-width: var(--spacing-container);
+      margin: 0 auto;
+      padding: 0 var(--spacing-gutter);
+    }
+
+    .site-header--dk .logo {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      line-height: 0;
+    }
+    .site-header--dk .logo img {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
+
+    .site-header--dk .nav {
+      display: flex;
+      gap: var(--spacing-gutter);
+      justify-self: end;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .site-header--dk .nav a {
+      color: var(--color-white);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: var(--text-nav--font-weight);
+      font-size: var(--text-nav);
+      letter-spacing: var(--text-nav--letter-spacing);
+      text-transform: uppercase;
+      transition: color var(--duration-fast);
+      white-space: nowrap;
+    }
+    .site-header--dk .nav a:hover,
+    .site-header--dk .nav a.active {
+      color: var(--color-or);
+    }
+    /* Keyboard focus ring (DS convention from Story 1.2); invisible at rest,
+       so it does not affect pixel fidelity (AD-13). */
+    .site-header--dk .nav a:focus-visible {
+      outline: 2px solid var(--color-or);
+      outline-offset: 3px;
+    }
+  }
+
+  /* ────────────────────  MOBILE (<768px, exact complement of desktop)  ────
+     `not all and (min-width:768px)` is the precise inverse of the desktop
+     query, so exactly one composition is visible at EVERY width — no gap in
+     the fractional 767.98–768px band where both would be display:none. */
+  @media not all and (min-width: 768px) {
+    .site-header--mb {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 60;
+      width: 100%;
+      max-width: var(--spacing-shell-w);
+      height: 62px;
+      display: flex;
+      align-items: center;
+      background: #141414; /* prototype header bg (AD-13) */
+      transition: height var(--duration-quick) ease, box-shadow var(--duration-quick) ease;
+    }
+    .site-header--mb.scrolled {
+      height: 56px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4); /* verbatim literal — no token (AD-13) */
+    }
+
+    .site-header--mb .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 18px;
+    }
+
+    .site-header--mb .logo {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      line-height: 0;
+    }
+    .site-header--mb .logo img {
+      height: 30px;
+      width: auto;
+      display: block;
+    }
+
+    .site-header--mb .burger {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      padding: 0;
+    }
+    .site-header--mb .burger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-white); /* token per spec boundary (== #fff, pixel-identical) */
+      border-radius: 2px;
+    }
+    /* Keyboard focus ring on the burger (DS convention, Story 1.2). */
+    .site-header--mb .burger:focus-visible {
+      outline: 2px solid var(--color-or);
+      outline-offset: 3px;
+    }
+  }
+}
