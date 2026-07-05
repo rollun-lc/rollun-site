@@ -67,4 +67,84 @@
     outline: 2px solid var(--color-or);
     outline-offset: 3px;
   }
+
+  /*
+   * Contact form fields (.cf-*, Story 2.1) — ported pixel-for-pixel from the
+   * prototype (Contact.html .cf-* rules), built from DS tokens (theme.css,
+   * Story 1.2). The field border is the prototype literal `#cfcfcf` — NOT
+   * `--color-line` (a different rgba). Error styling (`.cf-field.error` /
+   * `.cf-error`) is a deliberate addition for the client validation the AC asks
+   * for (the prototype has none) using a LOCAL red literal `#d64545`, not a
+   * brand token, so theme.css stays untouched (Design Notes / AD-13).
+   *
+   * Scope note: `.cf-form`/heading padding, the two-column `.contact-card` and
+   * the `.cf-info` panel belong to Story 2.4 — only the field visuals live here.
+   */
+  .cf-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 22px;
+  }
+  .cf-field {
+    display: flex;
+    flex-direction: column;
+  }
+  .cf-field.full {
+    grid-column: 1 / -1;
+  }
+
+  .cf-field label {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: 8px;
+  }
+
+  .cf-field input,
+  .cf-field select,
+  .cf-field textarea {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-ink);
+    padding: 13px 15px;
+    border: 1px solid #cfcfcf;
+    border-radius: var(--radius);
+    background: var(--color-white);
+    outline: none;
+    transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+    width: 100%;
+  }
+  .cf-field textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+
+  .cf-field input:focus,
+  .cf-field select:focus,
+  .cf-field textarea:focus {
+    border-color: var(--color-or);
+    box-shadow: var(--shadow-input-focus);
+  }
+
+  /* Invalid state — client validation only (no prototype equivalent). */
+  .cf-field.error input,
+  .cf-field.error select,
+  .cf-field.error textarea {
+    border-color: #d64545;
+  }
+  .cf-error {
+    margin-top: 6px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: #d64545;
+  }
+
+  /* Collapse the two-column grid to one column on mobile (project 768px break). */
+  @media not all and (min-width: 768px) {
+    .cf-row {
+      grid-template-columns: 1fr;
+    }
+  }
 }
