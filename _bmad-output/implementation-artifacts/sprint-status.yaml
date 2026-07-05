@@ -55,7 +55,7 @@ development_status:
   1-3-header-desktop-mobile: done
   1-4-footer-desktop-columns-mobile-accordions: done
   1-5-mobile-chassis-drawer-scroll-lock-reveal: done
-  1-6-pixel-acceptance-breakpoint-checklist-preview: backlog
+  1-6-pixel-acceptance-breakpoint-checklist-preview: done
   epic-1-retrospective: optional
 
   # Epic 2: Contact-форма и захват лида
