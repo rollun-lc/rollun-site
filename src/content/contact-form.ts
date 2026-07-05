@@ -23,6 +23,8 @@ export type ContactFormValues = {
   company: string
   topic: string
   message: string
+  /** Anti-spam honeypot trap (Story 2.3) — not a visible field; a bot fills it. */
+  honeypot: string
 }
 
 /** Which DOM control a field renders as. */
@@ -66,6 +68,11 @@ export type ContactFormContent = {
   successLabel: string
   fields: ContactField[]
   topics: TopicOption[]
+  /**
+   * Anti-spam honeypot trap strings (Story 2.3). Home per AD-14 — the hidden
+   * trap field's `name`/`id`/`label` live ONLY here, never inlined in the JSX.
+   */
+  honeypot: { name: string; id: string; label: string }
   errorMessages: {
     required: string
     email: string
@@ -110,6 +117,11 @@ export const contactFormContent: ContactFormContent = {
     { label: 'Returns & support', value: 'Returns & support' },
     { label: 'Other', value: 'Other' },
   ],
+  // Neutral, non-standard trap name — deliberately NOT a browser autofill token
+  // (website/url/email/name/address) nor a well-known honeypot name that spam
+  // skip-lists recognize, so real users' autofill leaves it alone and naive bots
+  // still fill it. Belt-and-suspenders on top of the `inert` wrapper.
+  honeypot: { name: 'contact_extra', id: 'cf-contact-extra', label: 'Additional info' },
   errorMessages: {
     required: 'This field is required',
     email: 'Enter a valid email address',

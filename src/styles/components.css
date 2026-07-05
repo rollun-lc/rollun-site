@@ -141,6 +141,17 @@
     color: #d64545;
   }
 
+  /* Honeypot anti-spam trap (Story 2.3) — off-screen (NOT display:none, which
+     some bots skip); paired with tabIndex=-1 + an `inert` wrapper in the markup
+     so a human/AT never reaches it. */
+  .cf-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
   /* Collapse the two-column grid to one column on mobile (project 768px break). */
   @media not all and (min-width: 768px) {
     .cf-row {

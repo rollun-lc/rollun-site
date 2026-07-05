@@ -62,7 +62,7 @@ development_status:
   epic-2: backlog
   2-1-contactform-component-validation: done
   2-2-crm-submit-server-action-states: done
-  2-3-anti-spam-protection: backlog
+  2-3-anti-spam-protection: done
   2-4-three-form-display-modes: backlog
   epic-2-retrospective: optional
 

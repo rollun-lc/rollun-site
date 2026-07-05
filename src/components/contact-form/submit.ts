@@ -37,6 +37,16 @@ function failure(): ContactFormResult {
 }
 
 export async function submitContactForm(values: ContactFormValues): Promise<ContactFormResult> {
+  // (0) Anti-spam honeypot (Story 2.3): the hidden field is invisible + untabbable to
+  // humans; only a bot fills it. A non-empty value → silently drop: return the
+  // success contract WITHOUT transiting to the CRM, so the trap isn't revealed
+  // (a distinct response would let bots detect and bypass it). Defensive nullish
+  // guard — this Server Action is publicly callable, the body may omit the key.
+  if ((values.honeypot ?? '').trim() !== '') {
+    console.warn('submitContactForm: submission rejected by honeypot (anti-spam)')
+    return { ok: true }
+  }
+
   // (1) Duplicate the client validation server-side — a bypassed client can't
   // push a malformed lead to the CRM. No POST if it doesn't pass.
   const errors = validateContactForm(values)
@@ -57,11 +67,14 @@ export async function submitContactForm(values: ContactFormValues): Promise<Cont
   // aborts instead of hanging the submit forever. `res.ok` (2xx) is success; any
   // non-2xx, a timeout abort, or a thrown fetch (DNS/network) is a logged
   // delivery failure — the request body is never dumped to the logs.
+  // Honeypot must NEVER reach the CRM — strip it so the POST body stays the exact
+  // 6-field lead contract from Story 2.2 (`_honeypot` is intentionally discarded).
+  const { honeypot: _honeypot, ...lead } = values
   try {
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values),
+      body: JSON.stringify(lead),
       signal: AbortSignal.timeout(CRM_TIMEOUT_MS),
     })
 

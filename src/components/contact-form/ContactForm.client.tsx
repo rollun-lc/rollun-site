@@ -54,6 +54,9 @@ type ContactFormProps = {
 function makeInitialValues(fields: ContactField[]): ContactFormValues {
   const values = {} as ContactFormValues
   for (const field of fields) values[field.name] = ''
+  // Honeypot is NOT in `content.fields` (never rendered by the grid / validated),
+  // so seed it explicitly to keep its controlled input in sync (Story 2.3).
+  values.honeypot = ''
   return values
 }
 
@@ -256,6 +259,32 @@ export default function ContactForm({
           {submitError}
         </p>
       ) : null}
+
+      {/* Honeypot anti-spam trap on the single submit path (Story 2.3): zero
+          friction. The wrapper is `inert` (React 19) — the correct primitive
+          here: it removes the subtree from focus, the accessibility tree AND all
+          interaction, so a human/AT never reaches it and, crucially, browser
+          autofill / password managers can't populate it either (a real user's
+          autofilled trap would otherwise be silently dropped as a bot). `inert`
+          also resolves the axe `aria-hidden-focus` violation that an
+          `aria-hidden` wrapper around a focusable input would trip. `.cf-hp`
+          keeps it off-screen for sighted users; the `data-*-ignore` hints tell
+          the common password managers to skip it too. A field-harvesting POST
+          bot still fills it (server-side check catches that on the one path). */}
+      <div className="cf-hp" inert>
+        <label htmlFor={content.honeypot.id}>{content.honeypot.label}</label>
+        <input
+          type="text"
+          id={content.honeypot.id}
+          name={content.honeypot.name}
+          value={values.honeypot}
+          onChange={handleChange('honeypot')}
+          tabIndex={-1}
+          autoComplete="off"
+          data-1p-ignore
+          data-lpignore="true"
+        />
+      </div>
 
       <button
         type="submit"
