@@ -1,6 +1,6 @@
 ---
 name: rollun-site
-status: draft
+status: final
 updated: 2026-07-05
 description: Визуальная идентика корпоративного B2B-сайта rollun — дистрибьютора автозапчастей и товаров для здоровья, торгующего на Amazon / eBay / Walmart. Индустриальный charcoal + оранжевый. Токены извлечены дословно из HTML-прототипов (:root каждой страницы) и питают Tailwind CSS v4 @theme (styles/theme.css). Библиотека компонентов НЕ наследуется (нет shadcn/MUI) — вёрстка захардкожена.
 colors:
