@@ -76,7 +76,7 @@ development_status:
 
   # Epic 4: О компании (About Us)
   epic-4: backlog
-  4-1-about-scaffold-composition-sections: backlog
+  4-1-about-scaffold-composition-sections: done
   4-2-us-presence-d3-map-desktop: backlog
   4-3-us-presence-static-list-mobile: backlog
   4-4-automation-coin-tower-workforce: backlog
