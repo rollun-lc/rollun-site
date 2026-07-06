@@ -1,0 +1,884 @@
+/*
+ * Our Brands section styles (Story 6.1) — imported by app/(site)/brands/page.tsx
+ * AFTER the layout's theme.css → components.css → shell.css, so DS tokens +
+ * global .btn / .reveal resolve first.
+ *
+ * TWO compositions live here, exactly like About (AD-3 / NFR-2): the desktop
+ * subtree (`.brands-dk`, ported from Our Brands.html) and the mobile subtree
+ * (`.brands-mb`, ported from Our Brands Mobile.html + mobile.css). Both SSR into
+ * one DOM; the visible one is chosen ONLY by the CSS `@media` at 768px below —
+ * desktop rules inside `(min-width:768px)`, mobile inside its exact complement
+ * `not all and (min-width:768px)` — so exactly one composition shows at EVERY
+ * width and the two never collide even though they reuse prototype class names.
+ * NO JS width-gating.
+ *
+ * Values are ported VERBATIM from the prototypes (AD-13 > AD-2). Palette / fonts
+ * / gutters that exist as DS tokens are written through the token; prototype-only
+ * literals (shadows, all `rgba(255,255,255,…)`, the bc-media overlay tints) stay
+ * verbatim. `.btn` / `.reveal` are NOT redefined. Background images use the
+ * root-absolute `/mototou-shelf-bg.jpg` (copied into `public/`).
+ *
+ * `.btn-navy` (a colour variant that does not exist globally) is defined here.
+ * The two prototypes DISAGREE on its colour, so it is per-composition (pixel wins
+ * over the spec's generalised token wording, per intent-contract Always #1):
+ * desktop "SHOP MOTOTOU ON AMAZON" = moto-navy (#1c2c6b, from Our Brands.html);
+ * mobile "Visit mototou.com" = #232a36 (verbatim from mobile.css).
+ *
+ * The Trademark section (+ its `.lightbox`) is MOBILE-ONLY: it renders only in
+ * the `.brands-mb` subtree, so the desktop composition carries no lightbox — the
+ * desktop trademark facts are text inside the brand card (`.bc-trademark`).
+ */
+
+@layer components {
+  /* `.btn-navy` — desktop uses the moto-navy token (Our Brands.html). */
+  .btn-navy {
+    background: var(--color-moto-navy);
+    color: #fff;
+    border-color: var(--color-moto-navy);
+  }
+  .btn-navy:hover {
+    background: var(--color-moto-navy-deep);
+    border-color: var(--color-moto-navy-deep);
+  }
+  /* Mobile prototype (mobile.css) paints `.btn-navy` a flat near-black, not navy. */
+  .brands-mb .btn-navy,
+  .brands-mb .btn-navy:hover {
+    background: #232a36;
+    border-color: #232a36;
+  }
+
+  /* Composition switch — both hidden by default; the media blocks reveal one. */
+  .brands-dk,
+  .brands-mb {
+    display: none;
+  }
+
+  /* ══════════════════════════  DESKTOP (≥768px)  ══════════════════════════ */
+  @media (min-width: 768px) {
+    .brands-dk {
+      display: block;
+    }
+
+    /* Heading + inline primitives (prototype global reset). */
+    .brands-dk h1,
+    .brands-dk h2,
+    .brands-dk h3,
+    .brands-dk h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.005em;
+      margin: 0;
+      line-height: 1.1;
+      color: var(--color-ink);
+    }
+    .brands-dk p {
+      margin: 0;
+    }
+    .brands-dk .or-txt {
+      color: var(--color-or);
+    }
+    .brands-dk .container {
+      max-width: var(--spacing-container);
+      margin: 0 auto;
+      padding: 0 var(--spacing-gutter);
+    }
+    .brands-dk .container-narrow {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-gutter);
+    }
+
+    /* ─────────────  PAGE HERO (01)  ───────────── */
+    .brands-dk.page-hero {
+      background: var(--color-dark);
+      color: #fff;
+      padding: 170px 0 96px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .brands-dk.page-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(1000px 500px at 50% 0%, rgba(239, 127, 26, 0.14), transparent 65%);
+      pointer-events: none;
+    }
+    .brands-dk.page-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    }
+    .brands-dk .page-hero-inner {
+      position: relative;
+      z-index: 2;
+    }
+    .brands-dk.page-hero .eyebrow {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-or);
+      margin-bottom: 18px;
+    }
+    .brands-dk.page-hero h1 {
+      color: #fff;
+      font-size: clamp(38px, 5vw, 68px);
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 22px;
+    }
+    .brands-dk.page-hero p {
+      color: rgba(255, 255, 255, 0.74);
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ─────────────  MOTOTOU LOGO  ───────────── */
+    .brands-dk .moto-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid var(--color-moto-navy);
+      border-radius: 12px;
+      padding: 14px 28px;
+      background: #fff;
+    }
+    .brands-dk .moto-logo span {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--color-moto-navy);
+      letter-spacing: 0.16em;
+      font-size: 30px;
+      line-height: 1;
+      padding-left: 0.16em;
+    }
+
+    /* ─────────────  BRAND CARD (02)  ───────────── */
+    .brands-dk.brands {
+      padding: 96px 0 40px;
+      background: var(--color-bg);
+    }
+    .brands-dk .brand-card {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 40px 90px -42px rgba(0, 0, 0, 0.4);
+    }
+    .brands-dk .brand-card .bc-media {
+      background:
+        linear-gradient(rgba(244, 244, 244, 0.62), rgba(236, 236, 236, 0.62)),
+        url('/mototou-shelf-bg.jpg') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      padding: 56px 40px;
+      position: relative;
+    }
+    .brands-dk .brand-card .bc-tag {
+      position: absolute;
+      top: 26px;
+      left: 26px;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-ink-mute);
+    }
+    .brands-dk .brand-card .bc-status {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-or-deep);
+      background: rgba(239, 127, 26, 0.12);
+      padding: 7px 14px;
+      border-radius: 100px;
+    }
+    .brands-dk .brand-card .bc-body {
+      padding: 56px 50px;
+      display: flex;
+      flex-direction: column;
+    }
+    .brands-dk .brand-card .bc-body h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 30px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 10px;
+    }
+    .brands-dk .brand-card .bc-body .bc-sub {
+      color: var(--color-ink-mute);
+      font-size: 14px;
+      font-family: var(--font-display);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .brands-dk .brand-card .bc-body p {
+      color: var(--color-ink-soft);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .brands-dk .brand-card .bc-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .brands-dk .brand-card .bc-trademark {
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .brands-dk .brand-card .bc-tm-head {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--color-ink);
+      margin-bottom: 10px;
+    }
+    .brands-dk .brand-card .bc-tm-head svg {
+      width: 19px;
+      height: 19px;
+      color: var(--color-or);
+    }
+    .brands-dk .brand-card .bc-tm-desc {
+      color: var(--color-ink-soft);
+      font-size: 14.5px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .brands-dk .brand-card .bc-tm-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px 22px;
+    }
+    .brands-dk .brand-card .bc-tm-fact {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .brands-dk .brand-card .bc-tm-fact .k {
+      font-family: var(--font-display);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-or);
+    }
+    .brands-dk .brand-card .bc-tm-fact .v {
+      color: var(--color-ink);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ─────────────  STORY (03)  ───────────── */
+    .brands-dk.story {
+      padding: 90px 0;
+      background: var(--color-paper);
+    }
+    .brands-dk .section-eyebrow {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-or);
+      margin-bottom: 14px;
+    }
+    .brands-dk .section-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(26px, 2.6vw, 38px);
+      text-transform: uppercase;
+      text-align: center;
+      letter-spacing: 0.02em;
+      margin-bottom: 44px;
+      color: var(--color-ink);
+    }
+    .brands-dk .story p {
+      color: var(--color-ink-soft);
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 22px;
+    }
+    .brands-dk .story p.lead {
+      font-size: 20px;
+      color: var(--color-ink);
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    .brands-dk .story .pull {
+      border-left: 3px solid var(--color-or);
+      padding: 6px 0 6px 24px;
+      margin: 34px 0;
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 21px;
+      line-height: 1.4;
+      color: var(--color-ink);
+    }
+
+    /* ─────────────  PRODUCTS (04)  ───────────── */
+    .brands-dk.products {
+      padding: 90px 0;
+      background: var(--color-bg);
+    }
+    .brands-dk .prod-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      margin-bottom: 70px;
+    }
+    .brands-dk .prod-grid.flip {
+      direction: rtl;
+    }
+    .brands-dk .prod-grid.flip > * {
+      direction: ltr;
+    }
+    .brands-dk .prod-photo {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #ddd;
+      box-shadow: 0 26px 60px -34px rgba(0, 0, 0, 0.45);
+    }
+    .brands-dk .prod-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .brands-dk .prod-text h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    .brands-dk .prod-text p {
+      color: var(--color-ink-soft);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .brands-dk .cat-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .brands-dk .cat-list li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--color-line);
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-ink);
+    }
+    .brands-dk .cat-list li:last-child {
+      border-bottom: none;
+    }
+    .brands-dk .cat-list li svg {
+      width: 22px;
+      height: 22px;
+      color: var(--color-or);
+      flex-shrink: 0;
+    }
+    .brands-dk .prod-note {
+      background: var(--color-dark);
+      color: rgba(255, 255, 255, 0.82);
+      padding: 40px 48px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .brands-dk .prod-note strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* ─────────────  CTA (05)  ───────────── */
+    .brands-dk.cta {
+      background: var(--color-paper);
+      padding: 100px 0;
+      text-align: center;
+    }
+    .brands-dk.cta h2 {
+      font-size: clamp(32px, 4vw, 56px);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .brands-dk.cta p {
+      color: var(--color-ink-soft);
+      max-width: 580px;
+      margin: 0 auto 34px;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+  }
+
+  /* Desktop internal breakpoint (visible 768–980px band) — stack wide grids. */
+  @media (min-width: 768px) and (max-width: 980px) {
+    .brands-dk .brand-card,
+    .brands-dk .prod-grid {
+      grid-template-columns: 1fr;
+    }
+    .brands-dk .prod-grid.flip {
+      direction: ltr;
+    }
+    .brands-dk .prod-grid {
+      gap: 32px;
+    }
+  }
+
+  /* ══════════════  MOBILE (<768px, exact complement of desktop)  ══════════ */
+  @media not all and (min-width: 768px) {
+    .brands-mb {
+      display: block;
+    }
+
+    .brands-mb h1,
+    .brands-mb h2,
+    .brands-mb h3,
+    .brands-mb h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.005em;
+      margin: 0;
+      line-height: 1.12;
+      color: var(--color-ink);
+    }
+    .brands-mb p {
+      margin: 0;
+    }
+    .brands-mb .or-txt {
+      color: var(--color-or);
+    }
+    .brands-mb .wrap {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    /* Section primitives (mobile.css). */
+    .brands-mb.section {
+      padding: 46px 0 50px;
+    }
+    .brands-mb.section.bg {
+      background: var(--color-bg);
+    }
+    .brands-mb.section.paper {
+      background: var(--color-paper);
+    }
+    .brands-mb.section.dark {
+      background: var(--color-dark);
+      color: #fff;
+    }
+    .brands-mb .section-eyebrow {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-or);
+      margin-bottom: 10px;
+    }
+    .brands-mb .section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 27px;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 1.1;
+    }
+    .brands-mb .section-title .or-txt {
+      color: var(--color-or);
+    }
+    .brands-mb .section-head {
+      margin-bottom: 26px;
+    }
+    .brands-mb .section-head.center {
+      text-align: center;
+    }
+    .brands-mb .section-head p {
+      color: var(--color-ink-soft);
+      font-size: 14.5px;
+      line-height: 1.6;
+      margin-top: 12px;
+    }
+    .brands-mb.section.dark .section-head p {
+      color: rgba(255, 255, 255, 0.66);
+    }
+
+    /* ─────────────  PAGE HERO (01)  ───────────── */
+    .brands-mb.page-hero {
+      background: var(--color-dark);
+      color: #fff;
+      padding: 104px 22px 56px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .brands-mb.page-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(700px 360px at 50% 0%, rgba(239, 127, 26, 0.16), transparent 65%);
+      pointer-events: none;
+    }
+    .brands-mb .page-hero-inner {
+      position: relative;
+      z-index: 2;
+    }
+    .brands-mb.page-hero .eyebrow {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-or);
+      margin-bottom: 14px;
+    }
+    .brands-mb.page-hero h1 {
+      color: #fff;
+      font-size: 42px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      line-height: 1.06;
+    }
+    .brands-mb.page-hero h1 .or-txt {
+      color: var(--color-or);
+    }
+    .brands-mb.page-hero p {
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 15.5px;
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    /* ─────────────  BRAND CARD (02)  ───────────── */
+    .brands-mb .brand-card {
+      background: #fff;
+      border: 1px solid var(--color-line);
+      overflow: hidden;
+      box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.4);
+    }
+    .brands-mb .bc-media {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background:
+        linear-gradient(rgba(16, 20, 26, 0.6), rgba(16, 20, 26, 0.6)),
+        url('/mototou-shelf-bg.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brands-mb .bc-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 5px 11px;
+      border-radius: 100px;
+    }
+    .brands-mb .bc-status {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-or);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .brands-mb .bc-status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--color-or);
+    }
+    .brands-mb .moto-logo span {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 34px;
+      letter-spacing: 0.12em;
+      color: #fff;
+    }
+    .brands-mb .bc-body {
+      padding: 24px 20px 26px;
+    }
+    .brands-mb .bc-body h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+    .brands-mb .bc-sub {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-or-deep);
+      margin-bottom: 14px;
+    }
+    .brands-mb .bc-body p {
+      color: var(--color-ink-soft);
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+    .brands-mb .bc-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .brands-mb .bc-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ─────────────  STORY (03)  ─────────────
+       `story` is on the SAME node as `brands-mb` (root section), so these are
+       COMPOUND selectors — a descendant combinator would miss the mobile story
+       copy and it would fall back to the generic `.brands-mb p` sizing. */
+    .brands-mb.story .lead {
+      color: var(--color-ink);
+      font-size: 17px;
+      line-height: 1.6;
+      font-weight: 500;
+      margin: 14px 0 14px;
+    }
+    .brands-mb.story p {
+      color: var(--color-ink-soft);
+      font-size: 14.5px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .brands-mb.story .pull {
+      border-left: 3px solid var(--color-or);
+      padding: 4px 0 4px 16px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 17px;
+      line-height: 1.4;
+      color: var(--color-ink);
+      margin: 18px 0;
+    }
+
+    /* ─────────────  PRODUCTS (04)  ───────────── */
+    .brands-mb .prod-block {
+      margin-bottom: 26px;
+    }
+    .brands-mb .prod-photo {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--color-dark);
+      margin-bottom: 16px;
+      box-shadow: 0 14px 32px -26px rgba(0, 0, 0, 0.4);
+    }
+    .brands-mb .prod-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .brands-mb .prod-text h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+    .brands-mb .prod-text p {
+      color: var(--color-ink-soft);
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .brands-mb .cat-list {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .brands-mb .cat-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      font-size: 14px;
+      color: var(--color-ink);
+      line-height: 1.4;
+    }
+    .brands-mb .cat-list li svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-green);
+      flex: none;
+      margin-top: 2px;
+    }
+    .brands-mb .prod-note {
+      background: #fff;
+      border: 1px solid var(--color-line);
+      border-left: 3px solid var(--color-or);
+      padding: 16px 18px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--color-ink-soft);
+    }
+    .brands-mb .prod-note strong {
+      color: var(--color-ink);
+    }
+
+    /* ─────────────  TRADEMARK (05, mobile-only)  ───────────── */
+    .brands-mb .tm-text h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 24px;
+      text-transform: uppercase;
+      line-height: 1.12;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+    .brands-mb .tm-text p {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .brands-mb .tm-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      margin-bottom: 22px;
+    }
+    .brands-mb .tm-fact {
+      background: var(--color-dark);
+      padding: 14px 14px;
+    }
+    .brands-mb .tm-fact .k {
+      font-family: var(--font-display);
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 4px;
+    }
+    .brands-mb .tm-fact .v {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 13.5px;
+      color: #fff;
+      line-height: 1.3;
+    }
+    .brands-mb .tm-cert {
+      background: #fff;
+      padding: 14px;
+      cursor: zoom-in;
+    }
+    .brands-mb .tm-cert img {
+      width: 100%;
+      display: block;
+    }
+    .brands-mb .tm-cert .cap {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--color-ink-mute);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* ─────────────  CTA (06)  ─────────────
+       `brand-cta` sits on the SAME node as `brands-mb` (like the desktop twin
+       `.brands-dk.cta`), so these must be COMPOUND selectors — a descendant
+       combinator (`.brands-mb .brand-cta`) would never match and the mobile CTA
+       would lose its centering / h2 size / button width. */
+    .brands-mb.brand-cta {
+      text-align: center;
+    }
+    .brands-mb.brand-cta h2 {
+      font-size: 30px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .brands-mb.brand-cta p {
+      color: var(--color-ink-soft);
+      font-size: 14.5px;
+      line-height: 1.6;
+      max-width: 330px;
+      margin: 0 auto 24px;
+    }
+    .brands-mb.brand-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ─────────────  LIGHTBOX (mobile-only)  ───────────── */
+    .brands-mb .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: rgba(10, 10, 10, 0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .brands-mb .lightbox.open {
+      display: flex;
+    }
+    .brands-mb .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 6px;
+    }
+  }
+}
