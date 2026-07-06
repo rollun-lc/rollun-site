@@ -31,7 +31,8 @@
  * every other string — including the deliberate defects (`cityDk` without a space,
  * the Conroe `directions.href`) — code-owned (AD-6/AD-13).
  */
-import type { SiteSetting } from '@/payload-types'
+import type { ShopsContent as ShopsContentGlobal, SiteSetting } from '@/payload-types'
+import { resolveMediaUrl } from '@/lib/resolve-media-url'
 import { shopStoreAddressLines } from '@/lib/site-settings-format'
 
 /** One hours row: `day` label + `time` value; `closed` styles the time cell. */
@@ -73,27 +74,32 @@ export type ShopsContent = {
 }
 
 /**
- * Build the Our Shops content from the `SiteSettings` passport (AD-14). Static
- * strings are code-owned; `store.hours` / `store.phone` / `store.addressLines`
- * come from the passport. The page (RSC) calls this with the resolved settings.
+ * Build the Our Shops content by composing the `ShopsContent` Payload global (🟡
+ * editable text + the 🔴 storefront photo) with the `SiteSettings` passport
+ * (`store.hours` / `store.phone` / `store.addressLines`, AD-14) and code-owned
+ * presentation. Slot text comes from `c`; the storefront photo resolves to the
+ * Media URL when set, else the code-owned `/public` path. The deliberate defects
+ * (`Houston,Texas`, the Conroe `directions.href`) and the `dk/mb` label pairs stay
+ * code-owned (AD-6/AD-13). The page (RSC) calls this with the resolved global +
+ * settings.
  */
-export const buildShopsContent = (s: SiteSetting): ShopsContent => ({
+export const buildShopsContent = (c: ShopsContentGlobal, s: SiteSetting): ShopsContent => ({
   hero: {
-    eyebrow: 'Where to buy',
-    title: 'Our stores',
-    intro:
-      'Visit us in person at our store in Texas, or shop the full Rollun catalog online across the marketplaces you trust.',
+    eyebrow: c.hero.eyebrow,
+    title: c.hero.title,
+    intro: c.hero.intro,
   },
   store: {
-    eyebrow: 'In person',
-    title: 'Visit our store in Texas',
-    intro: 'Drop by our Texas location for parts, accessories, and friendly face-to-face support.',
+    eyebrow: c.store.eyebrow,
+    title: c.store.title,
+    intro: c.store.intro,
     photo: {
-      img: '/shop/storefront-2.png',
+      // 🔴 storefront photo slot: Media URL when set, else code-owned `/public` path.
+      img: resolveMediaUrl(c.store.photo) ?? '/shop/storefront-2.png',
       altDk: 'Rollun storefront entrance in Texas with the rollun sign above the door',
       altMb: 'Rollun storefront entrance in Texas',
     },
-    locationLabel: 'Location',
+    locationLabel: c.store.locationLabel,
     cityDk: 'Houston,Texas',
     cityMb: 'Houston, Texas',
     addressLines: shopStoreAddressLines(s),
@@ -110,9 +116,9 @@ export const buildShopsContent = (s: SiteSetting): ShopsContent => ({
     },
   },
   shops: {
-    eyebrow: 'Buy online',
-    title: 'Shop on marketplaces',
-    intro: 'Same Rollun catalog, backed by thousands of verified ratings across major platforms.',
+    eyebrow: c.shops.eyebrow,
+    title: c.shops.title,
+    intro: c.shops.intro,
     cards: [
       {
         brand: 'amazon',

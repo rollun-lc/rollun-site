@@ -26,7 +26,7 @@
  * (The CTA social URLs are passport atoms too, but they live in the CtaSection
  * component's props — see `components/home/CtaSection.tsx` — not in this shape.)
  */
-import type { SiteSetting } from '@/payload-types'
+import type { HomeContent as HomeContentGlobal, SiteSetting } from '@/payload-types'
 
 /** A desktop/mobile pair for a string that differs between the two prototypes. */
 export type HomeVariant = { dk: string; mb: string }
@@ -121,11 +121,14 @@ export type HomeContent = {
 }
 
 /**
- * Build the Home content from the `SiteSettings` passport (AD-14). Every string is
- * code-owned except `cta.hours`, which comes from the passport. The page (RSC)
- * calls this with the resolved settings.
+ * Build the Home content by composing the `HomeContent` Payload global (🟡 editable
+ * live-block text) with the `SiteSettings` passport (`cta.hours`, AD-14) and the
+ * code-owned presentation/structure. Slot values (hero.subheading, product-line
+ * eyebrow/title/intro, section titles, cta heading/intro) come from `c`; every
+ * `{dk,mb}` variant, button label, mosaic, slide, stat and marketplace card stays
+ * code-owned (AD-6). The page (RSC) calls this with the resolved global + settings.
  */
-export const buildHomeContent = (s: SiteSetting): HomeContent => ({
+export const buildHomeContent = (c: HomeContentGlobal, s: SiteSetting): HomeContent => ({
   hero: {
     tag: {
       dk: 'U.S.-BASED E-COMMERCE DISTRIBUTION',
@@ -137,8 +140,7 @@ export const buildHomeContent = (s: SiteSetting): HomeContent => ({
       { text: 'Trusted', accent: true, lineBreak: true },
       { text: ' marketplaces.' },
     ],
-    subheading:
-      'Rollun is a U.S.-based e-commerce distribution company focused on automotive parts & accessories and health products.',
+    subheading: c.hero.subheading,
     ctaPrimary: 'CONTACT US',
     ctaSecondary: 'EXPLORE CATALOG',
     // Desktop mosaic (Home.html mosaic script) — 8 tiles.
@@ -163,10 +165,9 @@ export const buildHomeContent = (s: SiteSetting): HomeContent => ({
     ],
   },
   productLines: {
-    eyebrow: 'What we do',
-    title: 'Two focused product lines',
-    intro:
-      'Focused expertise in two categories where automation, sourcing, and marketplace operations create real advantage.',
+    eyebrow: c.productLines.eyebrow,
+    title: c.productLines.title,
+    intro: c.productLines.intro,
     automotive: {
       heading: { dk: 'Motorcycle & Automotive Products', mb: 'Motorcycle & Automotive' },
       slidesDesktop: [
@@ -221,7 +222,7 @@ export const buildHomeContent = (s: SiteSetting): HomeContent => ({
     },
   },
   stats: {
-    title: 'Proven at scale',
+    title: c.stats.title,
     items: [
       { value: 2015, display: '2015', label: 'Founded' },
       { value: 12, display: '12', label: 'Suppliers' },
@@ -230,7 +231,7 @@ export const buildHomeContent = (s: SiteSetting): HomeContent => ({
     ],
   },
   benefits: {
-    title: 'Key benefits',
+    title: c.benefits.title,
     cards: [
       {
         heading: { dk: 'Our Own Software', mb: 'Our Own Software' },
@@ -263,8 +264,8 @@ export const buildHomeContent = (s: SiteSetting): HomeContent => ({
     ],
   },
   marketplaces: {
-    eyebrow: 'Where to buy',
-    title: 'Find us on marketplaces',
+    eyebrow: c.marketplaces.eyebrow,
+    title: c.marketplaces.title,
     cards: [
       {
         id: 'ebay',
@@ -296,8 +297,8 @@ export const buildHomeContent = (s: SiteSetting): HomeContent => ({
     ],
   },
   cta: {
-    heading: "Let's talk business",
-    intro: 'Wholesale, partnership, and marketplace operations.',
+    heading: c.cta.heading,
+    intro: c.cta.intro,
     schedulePrefix: 'Monday to Friday from ',
     // AD-13: the two prototypes disagree on the hours — reproduced verbatim from
     // the passport (`homeCtaDesktop` ≠ `homeCtaMobile`).

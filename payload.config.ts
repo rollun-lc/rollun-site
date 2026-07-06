@@ -8,6 +8,12 @@ import sharp from 'sharp'
 
 import { Media } from './src/collections/Media'
 import { Users } from './src/collections/Users'
+import { AboutContent } from './src/globals/AboutContent'
+import { BrandsContent } from './src/globals/BrandsContent'
+import { CatalogContent } from './src/globals/CatalogContent'
+import { ContactContent } from './src/globals/ContactContent'
+import { HomeContent } from './src/globals/HomeContent'
+import { ShopsContent } from './src/globals/ShopsContent'
 import { SiteSettings } from './src/globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
@@ -31,7 +37,15 @@ export default buildConfig({
     },
   },
   collections: [Users, Media],
-  globals: [SiteSettings],
+  globals: [
+    SiteSettings,
+    HomeContent,
+    AboutContent,
+    CatalogContent,
+    BrandsContent,
+    ShopsContent,
+    ContactContent,
+  ],
   editor: lexicalEditor(),
   // Required by Payload 3.x for upload image processing (imageSizes / focalPoint).
   sharp,

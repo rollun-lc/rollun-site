@@ -18,13 +18,14 @@ import MapLocations from '@/components/contact/MapLocations.client'
 import ContactInline from '@/components/contact-form/ContactInline.client'
 import { buildContactContent } from '@/content/contact'
 import { buildContactInfoContent } from '@/content/contact-info'
+import { getContactContent } from '@/lib/contact-content'
 import { getSiteSettings } from '@/lib/site-settings'
 
 import '@/styles/contact.css'
 
 export default async function ContactPage() {
   const settings = await getSiteSettings()
-  const contactContent = buildContactContent(settings)
+  const contactContent = buildContactContent(await getContactContent(), settings)
   const contactInfo = buildContactInfoContent(settings)
   return (
     <main>

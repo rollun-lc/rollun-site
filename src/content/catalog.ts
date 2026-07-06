@@ -19,7 +19,17 @@
  * listing heads and both line-CTA labels differ between the two prototypes.
  * Cross-page prototype links (`Our Shops.html#online`, `Contact.html?topic=…`)
  * are mapped to the real Next routes (`/shops#online`, `/contact?topic=…`).
+ *
+ * Story 7.3: the static instance became the builder `buildCatalogContent(c)`,
+ * composing the `CatalogContent` Payload global (🟡 editable text + the two 🔴
+ * entrance images) with code-owned presentation. The shape is unchanged, so the
+ * sections are untouched (AD-7). Slot text comes from `c`; each entrance image
+ * resolves to its Media URL when set, else the code-owned `/public` path. All
+ * `{dk,mb}` variants, decorative subcat tiles, styled runs and the brand marquee
+ * list stay code-owned (AD-6).
  */
+import type { CatalogContent as CatalogContentGlobal } from '@/payload-types'
+import { resolveMediaUrl } from '@/lib/resolve-media-url'
 
 /** A desktop/mobile pair for a string that differs between the two prototypes. */
 export type CatalogVariant = { dk: string; mb: string }
@@ -107,23 +117,24 @@ export type CatalogContent = {
   }
 }
 
-/** The single Catalog content instance consumed by the page + sections. */
-export const catalogContent: CatalogContent = {
+/** Build the Catalog content from the `CatalogContent` Payload global (AD-7). */
+export const buildCatalogContent = (c: CatalogContentGlobal): CatalogContent => ({
   hero: {
-    eyebrow: 'What we distribute',
-    title: 'Catalog',
-    intro: 'Explore our two main product lines. For purchases, you’ll be redirected to our marketplace stores.',
-    redirectNote: 'Buy on marketplaces',
+    eyebrow: c.hero.eyebrow,
+    title: c.hero.title,
+    intro: c.hero.intro,
+    redirectNote: c.hero.redirectNote,
   },
   entrancesHead: {
-    eyebrow: 'Where to start',
-    title: 'Choose a product line',
+    eyebrow: c.entrancesHead.eyebrow,
+    title: c.entrancesHead.title,
   },
   entrances: [
     {
       key: 'auto',
       href: '#automotive',
-      img: '/cat-tires.png',
+      // 🔴 entrance image slot: Media URL when set, else code-owned `/public` path.
+      img: resolveMediaUrl(c.entrances?.autoImage) ?? '/cat-tires.png',
       alt: {
         dk: 'Automotive and motorcycle parts — tires and wheels',
         mb: 'Automotive and motorcycle parts',
@@ -135,7 +146,8 @@ export const catalogContent: CatalogContent = {
     {
       key: 'health',
       href: '#health',
-      img: '/health-supplements.png',
+      // 🔴 entrance image slot: Media URL when set, else code-owned `/public` path.
+      img: resolveMediaUrl(c.entrances?.healthImage) ?? '/health-supplements.png',
       alt: {
         dk: 'Health products — dietary and sport supplements',
         mb: 'Health products',
@@ -235,14 +247,14 @@ export const catalogContent: CatalogContent = {
     },
   },
   brands: {
-    eyebrow: 'Trusted partners',
-    title: 'Brands we work with',
+    eyebrow: c.brands.eyebrow,
+    title: c.brands.title,
     intro: {
       dk: 'We distribute and resell products from established manufacturers across both of our product lines.',
       mb: 'We distribute and resell products from established manufacturers across both product lines.',
     },
-    autoCatLabel: 'Automotive & Motorcycle',
-    healthCatLabel: 'Health & Wellness',
+    autoCatLabel: c.brands.autoCatLabel,
+    healthCatLabel: c.brands.healthCatLabel,
     // Automotive (14) — LINKLESS `<div>` tiles (no href, non-clickable cursor).
     auto: [
       { domain: 'dunlop.com', name: 'Dunlop' },
@@ -279,4 +291,4 @@ export const catalogContent: CatalogContent = {
       { label: 'Wholesale & partnerships', href: { dk: '/contact?topic=Wholesale%20%26%20distribution#contactForm', mb: '/contact' }, variant: 'dark' },
     ],
   },
-}
+})

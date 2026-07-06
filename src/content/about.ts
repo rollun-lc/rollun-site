@@ -27,7 +27,8 @@
  * social URLs are passport atoms too but live in `components/about/CtaSection.tsx`
  * props. Every other string stays code-owned (AD-6).
  */
-import type { SiteSetting } from '@/payload-types'
+import type { AboutContent as AboutContentGlobal, SiteSetting } from '@/payload-types'
+import { resolveMediaUrl } from '@/lib/resolve-media-url'
 import { aboutStoreCardAddr } from '@/lib/site-settings-format'
 
 /** A desktop/mobile pair for a string that differs between the two prototypes. */
@@ -168,11 +169,15 @@ export type AboutContent = {
 }
 
 /**
- * Build the About content from the `SiteSettings` passport (AD-14). Every string is
- * code-owned except `cta.hours` and the two mobile US-presence card addresses,
- * which come from the passport. The page (RSC) calls this with the resolved settings.
+ * Build the About content by composing the `AboutContent` Payload global (🟡 editable
+ * text + the 🔴 CEO photo) with the `SiteSettings` passport (`cta.hours`, mobile
+ * US-presence addresses, AD-14) and code-owned presentation. Slot values come from
+ * `c`; the CEO photo resolves to the Media URL when set, else the code-owned
+ * `/public` path. Every `{dk,mb}` variant, styled segment-run, coordinate, stat and
+ * the deferred team tiles (AD-3) stay code-owned. The page (RSC) calls this with the
+ * resolved global + settings.
  */
-export const buildAboutContent = (s: SiteSetting): AboutContent => ({
+export const buildAboutContent = (c: AboutContentGlobal, s: SiteSetting): AboutContent => ({
   hero: {
     eyebrowMobile: 'Who we are',
     headline: [
@@ -181,7 +186,7 @@ export const buildAboutContent = (s: SiteSetting): AboutContent => ({
       { text: ' choose ' },
       { text: 'Rollun', accent: true },
     ],
-    subheading: 'A traditional business mindset powered by modern operations and automation.',
+    subheading: c.hero.subheading,
     para: {
       dk: 'Rollun is a U.S.‑based LLC registered in Sheridan, Wyoming, and founded by a Ukrainian team. Since April 2015, we have been building automated e‑commerce distribution that helps products reach customers through leading marketplaces — and creating our own automated solutions along the way.',
       mb: "Rollun is a U.S.-based LLC registered in Sheridan, Wyoming, founded by a Ukrainian team. Since April 2015 we've built automated e-commerce distribution that helps products reach customers through leading marketplaces.",
@@ -224,7 +229,7 @@ export const buildAboutContent = (s: SiteSetting): AboutContent => ({
     ],
   },
   approach: {
-    title: 'Our approach',
+    title: c.approach.title,
     principles: [
       {
         num: '01',
@@ -251,7 +256,7 @@ export const buildAboutContent = (s: SiteSetting): AboutContent => ({
   automation: {
     eyebrowMobile: 'Automation',
     heading: [{ text: 'Automation that improves ' }, { text: 'reliability', accent: true }],
-    lede: 'We scale through innovation and technology — not by expanding headcount. Internal tools and process automation reduce operational costs and keep execution consistent, year after year.',
+    lede: c.automation.lede,
     stats: [
       {
         value: 50000,
@@ -278,14 +283,14 @@ export const buildAboutContent = (s: SiteSetting): AboutContent => ({
     ],
   },
   keeptoship: {
-    tag: 'Our technological startup',
+    tag: c.keeptoship.tag,
     heading: [{ text: 'KeepToShip', accent: true }, { text: 'Logistics, distributed.', lineBreak: true }],
     paragraphs: [
       'KeepToShip is an AI‑powered logistics platform that connects online sellers with a distributed network of independent keep‑and‑ship partners.',
       'Our Uber‑like system replaces complex centralized logistics by storing products closer to customers — enabling faster delivery, lower shipping costs, and scalable fulfillment without expensive warehouses.',
     ],
-    ctaHeading: 'Want to work with us?',
-    ctaText: 'Invest, store products in your area, or use KeepToShip in your free time.',
+    ctaHeading: c.keeptoship.ctaHeading,
+    ctaText: c.keeptoship.ctaText,
     ctaLabel: 'Learn more',
     ctaHref: 'https://keeptoship.com/',
     visual: {
@@ -311,7 +316,7 @@ export const buildAboutContent = (s: SiteSetting): AboutContent => ({
   },
   usPresence: {
     eyebrowMobile: 'Across the country',
-    title: 'US presence',
+    title: c.usPresence.title,
     intro: {
       dk: 'Registered in Wyoming, operating from Texas, shipping across the country through a network of partner nodes. Hover any pin to see the details.',
       mb: 'Registered in Wyoming, operating from Texas, shipping nationwide through a network of partner nodes.',
@@ -682,15 +687,15 @@ export const buildAboutContent = (s: SiteSetting): AboutContent => ({
       { pos: 'br', src: '/team-tile-4.jpg', alt: '', objectPosition: '70% 35%' },
     ],
     heading: [{ text: 'We ' }, { text: 'love', hand: true }, { text: 'what we do.', lineBreak: true }],
-    quote:
-      'A small, stable team that has worked together for years — disciplined operators on the business side, sharp engineers on the platform side. We hire slowly, invest in tooling, and let the work speak for itself.',
-    ceoName: 'Natalia Gretchukha',
-    ceoRole: 'CEO',
-    ceoPhoto: '/ceo-photo.png',
+    quote: c.team.quote,
+    ceoName: c.team.ceoName,
+    ceoRole: c.team.ceoRole,
+    // 🔴 CEO photo slot: Media URL when set, else the code-owned `/public` path.
+    ceoPhoto: resolveMediaUrl(c.team.ceoPhoto) ?? '/ceo-photo.png',
   },
   cta: {
-    heading: "Let's talk business",
-    sub: 'Wholesale, partnership, and marketplace operations.',
+    heading: c.cta.heading,
+    sub: c.cta.sub,
     hoursPrefix: 'Monday to Friday from ',
     // AD-13: desktop renders "UTC +2" (with a space), mobile "UTC+2" — reproduced
     // verbatim from the passport (`aboutCtaDesktop` ≠ `aboutCtaMobile`).

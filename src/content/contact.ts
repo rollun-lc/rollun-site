@@ -28,7 +28,7 @@
  * (tab[1] `addr` has NO comma between city and state; `q` does). The tab labels,
  * `map.eyebrow`/`title`, and the `initialSrc` typo literal stay code-owned (AD-6/AD-13).
  */
-import type { SiteSetting } from '@/payload-types'
+import type { ContactContent as ContactContentGlobal, SiteSetting } from '@/payload-types'
 import { registeredMapQuery, shopAddressInline } from '@/lib/site-settings-format'
 
 /** One map location tab: `label` (eyebrow) + `addr` (shown line) + `q` (the
@@ -42,21 +42,23 @@ export type ContactContent = {
 }
 
 /**
- * Build the Contact content from the `SiteSettings` passport (AD-14). The hero
- * intro and the two map tabs' addresses come from the passport; the labels,
- * headings and the `initialSrc` typo literal stay code-owned. The page (RSC)
- * calls this with the resolved settings.
+ * Build the Contact content by composing the `ContactContent` Payload global (🟡
+ * editable section headings) with the `SiteSettings` passport (the hero intro
+ * hours + the two map tabs' addresses, AD-14) and code-owned presentation. The
+ * hero/map heading slots come from `c`; the passport-composed intro/addresses and
+ * the deliberate `initialSrc` typo literal stay code-owned (AD-6/AD-13). The page
+ * (RSC) calls this with the resolved global + settings.
  */
-export const buildContactContent = (s: SiteSetting): ContactContent => ({
+export const buildContactContent = (c: ContactContentGlobal, s: SiteSetting): ContactContent => ({
   hero: {
-    eyebrow: 'Get in touch',
-    title: 'Contact us',
+    eyebrow: c.hero.eyebrow,
+    title: c.hero.title,
     // Code-owned prose sentence; only the trailing hours come from the passport.
     intro: `Wholesale, partnership, and marketplace operations. Monday to Friday from ${s.hours.contact}.`,
   },
   map: {
-    eyebrow: 'Find us',
-    title: 'Our locations',
+    eyebrow: c.map.eyebrow,
+    title: c.map.title,
     // AD-13: verbatim typo literal — `53%2F27` ≠ tabs[0].q (`5327`). NOT fixed.
     initialSrc:
       'https://maps.google.com/maps?q=53%2F27%20Aldine%20Mail%20Route%20Rd%2C%20Houston%2C%20TX%2077039&z=13&output=embed',

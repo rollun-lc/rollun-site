@@ -9,12 +9,14 @@ import CtaSection from '@/components/catalog/CtaSection'
 import Entrances from '@/components/catalog/Entrances'
 import Hero from '@/components/catalog/Hero'
 import ProductLines from '@/components/catalog/ProductLines'
-import { catalogContent } from '@/content/catalog'
+import { buildCatalogContent } from '@/content/catalog'
 import { PRODUCTS } from '@/content/products'
+import { getCatalogContent } from '@/lib/catalog-content'
 
 import '@/styles/catalog.css'
 
-export default function CatalogPage() {
+export default async function CatalogPage() {
+  const catalogContent = buildCatalogContent(await getCatalogContent())
   return (
     <main>
       <Hero hero={catalogContent.hero} />

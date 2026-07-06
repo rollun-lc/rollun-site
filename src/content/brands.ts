@@ -17,7 +17,17 @@
  * mototou.com), the trademark facts placement (desktop brand-card block vs the
  * mobile-only Trademark section), the product-note copy, the block-1 alt text,
  * and the CTA label case (`CONTACT US` vs `Contact us`).
+ *
+ * Story 7.3: the static instance became the builder `buildBrandsContent(c)`,
+ * composing the `BrandsContent` Payload global (🟡 editable text + the two 🔴
+ * product photos + the 🔴 trademark certificate image) with code-owned
+ * presentation. Shape unchanged, sections untouched (AD-7). Slot text comes from
+ * `c`; each image resolves to its Media URL when set, else the code-owned
+ * `/public` path. The `{dk,mb}` variants, the legal trademark facts, brand logo
+ * text and all hrefs stay code-owned (AD-6).
  */
+import type { BrandsContent as BrandsContentGlobal } from '@/payload-types'
+import { resolveMediaUrl } from '@/lib/resolve-media-url'
 
 /** A desktop/mobile pair for a string that differs between the two prototypes. */
 export type BrandsVariant = { dk: string; mb: string }
@@ -81,20 +91,19 @@ export type BrandsContent = {
   }
 }
 
-/** The single Brands content instance (AD-14) consumed by the page + sections. */
-export const brandsContent: BrandsContent = {
+/** Build the Brands content from the `BrandsContent` Payload global (AD-7). */
+export const buildBrandsContent = (c: BrandsContentGlobal): BrandsContent => ({
   hero: {
-    eyebrow: 'Private Label',
-    title: 'Our Brands',
-    intro:
-      'We build and grow brands with a long-term focus on quality and customer experience — not only distribution, but products we own and stand behind.',
+    eyebrow: c.hero.eyebrow,
+    title: c.hero.title,
+    intro: c.hero.intro,
   },
   brand: {
     tag: 'Brand 01',
     logoText: 'MOTOTOU',
-    status: 'In active development',
-    h2: 'Mototou',
-    sub: 'Motorcycle parts & accessories',
+    status: c.brand.status,
+    h2: c.brand.h2,
+    sub: c.brand.sub,
     paragraphs: [
       'Practical, functional motorcycle components designed for everyday reliability and long-term performance. A U.S.-registered trademark, built and refined by Rollun.',
       "Our lineup is still growing — we're actively expanding the catalog, refining materials, and tightening quality checks with our production partners.",
@@ -126,21 +135,22 @@ export const brandsContent: BrandsContent = {
     },
   },
   story: {
-    eyebrow: 'Mototou',
-    title: 'Our story',
-    lead: 'MOTOTOU began with sourcing and manufacturing, focusing on accessibility and value for customers in the US. As the brand evolving, our priority shifting toward stronger standards and better control over production.',
+    eyebrow: c.story.eyebrow,
+    title: c.story.title,
+    lead: c.story.lead,
     paragraphs: [
       "Today, MOTOTOU is not just about manufacturing — it's about quality, precision, and long-term reliability. We work closely with our production partners, improving materials, tightening specifications, and strengthening quality checks.",
       'Several new products are currently in development and refinement. We are not publicly presenting the full lineup yet. If you are interested in learning more or becoming a partner, please reach out.',
     ],
-    pull: 'Our goal is simple: deliver products riders can install with confidence and use without doubt.',
+    pull: c.story.pull,
   },
   products: {
-    eyebrow: 'What we make',
-    title: 'Our products',
+    eyebrow: c.products.eyebrow,
+    title: c.products.title,
     blocks: [
       {
-        img: '/mototou-product-reflectors.jpg',
+        // 🔴 product photo slot: Media URL when set, else code-owned `/public` path.
+        img: resolveMediaUrl(c.products.reflectorsImage) ?? '/mototou-product-reflectors.jpg',
         alt: {
           dk: 'Mototou reflector hardware kit in branded packaging',
           mb: 'Mototou reflector hardware kit',
@@ -152,7 +162,8 @@ export const brandsContent: BrandsContent = {
         ],
       },
       {
-        img: '/mototou-filters.jpg',
+        // 🔴 product photo slot: Media URL when set, else code-owned `/public` path.
+        img: resolveMediaUrl(c.products.filtersImage) ?? '/mototou-filters.jpg',
         alt: {
           dk: 'MOTOTOU air and oil filters in branded packaging on a retail shelf',
           mb: 'MOTOTOU air and oil filters in branded packaging on a retail shelf',
@@ -176,11 +187,12 @@ export const brandsContent: BrandsContent = {
     },
   },
   trademark: {
-    eyebrow: 'Registered & protected',
-    title: 'A U.S. registered trademark',
+    eyebrow: c.trademark.eyebrow,
+    title: c.trademark.title,
     desc: "MOTOTOU is a registered trademark on the Principal Register of the United States Patent and Trademark Office, owned by Rollun LC — your assurance that you're working with a genuine, protected brand.",
     cert: {
-      img: '/mototou-trademark.png',
+      // 🔴 certificate image slot: Media URL when set, else code-owned `/public` path.
+      img: resolveMediaUrl(c.trademark.certImage) ?? '/mototou-trademark.png',
       alt: 'MOTOTOU U.S. trademark registration certificate',
       caption: 'Tap to enlarge — USPTO Certificate of Registration',
       enlargedAlt: 'MOTOTOU trademark certificate enlarged',
@@ -190,8 +202,8 @@ export const brandsContent: BrandsContent = {
     headingPre: 'Interested in ',
     headingAccent: 'Mototou',
     headingPost: '?',
-    sub: "For distribution, retail partnership, or early access to new products — we'd love to hear from you.",
+    sub: c.cta.sub,
     ctaLabel: { dk: 'CONTACT US', mb: 'Contact us' },
     ctaHref: '/contact',
   },
-}
+})

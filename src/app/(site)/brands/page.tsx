@@ -17,11 +17,13 @@ import Hero from '@/components/brands/Hero'
 import Products from '@/components/brands/Products'
 import Story from '@/components/brands/Story'
 import Trademark from '@/components/brands/Trademark'
-import { brandsContent } from '@/content/brands'
+import { buildBrandsContent } from '@/content/brands'
+import { getBrandsContent } from '@/lib/brands-content'
 
 import '@/styles/brands.css'
 
-export default function BrandsPage() {
+export default async function BrandsPage() {
+  const brandsContent = buildBrandsContent(await getBrandsContent())
   return (
     <main>
       <Hero hero={brandsContent.hero} />

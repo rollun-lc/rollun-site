@@ -12,13 +12,14 @@ import Team from '@/components/about/Team'
 import UsPresence from '@/components/about/UsPresence'
 import { buildAboutContent } from '@/content/about'
 import { buildContactInfoContent } from '@/content/contact-info'
+import { getAboutContent } from '@/lib/about-content'
 import { getSiteSettings } from '@/lib/site-settings'
 
 import '@/styles/about.css'
 
 export default async function AboutPage() {
   const settings = await getSiteSettings()
-  const aboutContent = buildAboutContent(settings)
+  const aboutContent = buildAboutContent(await getAboutContent(), settings)
   const contactInfo = buildContactInfoContent(settings)
   return (
     <main>

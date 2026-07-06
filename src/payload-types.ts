@@ -89,9 +89,21 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'site-settings': SiteSetting;
+    'home-content': HomeContent;
+    'about-content': AboutContent;
+    'catalog-content': CatalogContent;
+    'brands-content': BrandsContent;
+    'shops-content': ShopsContent;
+    'contact-content': ContactContent;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'home-content': HomeContentSelect<false> | HomeContentSelect<true>;
+    'about-content': AboutContentSelect<false> | AboutContentSelect<true>;
+    'catalog-content': CatalogContentSelect<false> | CatalogContentSelect<true>;
+    'brands-content': BrandsContentSelect<false> | BrandsContentSelect<true>;
+    'shops-content': ShopsContentSelect<false> | ShopsContentSelect<true>;
+    'contact-content': ContactContentSelect<false> | ContactContentSelect<true>;
   };
   locale: null;
   widgets: {
@@ -466,6 +478,184 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-content".
+ */
+export interface HomeContent {
+  id: number;
+  hero: {
+    subheading: string;
+  };
+  productLines: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+  };
+  stats: {
+    title: string;
+  };
+  benefits: {
+    title: string;
+  };
+  marketplaces: {
+    eyebrow: string;
+    title: string;
+  };
+  cta: {
+    heading: string;
+    intro: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-content".
+ */
+export interface AboutContent {
+  id: number;
+  hero: {
+    subheading: string;
+  };
+  approach: {
+    title: string;
+  };
+  automation: {
+    lede: string;
+  };
+  keeptoship: {
+    tag: string;
+    ctaHeading: string;
+    ctaText: string;
+  };
+  usPresence: {
+    title: string;
+  };
+  team: {
+    ceoPhoto?: (number | null) | Media;
+    quote: string;
+    ceoName: string;
+    ceoRole: string;
+  };
+  cta: {
+    heading: string;
+    sub: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-content".
+ */
+export interface CatalogContent {
+  id: number;
+  hero: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    redirectNote: string;
+  };
+  entrancesHead: {
+    eyebrow: string;
+    title: string;
+  };
+  entrances?: {
+    autoImage?: (number | null) | Media;
+    healthImage?: (number | null) | Media;
+  };
+  brands: {
+    eyebrow: string;
+    title: string;
+    autoCatLabel: string;
+    healthCatLabel: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands-content".
+ */
+export interface BrandsContent {
+  id: number;
+  hero: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+  };
+  brand: {
+    status: string;
+    h2: string;
+    sub: string;
+  };
+  story: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    pull: string;
+  };
+  products: {
+    eyebrow: string;
+    title: string;
+    reflectorsImage?: (number | null) | Media;
+    filtersImage?: (number | null) | Media;
+  };
+  trademark: {
+    eyebrow: string;
+    title: string;
+    certImage?: (number | null) | Media;
+  };
+  cta: {
+    sub: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shops-content".
+ */
+export interface ShopsContent {
+  id: number;
+  hero: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+  };
+  store: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    locationLabel: string;
+    photo?: (number | null) | Media;
+  };
+  shops: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-content".
+ */
+export interface ContactContent {
+  id: number;
+  hero: {
+    eyebrow: string;
+    title: string;
+  };
+  map: {
+    eyebrow: string;
+    title: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
@@ -520,6 +710,240 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         aboutCtaDesktop?: T;
         aboutCtaMobile?: T;
         contact?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-content_select".
+ */
+export interface HomeContentSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        subheading?: T;
+      };
+  productLines?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        intro?: T;
+      };
+  stats?:
+    | T
+    | {
+        title?: T;
+      };
+  benefits?:
+    | T
+    | {
+        title?: T;
+      };
+  marketplaces?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+      };
+  cta?:
+    | T
+    | {
+        heading?: T;
+        intro?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-content_select".
+ */
+export interface AboutContentSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        subheading?: T;
+      };
+  approach?:
+    | T
+    | {
+        title?: T;
+      };
+  automation?:
+    | T
+    | {
+        lede?: T;
+      };
+  keeptoship?:
+    | T
+    | {
+        tag?: T;
+        ctaHeading?: T;
+        ctaText?: T;
+      };
+  usPresence?:
+    | T
+    | {
+        title?: T;
+      };
+  team?:
+    | T
+    | {
+        ceoPhoto?: T;
+        quote?: T;
+        ceoName?: T;
+        ceoRole?: T;
+      };
+  cta?:
+    | T
+    | {
+        heading?: T;
+        sub?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-content_select".
+ */
+export interface CatalogContentSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        intro?: T;
+        redirectNote?: T;
+      };
+  entrancesHead?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+      };
+  entrances?:
+    | T
+    | {
+        autoImage?: T;
+        healthImage?: T;
+      };
+  brands?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        autoCatLabel?: T;
+        healthCatLabel?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands-content_select".
+ */
+export interface BrandsContentSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        intro?: T;
+      };
+  brand?:
+    | T
+    | {
+        status?: T;
+        h2?: T;
+        sub?: T;
+      };
+  story?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+        pull?: T;
+      };
+  products?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        reflectorsImage?: T;
+        filtersImage?: T;
+      };
+  trademark?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        certImage?: T;
+      };
+  cta?:
+    | T
+    | {
+        sub?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shops-content_select".
+ */
+export interface ShopsContentSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        intro?: T;
+      };
+  store?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        intro?: T;
+        locationLabel?: T;
+        photo?: T;
+      };
+  shops?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        intro?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-content_select".
+ */
+export interface ContactContentSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+      };
+  map?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
       };
   updatedAt?: T;
   createdAt?: T;

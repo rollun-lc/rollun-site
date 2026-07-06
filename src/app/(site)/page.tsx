@@ -10,13 +10,14 @@ import ProductLines from '@/components/home/ProductLines'
 import Stats from '@/components/home/Stats'
 import { buildContactInfoContent } from '@/content/contact-info'
 import { buildHomeContent } from '@/content/home'
+import { getHomeContent } from '@/lib/home-content'
 import { getSiteSettings } from '@/lib/site-settings'
 
 import '@/styles/home.css'
 
 export default async function HomePage() {
   const settings = await getSiteSettings()
-  const homeContent = buildHomeContent(settings)
+  const homeContent = buildHomeContent(await getHomeContent(), settings)
   const contactInfo = buildContactInfoContent(settings)
   return (
     <main>
