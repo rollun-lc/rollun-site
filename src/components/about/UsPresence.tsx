@@ -9,6 +9,7 @@
 import type { AboutContent } from '@/content/about'
 
 import { Rich } from './Rich'
+import UsPresenceMap from './UsPresenceMap.client'
 
 export default function UsPresence({ usPresence }: { usPresence: AboutContent['usPresence'] }) {
   const { eyebrowMobile, title, intro, liveCount, liveLabel, mapHint } = usPresence
@@ -22,6 +23,8 @@ export default function UsPresence({ usPresence }: { usPresence: AboutContent['u
             <p>{intro.dk}</p>
           </div>
           <div className="map-wrap" id="map-wrap" data-borders="on">
+            {/* Story 4.2 — leaf island: builds the D3 map into #map on scroll. */}
+            <UsPresenceMap locations={usPresence.locations} />
             <div className="map-canvas" id="map">
               <div className="loc-popup" id="loc-popup" />
             </div>

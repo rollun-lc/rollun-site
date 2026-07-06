@@ -49,6 +49,30 @@ export type AboutStat = { value: number; display: string; unit: string; label: A
 /** A Team (07) mosaic tile. `.tr` ships no `src` (solid `#ea7b07`, AD-13). */
 export type AboutTeamTile = { pos: 'tl' | 'tr' | 'bl' | 'br'; src?: string; alt?: string; objectPosition?: string }
 
+/** One key/value detail row in a primary (hq/store) map popover. */
+export type AboutMapRow = { k: string; v: string }
+
+/** One supplier ship-from entry in a warehouse map popover. */
+export type AboutMapSupplier = { name: string; address: string }
+
+/** A US-presence map location (Story 4.2, desktop D3 map). FLAT SERIALIZABLE
+ *  DATA (no functions/JSX) so a Payload Global can supply the same shape (AD-7);
+ *  reused by the Story 4.3 mobile list. Ported VERBATIM from the `About Us.html`
+ *  `PRIMARY` + `WAREHOUSES` arrays. `coord` is `[lng, lat]` (GeoJSON order).
+ *  `type` `'hq'`/`'store'` carry `kicker`/`desc`/`rows`; `'wh'` carries
+ *  `suppliers`. */
+export type AboutMapLocation = {
+  id: string
+  city: string
+  state: string
+  coord: [number, number]
+  type: 'hq' | 'store' | 'wh'
+  kicker?: string
+  desc?: string
+  rows?: AboutMapRow[]
+  suppliers?: AboutMapSupplier[]
+}
+
 /** The full About content contract — the page is a pure function of this. */
 export type AboutContent = {
   hero: {
@@ -97,6 +121,9 @@ export type AboutContent = {
     liveCount: number
     liveLabel: string
     mapHint: AboutSegment[]
+    /** The desktop D3-map locations (Story 4.2): 30 warehouses, then hq, store —
+     *  mirrors the prototype `LOCATIONS = [...WAREHOUSES, ...PRIMARY]` order. */
+    locations: AboutMapLocation[]
   }
   team: {
     tilesDesktop: AboutTeamTile[]
@@ -267,6 +294,320 @@ export const aboutContent: AboutContent = {
       { text: 'Tap any point to see the ' },
       { text: 'supplier & warehouse address', strong: true },
       { text: ' we ship from.' },
+    ],
+    // Ported VERBATIM from `About Us.html` — 30 warehouses first, then the two
+    // primary pins (hq, store), mirroring `LOCATIONS = [...WAREHOUSES, ...PRIMARY]`.
+    locations: [
+      // Tucker / Tucker Rocky (Tucker Powersports assets, 2023)
+      {
+        id: 'wh0',
+        city: 'Hatfield',
+        state: 'PA',
+        coord: [-75.298, 40.279],
+        type: 'wh',
+        suppliers: [{ name: 'Tucker / Tucker Rocky', address: '3035 Campus Dr, Hatfield, PA 19440' }],
+      },
+      {
+        id: 'wh1',
+        city: 'Reno',
+        state: 'NV',
+        coord: [-119.87, 39.58],
+        type: 'wh',
+        suppliers: [{ name: 'Tucker / Tucker Rocky', address: '10880 Lear Blvd, Reno, NV 89506' }],
+      },
+      {
+        id: 'wh2',
+        city: 'Arlington',
+        state: 'TX',
+        coord: [-97.105, 32.706],
+        type: 'wh',
+        suppliers: [
+          { name: 'Tucker / Tucker Rocky', address: '931 W. Bardin Rd, Ste 150–200, Arlington, TX 76017' },
+        ],
+      },
+      {
+        id: 'wh3',
+        city: 'Whiteland',
+        state: 'IN',
+        coord: [-86.078, 39.549],
+        type: 'wh',
+        suppliers: [
+          { name: 'Tucker / Tucker Rocky', address: '5789 N. Graham Rd, Ste 200, Whiteland, IN 46184' },
+        ],
+      },
+      // AutoDist / Automatic Distributors
+      {
+        id: 'wh4',
+        city: 'Bangor',
+        state: 'ME',
+        coord: [-68.779, 44.801],
+        type: 'wh',
+        suppliers: [{ name: 'AutoDist / Automatic Distributors', address: '22 Target Circle, Bangor, ME 04401' }],
+      },
+      // Sparks, NV — shared (Parts Unlimited + AutoDist west-coast DC)
+      {
+        id: 'wh5',
+        city: 'Sparks',
+        state: 'NV',
+        coord: [-119.72, 39.555],
+        type: 'wh',
+        suppliers: [
+          { name: 'Parts Unlimited / LeMans', address: '45 Isidor Court, Sparks, NV 89441 · secondary source' },
+          { name: 'AutoDist / Automatic Distributors', address: 'West-coast DC — city-level warehouse watch' },
+        ],
+      },
+      // Parts Unlimited / LeMans Corporation
+      {
+        id: 'wh6',
+        city: 'Janesville',
+        state: 'WI',
+        coord: [-89.018, 42.683],
+        type: 'wh',
+        suppliers: [{ name: 'Parts Unlimited / LeMans', address: '3501 Kennedy Rd, Janesville, WI 53547-5222' }],
+      },
+      {
+        id: 'wh7',
+        city: 'Flat Rock',
+        state: 'NC',
+        coord: [-82.44, 35.286],
+        type: 'wh',
+        suppliers: [
+          { name: 'Parts Unlimited / LeMans', address: '121 Commercial Blvd, Flat Rock, NC 28731 · secondary source' },
+        ],
+      },
+      {
+        id: 'wh8',
+        city: 'Ballston Spa',
+        state: 'NY',
+        coord: [-73.85, 43.001],
+        type: 'wh',
+        suppliers: [{ name: 'Parts Unlimited / LeMans', address: 'City-level ship-from watch' }],
+      },
+      {
+        id: 'wh9',
+        city: 'Saratoga Springs',
+        state: 'NY',
+        coord: [-73.785, 43.082],
+        type: 'wh',
+        suppliers: [{ name: 'Parts Unlimited / LeMans', address: 'City-level ship-from watch' }],
+      },
+      {
+        id: 'wh10',
+        city: 'Grapevine',
+        state: 'TX',
+        coord: [-97.078, 32.934],
+        type: 'wh',
+        suppliers: [{ name: 'Parts Unlimited / LeMans', address: 'City-level ship-from watch · 76051' }],
+      },
+      {
+        id: 'wh11',
+        city: 'Fontana',
+        state: 'CA',
+        coord: [-117.436, 34.092],
+        type: 'wh',
+        suppliers: [{ name: 'Parts Unlimited / LeMans', address: 'City-level ship-from watch' }],
+      },
+      {
+        id: 'wh12',
+        city: 'Hendersonville',
+        state: 'NC',
+        coord: [-82.46, 35.319],
+        type: 'wh',
+        suppliers: [{ name: 'Parts Unlimited / LeMans', address: 'City-level ship-from watch' }],
+      },
+      // Keystone Automotive Operations
+      {
+        id: 'wh13',
+        city: 'Austell',
+        state: 'GA',
+        coord: [-84.634, 33.813],
+        type: 'wh',
+        suppliers: [
+          { name: 'Keystone Automotive Operations', address: '600 Hartman Industrial Court, Austell, GA 30168' },
+        ],
+      },
+      {
+        id: 'wh14',
+        city: 'Brownstown',
+        state: 'MI',
+        coord: [-83.246, 42.114],
+        type: 'wh',
+        suppliers: [
+          { name: 'Keystone Automotive Operations', address: '17950 Dix Toledo Hwy, Brownstown, MI 48193-8497' },
+        ],
+      },
+      {
+        id: 'wh15',
+        city: 'Exeter',
+        state: 'PA',
+        coord: [-75.821, 41.321],
+        type: 'wh',
+        suppliers: [
+          { name: 'Keystone Automotive Operations', address: '44 Tunkhannock Avenue, Exeter, PA 18643' },
+        ],
+      },
+      {
+        id: 'wh16',
+        city: 'Lewisville',
+        state: 'TX',
+        coord: [-96.994, 33.046],
+        type: 'wh',
+        suppliers: [
+          {
+            name: 'Keystone Automotive Operations',
+            address: '351 Lakeside Pkwy, Lewisville, TX 75028 · Irving/Lewisville area',
+          },
+        ],
+      },
+      {
+        id: 'wh17',
+        city: 'Kansas City',
+        state: 'KS',
+        coord: [-94.727, 39.114],
+        type: 'wh',
+        suppliers: [
+          { name: 'Keystone Automotive Operations', address: '90 Shawnee Avenue, Kansas City, KS 66105' },
+        ],
+      },
+      {
+        id: 'wh18',
+        city: 'Shawnee',
+        state: 'KS',
+        coord: [-94.84, 39.018],
+        type: 'wh',
+        suppliers: [
+          {
+            name: 'Keystone Automotive Operations',
+            address: '24550 W 43rd St Ste 100, Shawnee, KS 66226 · KC-area LKQ',
+          },
+        ],
+      },
+      {
+        id: 'wh19',
+        city: 'Eastvale',
+        state: 'CA',
+        coord: [-117.564, 33.963],
+        type: 'wh',
+        suppliers: [{ name: 'Keystone Automotive Operations', address: 'City-level DC watch' }],
+      },
+      {
+        id: 'wh20',
+        city: 'Ocoee',
+        state: 'FL',
+        coord: [-81.544, 28.569],
+        type: 'wh',
+        suppliers: [{ name: 'Keystone Automotive Operations', address: 'City-level DC watch' }],
+      },
+      {
+        id: 'wh21',
+        city: 'Spokane',
+        state: 'WA',
+        coord: [-117.426, 47.659],
+        type: 'wh',
+        suppliers: [{ name: 'Keystone Automotive Operations', address: 'City-level DC watch' }],
+      },
+      // Rocky Mountain ATV/MC
+      {
+        id: 'wh22',
+        city: 'Payson',
+        state: 'UT',
+        coord: [-111.732, 40.044],
+        type: 'wh',
+        suppliers: [{ name: 'Rocky Mountain ATV/MC', address: '1551 American Way, Payson, UT 84651' }],
+      },
+      {
+        id: 'wh23',
+        city: 'Winchester',
+        state: 'KY',
+        coord: [-84.18, 37.99],
+        type: 'wh',
+        suppliers: [{ name: 'Rocky Mountain ATV/MC', address: '1459 Rolling Hills Lane, Winchester, KY 40391' }],
+      },
+      // WPS / Western Power Sports
+      {
+        id: 'wh24',
+        city: 'Boise',
+        state: 'ID',
+        coord: [-116.203, 43.618],
+        type: 'wh',
+        suppliers: [{ name: 'WPS / Western Power Sports', address: '601 E. Gowen Road, Boise, ID 83716' }],
+      },
+      {
+        id: 'wh25',
+        city: 'Ashley',
+        state: 'IN',
+        coord: [-85.062, 41.526],
+        type: 'wh',
+        suppliers: [{ name: 'WPS / Western Power Sports', address: '902 H L Thompson Jr Dr, Ashley, IN 46705' }],
+      },
+      {
+        id: 'wh26',
+        city: 'Midway',
+        state: 'GA',
+        coord: [-81.433, 31.799],
+        type: 'wh',
+        suppliers: [{ name: 'WPS / Western Power Sports', address: '2137 Sunbury Road, Midway, GA 31320' }],
+      },
+      {
+        id: 'wh27',
+        city: 'Midlothian',
+        state: 'TX',
+        coord: [-96.994, 32.483],
+        type: 'wh',
+        suppliers: [{ name: 'WPS / Western Power Sports', address: '4081 Railport Parkway, Midlothian, TX 76065' }],
+      },
+      {
+        id: 'wh28',
+        city: 'Fresno',
+        state: 'CA',
+        coord: [-119.787, 36.741],
+        type: 'wh',
+        suppliers: [
+          { name: 'WPS / Western Power Sports', address: '2855 S Elm Ave, Fresno, CA 93706 · secondary/API watch' },
+        ],
+      },
+      {
+        id: 'wh29',
+        city: 'Elizabethtown',
+        state: 'PA',
+        coord: [-76.602, 40.152],
+        type: 'wh',
+        suppliers: [
+          {
+            name: 'WPS / Western Power Sports',
+            address: '1480 Zeager Rd, Elizabethtown, PA 17022 · secondary/API watch',
+          },
+        ],
+      },
+      // Primary pins (rendered last so they sit above the warehouse dots).
+      {
+        id: 'hq',
+        city: 'Sheridan',
+        state: 'WY',
+        coord: [-106.9562, 44.7972],
+        type: 'hq',
+        kicker: 'Registered headquarters',
+        desc: 'Our legal home. Rollun LC is incorporated in Wyoming — the registered entity behind every order.',
+        rows: [
+          { k: 'Role', v: 'Registered HQ' },
+          { k: 'Since', v: '2015' },
+          { k: 'Entity', v: 'Rollun LC' },
+        ],
+      },
+      {
+        id: 'store',
+        city: 'Houston',
+        state: 'TX',
+        coord: [-95.3698, 29.7604],
+        type: 'store',
+        kicker: 'Store & returns center',
+        desc: 'Our brick-and-mortar operation. Walk-in pickup, local support, and the hub that processes returns.',
+        rows: [
+          { k: 'Role', v: 'Store & returns' },
+          { k: 'Hours', v: 'Mon–Fri 9–6' },
+          { k: 'Pickup', v: 'Walk-in' },
+        ],
+      },
     ],
   },
   team: {
