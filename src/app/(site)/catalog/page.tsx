@@ -10,18 +10,20 @@ import Entrances from '@/components/catalog/Entrances'
 import Hero from '@/components/catalog/Hero'
 import ProductLines from '@/components/catalog/ProductLines'
 import { buildCatalogContent } from '@/content/catalog'
-import { PRODUCTS } from '@/content/products'
 import { getCatalogContent } from '@/lib/catalog-content'
+import { getMarqueeBrands } from '@/lib/marquee-brands'
+import { getProducts } from '@/lib/products'
 
 import '@/styles/catalog.css'
 
 export default async function CatalogPage() {
-  const catalogContent = buildCatalogContent(await getCatalogContent())
+  const products = await getProducts()
+  const catalogContent = buildCatalogContent(await getCatalogContent(), await getMarqueeBrands())
   return (
     <main>
       <Hero hero={catalogContent.hero} />
       <Entrances entrancesHead={catalogContent.entrancesHead} entrances={catalogContent.entrances} />
-      <ProductLines lines={catalogContent.lines} filter={catalogContent.filter} products={PRODUCTS} />
+      <ProductLines lines={catalogContent.lines} filter={catalogContent.filter} products={products} />
       <BrandMarquee brands={catalogContent.brands} />
       <CtaSection cta={catalogContent.cta} />
     </main>

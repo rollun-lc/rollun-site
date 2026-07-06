@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    products: Product;
+    brands: Brand;
+    shops: Shop;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    brands: BrandsSelect<false> | BrandsSelect<true>;
+    shops: ShopsSelect<false> | ShopsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -139,6 +145,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  role: 'admin' | 'manager';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -221,6 +228,97 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  brand?: string | null;
+  domain?: string | null;
+  name: string;
+  category: 'tires' | 'oils' | 'elec' | 'health';
+  /**
+   * Feed-overwritable in Phase 4 (product feed owns images). Phase 1 renders "Photo N" placeholders from the item count.
+   */
+  imgs?:
+    | {
+        img?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  rating?: number | null;
+  reviews?: number | null;
+  specs?:
+    | {
+        label?: string | null;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  fits?:
+    | {
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  desc?: string | null;
+  amazon?: string | null;
+  order?: number | null;
+  /**
+   * Reserved seam for the Phase-4 product feed. Not populated in Phase 3.
+   */
+  feed?: {
+    sku?: string | null;
+    externalId?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands".
+ */
+export interface Brand {
+  id: number;
+  domain?: string | null;
+  name: string;
+  /**
+   * Present → linked <a> tile (Health); empty → linkless <div> tile (Automotive).
+   */
+  href?: string | null;
+  line: 'auto' | 'health';
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shops".
+ */
+export interface Shop {
+  id: number;
+  brand: 'amazon' | 'ebay' | 'walmart';
+  shot?: {
+    img?: string | null;
+    alt?: string | null;
+    href?: string | null;
+  };
+  rating?: {
+    pct?: number | null;
+    score?: string | null;
+    meta?: string | null;
+  };
+  blurb?: string | null;
+  cta?: {
+    labelDk?: string | null;
+    labelMb?: string | null;
+    href?: string | null;
+  };
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -250,6 +348,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'brands';
+        value: number | Brand;
+      } | null)
+    | ({
+        relationTo: 'shops';
+        value: number | Shop;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -298,6 +408,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -386,6 +497,93 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  brand?: T;
+  domain?: T;
+  name?: T;
+  category?: T;
+  imgs?:
+    | T
+    | {
+        img?: T;
+        id?: T;
+      };
+  rating?: T;
+  reviews?: T;
+  specs?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  fits?:
+    | T
+    | {
+        value?: T;
+        id?: T;
+      };
+  desc?: T;
+  amazon?: T;
+  order?: T;
+  feed?:
+    | T
+    | {
+        sku?: T;
+        externalId?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands_select".
+ */
+export interface BrandsSelect<T extends boolean = true> {
+  domain?: T;
+  name?: T;
+  href?: T;
+  line?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shops_select".
+ */
+export interface ShopsSelect<T extends boolean = true> {
+  brand?: T;
+  shot?:
+    | T
+    | {
+        img?: T;
+        alt?: T;
+        href?: T;
+      };
+  rating?:
+    | T
+    | {
+        pct?: T;
+        score?: T;
+        meta?: T;
+      };
+  blurb?: T;
+  cta?:
+    | T
+    | {
+        labelDk?: T;
+        labelMb?: T;
+        href?: T;
+      };
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

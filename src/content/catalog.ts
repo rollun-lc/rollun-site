@@ -117,8 +117,45 @@ export type CatalogContent = {
   }
 }
 
-/** Build the Catalog content from the `CatalogContent` Payload global (AD-7). */
-export const buildCatalogContent = (c: CatalogContentGlobal): CatalogContent => ({
+/**
+ * The marquee brand lists (05) — the single source of truth for BOTH the
+ * `getMarqueeBrands()` accessor fallback AND the migration seed (Epic 8, Phase 3).
+ * Ported VERBATIM from the two prototypes. Automotive (14) render as LINKLESS
+ * `<div>` tiles; Health (3) render as LINKED external `<a>` tiles.
+ */
+export const MARQUEE_BRANDS: { auto: CatalogBrand[]; health: CatalogBrand[] } = {
+  // Automotive (14) — LINKLESS `<div>` tiles (no href, non-clickable cursor).
+  auto: [
+    { domain: 'dunlop.com', name: 'Dunlop' },
+    { domain: 'tuskoffroad.com', name: 'Tusk' },
+    { domain: 'motionpro.com', name: 'Motion Pro' },
+    { domain: 'kendatire.com', name: 'Kenda' },
+    { domain: 'barnettclutches.com', name: 'Barnett' },
+    { domain: 'ciro3d.com', name: 'Ciro' },
+    { domain: 'acerbis.com', name: 'Acerbis' },
+    { domain: 'irctire.com', name: 'IRC' },
+    { domain: 'sscycle.com', name: 'S&S Cycle' },
+    { domain: 'customdynamics.com', name: 'Custom Dynamics' },
+    { domain: 'yuasabatteries.com', name: 'Yuasa' },
+    { domain: 'caliberproducts.com', name: 'Caliber' },
+    { domain: 'unifilter.com', name: 'Unifilter' },
+    { domain: 'motul.com', name: 'Motul' },
+  ],
+  // Health (3) — LINKED external `<a>` tiles (target=_blank rel=noopener).
+  health: [
+    { domain: 'rynopower.com', name: 'Ryno Power', href: 'https://rynopower.com/' },
+    { domain: 'ridersgold.com', name: 'Riders Gold · Liquid Fuel', href: 'https://ridersgold.com/product/liquid-fuel/' },
+    { domain: 'ridersgold.com', name: 'Riders Gold · Full Throttle', href: 'https://ridersgold.com/product/full-throttle/' },
+  ],
+}
+
+/** Build the Catalog content from the `CatalogContent` Payload global (AD-7). The
+ *  marquee `brands` default to the code-owned `MARQUEE_BRANDS`; the `Brands`
+ *  collection accessor (`getMarqueeBrands()`) supplies them when seeded (AD-5). */
+export const buildCatalogContent = (
+  c: CatalogContentGlobal,
+  brands: { auto: CatalogBrand[]; health: CatalogBrand[] } = MARQUEE_BRANDS,
+): CatalogContent => ({
   hero: {
     eyebrow: c.hero.eyebrow,
     title: c.hero.title,
@@ -255,29 +292,11 @@ export const buildCatalogContent = (c: CatalogContentGlobal): CatalogContent => 
     },
     autoCatLabel: c.brands.autoCatLabel,
     healthCatLabel: c.brands.healthCatLabel,
-    // Automotive (14) — LINKLESS `<div>` tiles (no href, non-clickable cursor).
-    auto: [
-      { domain: 'dunlop.com', name: 'Dunlop' },
-      { domain: 'tuskoffroad.com', name: 'Tusk' },
-      { domain: 'motionpro.com', name: 'Motion Pro' },
-      { domain: 'kendatire.com', name: 'Kenda' },
-      { domain: 'barnettclutches.com', name: 'Barnett' },
-      { domain: 'ciro3d.com', name: 'Ciro' },
-      { domain: 'acerbis.com', name: 'Acerbis' },
-      { domain: 'irctire.com', name: 'IRC' },
-      { domain: 'sscycle.com', name: 'S&S Cycle' },
-      { domain: 'customdynamics.com', name: 'Custom Dynamics' },
-      { domain: 'yuasabatteries.com', name: 'Yuasa' },
-      { domain: 'caliberproducts.com', name: 'Caliber' },
-      { domain: 'unifilter.com', name: 'Unifilter' },
-      { domain: 'motul.com', name: 'Motul' },
-    ],
-    // Health (3) — LINKED external `<a>` tiles (target=_blank rel=noopener).
-    health: [
-      { domain: 'rynopower.com', name: 'Ryno Power', href: 'https://rynopower.com/' },
-      { domain: 'ridersgold.com', name: 'Riders Gold · Liquid Fuel', href: 'https://ridersgold.com/product/liquid-fuel/' },
-      { domain: 'ridersgold.com', name: 'Riders Gold · Full Throttle', href: 'https://ridersgold.com/product/full-throttle/' },
-    ],
+    // Marquee brand lists — code-owned default (`MARQUEE_BRANDS`) or the seeded
+    // `Brands` collection via `getMarqueeBrands()`. Automotive = LINKLESS tiles;
+    // Health = LINKED external `<a>` tiles.
+    auto: brands.auto,
+    health: brands.health,
     autoRepeat: 2,
     healthRepeat: 8,
   },

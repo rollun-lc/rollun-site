@@ -16,3 +16,10 @@ export const CATALOG_CONTENT_TAG = 'catalog-content'
 export const BRANDS_CONTENT_TAG = 'brands-content'
 export const SHOPS_CONTENT_TAG = 'shops-content'
 export const CONTACT_CONTENT_TAG = 'contact-content'
+
+// Phase-3 catalog COLLECTIONS (Epic 8). Distinct from the *_CONTENT_TAG page
+// globals above — e.g. `BRANDS_TAG` (marquee logo collection) is NOT
+// `BRANDS_CONTENT_TAG` (the MOTOTOU `/brands` page global).
+export const PRODUCTS_TAG = 'products'
+export const BRANDS_TAG = 'brands'
+export const SHOPS_TAG = 'shops'

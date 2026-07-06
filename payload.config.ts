@@ -6,7 +6,10 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
+import { Brands } from './src/collections/Brands'
 import { Media } from './src/collections/Media'
+import { Products } from './src/collections/Products'
+import { Shops } from './src/collections/Shops'
 import { Users } from './src/collections/Users'
 import { AboutContent } from './src/globals/AboutContent'
 import { BrandsContent } from './src/globals/BrandsContent'
@@ -36,7 +39,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Products, Brands, Shops],
   globals: [
     SiteSettings,
     HomeContent,

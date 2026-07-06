@@ -74,6 +74,60 @@ export type ShopsContent = {
 }
 
 /**
+ * The marketplace cards (03) — the single source of truth for BOTH the
+ * `getShops()` accessor fallback AND the migration seed (Epic 8, Phase 3). Ported
+ * VERBATIM from the two prototypes. The `dk/mb` CTA label pairs and the card
+ * ordering (amazon → ebay → walmart) stay code-owned.
+ */
+export const SHOP_CARDS: ShopCardData[] = [
+  {
+    brand: 'amazon',
+    shot: {
+      img: '/shop/store-amazon.png',
+      alt: 'Rollun storefront on Amazon',
+      href: 'https://www.amazon.com/s?i=merchant-items&me=A11L6NMVUXNX47',
+    },
+    rating: { pct: 94, score: '4.7 out of 5', meta: '94% positive · 153 ratings' },
+    blurb: 'Fast Prime-eligible shipping and A-to-z buyer protection on our full Amazon storefront.',
+    cta: {
+      labelDk: 'VISIT STORE',
+      labelMb: 'Visit store',
+      href: 'https://www.amazon.com/s?i=merchant-items&me=A11L6NMVUXNX47',
+    },
+  },
+  {
+    brand: 'ebay',
+    shot: {
+      img: '/shop/store-ebay.png',
+      alt: 'Rollun store on eBay',
+      href: 'https://www.ebay.com/str/Rollun',
+    },
+    rating: { pct: 100, score: '99.8% positive feedback', meta: '59K+ items sold · 843 followers' },
+    blurb: 'Our top-rated eBay store with 2,200+ live listings of parts and accessories.',
+    cta: {
+      labelDk: 'VISIT STORE',
+      labelMb: 'Visit store',
+      href: 'https://www.ebay.com/str/Rollun',
+    },
+  },
+  {
+    brand: 'walmart',
+    shot: {
+      img: '/shop/store-walmart-reviews.png',
+      alt: 'Rollun LC seller page on Walmart Marketplace',
+      href: 'https://www.walmart.com/global/seller/101022720',
+    },
+    rating: { pct: 80, score: '4.0 out of 5', meta: 'Rollun LC seller · 4 ratings' },
+    blurb: 'Shop our growing Walmart Marketplace catalog with easy checkout and returns.',
+    cta: {
+      labelDk: 'VISIT STORE',
+      labelMb: 'Visit store',
+      href: 'https://www.walmart.com/global/seller/101022720',
+    },
+  },
+]
+
+/**
  * Build the Our Shops content by composing the `ShopsContent` Payload global (🟡
  * editable text + the 🔴 storefront photo) with the `SiteSettings` passport
  * (`store.hours` / `store.phone` / `store.addressLines`, AD-14) and code-owned
@@ -83,7 +137,11 @@ export type ShopsContent = {
  * code-owned (AD-6/AD-13). The page (RSC) calls this with the resolved global +
  * settings.
  */
-export const buildShopsContent = (c: ShopsContentGlobal, s: SiteSetting): ShopsContent => ({
+export const buildShopsContent = (
+  c: ShopsContentGlobal,
+  s: SiteSetting,
+  cards: ShopCardData[] = SHOP_CARDS,
+): ShopsContent => ({
   hero: {
     eyebrow: c.hero.eyebrow,
     title: c.hero.title,
@@ -119,52 +177,6 @@ export const buildShopsContent = (c: ShopsContentGlobal, s: SiteSetting): ShopsC
     eyebrow: c.shops.eyebrow,
     title: c.shops.title,
     intro: c.shops.intro,
-    cards: [
-      {
-        brand: 'amazon',
-        shot: {
-          img: '/shop/store-amazon.png',
-          alt: 'Rollun storefront on Amazon',
-          href: 'https://www.amazon.com/s?i=merchant-items&me=A11L6NMVUXNX47',
-        },
-        rating: { pct: 94, score: '4.7 out of 5', meta: '94% positive · 153 ratings' },
-        blurb: 'Fast Prime-eligible shipping and A-to-z buyer protection on our full Amazon storefront.',
-        cta: {
-          labelDk: 'VISIT STORE',
-          labelMb: 'Visit store',
-          href: 'https://www.amazon.com/s?i=merchant-items&me=A11L6NMVUXNX47',
-        },
-      },
-      {
-        brand: 'ebay',
-        shot: {
-          img: '/shop/store-ebay.png',
-          alt: 'Rollun store on eBay',
-          href: 'https://www.ebay.com/str/Rollun',
-        },
-        rating: { pct: 100, score: '99.8% positive feedback', meta: '59K+ items sold · 843 followers' },
-        blurb: 'Our top-rated eBay store with 2,200+ live listings of parts and accessories.',
-        cta: {
-          labelDk: 'VISIT STORE',
-          labelMb: 'Visit store',
-          href: 'https://www.ebay.com/str/Rollun',
-        },
-      },
-      {
-        brand: 'walmart',
-        shot: {
-          img: '/shop/store-walmart-reviews.png',
-          alt: 'Rollun LC seller page on Walmart Marketplace',
-          href: 'https://www.walmart.com/global/seller/101022720',
-        },
-        rating: { pct: 80, score: '4.0 out of 5', meta: 'Rollun LC seller · 4 ratings' },
-        blurb: 'Shop our growing Walmart Marketplace catalog with easy checkout and returns.',
-        cta: {
-          labelDk: 'VISIT STORE',
-          labelMb: 'Visit store',
-          href: 'https://www.walmart.com/global/seller/101022720',
-        },
-      },
-    ],
+    cards,
   },
 })
