@@ -1,8 +1,8 @@
 // GET /quickbooks/callback — Intuit redirects here after consent with `code`, `realmId`
 // and `state`. We exchange the authorization code for tokens and render the resulting
 // refresh token + realm id so they can be copied into Secret Manager:
-//   QUICKBOOKS_MCP_REFRESH_TOKEN  <-  refresh_token
-//   QUICKBOOKS_MCP_REALM_ID       <-  realmId
+//   QUICKBOOKS_REFRESH_TOKEN  <-  refresh_token
+//   QUICKBOOKS_REALM_ID       <-  realmId
 //
 // The refresh token rotates and expires (~100 days) and is NOT persisted automatically
 // (manual rotation, by design) — re-run /quickbooks/connect before it lapses.
@@ -150,10 +150,10 @@ export async function GET(req: NextRequest) {
     <h1>QuickBooks connected ✓</h1>
     <p>Copy these two values into Secret Manager, then redeploy / restart the <code>quickbooks-mcp</code> service.</p>
 
-    <div class="label">QUICKBOOKS_MCP_REFRESH_TOKEN</div>
+    <div class="label">QUICKBOOKS_REFRESH_TOKEN</div>
     <div class="val">${esc(refreshToken)}</div>
 
-    <div class="label">QUICKBOOKS_MCP_REALM_ID</div>
+    <div class="label">QUICKBOOKS_REALM_ID</div>
     <div class="val">${esc(realmId)}</div>
 
     <p class="muted">${
