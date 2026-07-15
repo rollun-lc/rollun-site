@@ -20,6 +20,17 @@
  */
 
 @layer components {
+  /* Global horizontal-scroll guard. Full-bleed mobile scrollers (`.line-shelf`,
+     `.hscroll`, `.product-shelf` — all `margin:0 -20px`) and the off-canvas drawer
+     extend ~20px past the viewport; without this they leak a phantom sideways
+     scroll and a white gutter on the right edge (every page, not just catalog).
+     `clip` (not `hidden`) clips the X axis only, leaving vertical scroll and the
+     fixed header/sticky untouched. */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   /* Both compositions are hidden by default; the media queries below reveal the
      one that matches the viewport. This is the only switch — pure CSS. */
   .site-header--dk,
@@ -492,6 +503,11 @@
     }
     .site-drawer .drawer-top img {
       height: 28px;
+      /* width MUST be auto: without it the img's `width="1106"` presentational
+         hint survives and the flex row squashes the logo wide (ratio ~8.9 vs the
+         real 4.94). `flex:0 0 auto` keeps it at its intrinsic width. */
+      width: auto;
+      flex: 0 0 auto;
     }
     .drawer-close {
       width: 40px;
