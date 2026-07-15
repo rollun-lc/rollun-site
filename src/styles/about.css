@@ -486,14 +486,7 @@
     .about-dk .team-stat .fig.faded {
       color: rgba(255, 255, 255, 0.24);
     }
-    /* Epic mandate: reduced-motion → static final state, no coin/figure transition
-       (the island builds coins/figures straight into their end state). */
-    @media (prefers-reduced-motion: reduce) {
-      .about-dk .coin-stat .coin,
-      .about-dk .team-stat .fig {
-        transition: none;
-      }
-    }
+    /* Policy: everything animates — no `prefers-reduced-motion` freeze. */
     .about-dk .stat-val {
       font-family: var(--font-display);
       font-weight: 300;
@@ -1804,12 +1797,7 @@
         box-shadow: 0 0 0 0 rgba(52, 199, 89, 0);
       }
     }
-    /* Epic mandate: reduced-motion disables all animation (prototype has none). */
-    @media (prefers-reduced-motion: reduce) {
-      .about-mb .live-tag .dot {
-        animation: none;
-      }
-    }
+    /* Policy: everything animates — no `prefers-reduced-motion` freeze. */
 
     /* ─────────────  TEAM (07)  ───────────── */
     .about-mb.team {

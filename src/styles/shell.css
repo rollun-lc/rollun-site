@@ -618,11 +618,6 @@
       transform: none;
     }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-  }
+  /* Policy: everything animates — no `prefers-reduced-motion` freeze. The reveal
+     fade always plays (RevealOnScroll's observer runs regardless of the setting). */
 }

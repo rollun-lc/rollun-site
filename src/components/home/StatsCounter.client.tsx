@@ -30,8 +30,9 @@
  * fires first wins and a `data-done` flag keeps each count-up single-shot. The
  * numbers can therefore never get stuck at `0` while motion is allowed.
  *
- * If `prefers-reduced-motion: reduce`, the island does NOTHING (no reset, no
- * animation) so the SSR final frame is shown immediately — the no-JS fallback too.
+ * Policy: the count-up ALWAYS runs — `prefers-reduced-motion` is intentionally NOT
+ * honoured (the site's motion is always on). The SSR final frame is still the no-JS
+ * fallback: with JS off, the numbers render at their final values.
  *
  * The effect is keyed on `usePathname()` (like the sibling islands) and its
  * cleanup disconnects the observer — so SPA navigation leaves nothing running.
@@ -49,10 +50,9 @@ export default function StatsCounter() {
   const pathname = usePathname()
 
   useEffect(() => {
-    // Reduced motion → do nothing so the SSR final frame stays visible (matches
-    // `Home.html:1378` guard + the reduced-motion rule). Everything else counts up;
-    // a missing IntersectionObserver is fine — the scroll fallback below covers it.
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    // Policy: everything animates — we do NOT exempt `prefers-reduced-motion`, so
+    // the count-up always runs. A missing IntersectionObserver is fine too; the
+    // scroll fallback below covers it.
 
     // Reset each counter to `0` (below the fold — never seen), then count up when
     // it enters view. Both compositions are queried; the hidden one stays at `0`.

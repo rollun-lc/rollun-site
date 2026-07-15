@@ -91,11 +91,11 @@ export default function UsPresenceMap({ locations }: { locations: AboutMapLocati
     const mapHint = document.querySelector<HTMLElement>('.about-dk.map-section .map-hint')
     if (!section || !canvas || !popup) return
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    // Policy: everything animates — `prefers-reduced-motion` is NOT honoured.
     const hasIO = 'IntersectionObserver' in window
-    // Count-up plays only when motion is allowed AND we can gate it on scroll —
-    // otherwise the SSR final `30` is shown immediately (matches StatsCounter).
-    const animateCount = !reduced && hasIO
+    // Count-up plays whenever we can gate it on scroll — otherwise the SSR final
+    // `30` is shown immediately (matches StatsCounter).
+    const animateCount = hasIO
 
     const controller = new AbortController()
     const { signal } = controller

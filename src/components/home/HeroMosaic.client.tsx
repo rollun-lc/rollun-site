@@ -176,11 +176,12 @@ export default function HeroMosaic({
       return () => feature.remove()
     }
 
-    // Drive ONLY the currently-visible composition, gated by the reduced-motion
-    // + viewport media queries.
+    // Drive ONLY the currently-visible composition, gated by the viewport query.
+    // Policy: everything animates — `prefers-reduced-motion` is NOT honoured, so
+    // the bloom always runs (both compositions), regardless of the OS setting.
     let teardown: Teardown = () => {}
     const setup = () => {
-      const reduced = motionMq.matches
+      const reduced = false
       const desktop = wideMq.matches
       if (desktop) {
         teardown = reduced ? () => {} : startDesktopBloom()

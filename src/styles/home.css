@@ -1256,24 +1256,6 @@
     }
   }
 
-  /* Reduced-motion — belt-and-suspenders with HeroMosaic.client, which already
-     starts NO timers when `prefers-reduced-motion: reduce`. This drops the
-     desktop tile bloom transition (the SSR `.lit` subset snaps to its final
-     frame with no fade) and pins the mobile feature statically expanded on the
-     first photo (full grid, opaque, no transform). Scoped outside the 768px
-     width queries so it applies to whichever composition the width `@media`
-     shows. */
-  @media (prefers-reduced-motion: reduce) {
-    .home-dk .mosaic-tile {
-      transition: none;
-    }
-    .home-dk .line-slide {
-      transition: none;
-    }
-    .home-mb .mosaic-feature {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-  }
+  /* Policy: everything animates — no `prefers-reduced-motion` freeze. The hero
+     mosaic bloom always runs (HeroMosaic.client no longer gates on the setting). */
 }

@@ -2543,17 +2543,6 @@
     color: var(--color-ink-mute);
   }
 
-  /* prefers-reduced-motion — freeze both marquees and the spotlight transition
-     (Story 5.5; Catalog.html ~621-623 & ~802-804, Catalog Mobile.html ~267). */
-  @media (prefers-reduced-motion: reduce) {
-    .catalog-dk .logo-track,
-    .catalog-dk .logo-track.rev,
-    .catalog-mb .logo-track,
-    .catalog-mb .logo-track.rev {
-      animation: none;
-    }
-    .ls-fly {
-      transition: none;
-    }
-  }
+  /* Policy: everything animates — no `prefers-reduced-motion` freeze. The brand
+     marquees and the spotlight transition always run. */
 }

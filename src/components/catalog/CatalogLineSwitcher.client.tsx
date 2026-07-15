@@ -44,11 +44,9 @@ export default function CatalogLineSwitcher({ names }: { names: { auto: string; 
 
     const cleanups: Array<() => void> = []
 
-    // Reduced-motion visitors get an instant jump instead of the animated scroll
-    // (epic Accessibility Floor: `prefers-reduced-motion` disables page animations).
-    // Read at call time so a mid-session preference change is honoured.
-    const scrollBehavior = (): ScrollBehavior =>
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+    // Policy: everything animates — always use smooth scroll (we intentionally do
+    // NOT downgrade to an instant jump under `prefers-reduced-motion`).
+    const scrollBehavior = (): ScrollBehavior => 'smooth'
 
     // VERBATIM from Catalog.html's `choose()` (names sourced from content).
     const choose = (cat: 'health' | 'auto', scroll: boolean) => {

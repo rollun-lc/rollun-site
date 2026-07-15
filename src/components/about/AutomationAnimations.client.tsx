@@ -45,11 +45,11 @@ export default function AutomationAnimations() {
   const pathname = usePathname()
 
   useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    // Policy: everything animates — `prefers-reduced-motion` is NOT honoured.
     const hasIO = 'IntersectionObserver' in window
-    // Coins/figures still animate only when motion is allowed AND we can gate on
-    // scroll; otherwise they are built straight into their final static state.
-    const animate = !reduced && hasIO
+    // Coins/figures animate whenever we can gate on scroll; otherwise they are
+    // built straight into their final static state.
+    const animate = hasIO
 
     const frames = new Set<number>()
     const timers = new Set<ReturnType<typeof setTimeout>>()
