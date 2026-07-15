@@ -519,12 +519,12 @@
     /* Secondary CTA on light `--color-paper`, paired with the orange primary. Dark
        fill + ORANGE text/border so it reads clearly (bare dark text vanished into the
        ink copy); on hover it fills orange with dark text — the inverse of the primary. */
-    .catalog-dk .cta .btn-dark {
+    .catalog-dk.cta .btn-dark {
       background: var(--color-dark);
       color: var(--color-or);
       border-color: var(--color-or);
     }
-    .catalog-dk .cta .btn-dark:hover {
+    .catalog-dk.cta .btn-dark:hover {
       background: var(--color-or);
       color: var(--color-dark);
       border-color: var(--color-or);
@@ -779,6 +779,11 @@
     /* ── Line sections (stacked) ── */
     .catalog-mb.line {
       padding: 44px 0 48px;
+      /* The `.hscroll`/`.product-shelf` full-bleed scrollers use `margin:0 -20px`
+         to reach the screen edge; their -20px right bleed spilled 20px past the
+         viewport → a page-wide horizontal scroll. Clip it here (x only, so the
+         scrollers still scroll internally and sticky/y-flow are untouched). */
+      overflow-x: clip;
     }
     .catalog-mb.line.auto {
       background: var(--color-bg);
@@ -920,11 +925,11 @@
       justify-content: center;
     }
     /* Same treatment as desktop — orange text/border, inverse fill on hover. */
-    .catalog-mb .cta .btn-dark {
+    .catalog-mb.cta .btn-dark {
       color: var(--color-or);
       border-color: var(--color-or);
     }
-    .catalog-mb .cta .btn-dark:hover {
+    .catalog-mb.cta .btn-dark:hover {
       background: var(--color-or);
       color: var(--color-dark);
       border-color: var(--color-or);
