@@ -59,11 +59,7 @@
     .shops-dk.page-hero {
       background: var(--color-dark);
       color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 110px 0 40px;
+      padding: 170px 0 90px;
       position: relative;
       overflow: hidden;
       text-align: center;
@@ -89,6 +85,8 @@
     .shops-dk .page-hero-inner {
       position: relative;
       z-index: 2;
+      max-width: 720px;
+      margin: 0 auto;
     }
     .shops-dk.page-hero .eyebrow {
       font-family: var(--font-display);
@@ -145,12 +143,11 @@
 
     /* ─────────────  PHYSICAL STORE (02)  ───────────── */
     .shops-dk.store {
-      padding: clamp(40px, 7vh, 90px) 0;
+      padding: clamp(60px, 9vh, 100px) 0;
       background: var(--color-bg);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    }
+    .shops-dk.store .container {
+      max-width: 900px;
     }
     .shops-dk .store-grid {
       display: grid;
@@ -253,12 +250,8 @@
 
     /* ─────────────  ONLINE SHOPS (03)  ───────────── */
     .shops-dk.shops {
-      padding: clamp(40px, 7vh, 90px) 0;
+      padding: clamp(60px, 9vh, 100px) 0;
       background: var(--color-paper);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
     .shops-dk .shop-grid {
       display: grid;

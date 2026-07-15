@@ -60,22 +60,18 @@ export function priceFor(p: Product, idx: number): string {
   return '$' + (base + idx * 1.5).toFixed(0).replace(/(\d)(?=(\d{3})+$)/g, '$1,') + cents
 }
 
-/** Derive the marketplace offers for a product BY LINE.
- *  `line === 'health'` → 2 offers [amazon(direct `p.amazon`), ebay(search `p.name`)];
- *  else (auto) → 3 offers [amazon, ebay, walmart] all searching `brand + ' ' + name`.
- *  VERBATIM from the prototype `buildOffers` (Catalog.html ~1429). */
-export function buildOffers(p: Product, line: 'auto' | 'health'): Offer[] {
-  if (line === 'health') {
-    return [
-      offer('amazon', priceFor(p, 0), 'In stock · Prime delivery', p.amazon),
-      offer('ebay', priceFor(p, 1), 'In stock · Free shipping', undefined, p.name),
-    ]
-  }
-  return [
-    offer('amazon', priceFor(p, 0), 'In stock · Free shipping', undefined, p.brand + ' ' + p.name),
-    offer('ebay', priceFor(p, 1), 'In stock · Free shipping', undefined, p.brand + ' ' + p.name),
-    offer('walmart', priceFor(p, 2), 'In stock · 2-day shipping', undefined, p.brand + ' ' + p.name),
+/** Derive the marketplace offers for a product (unified — no per-line branch).
+ *  Amazon + eBay use the product's real URL/price when set (`p.amazon`/`p.ebay`,
+ *  `p.price`/`p.ebayPrice`), else fall back to a marketplace search + derived price.
+ *  Walmart is appended UNLESS `p.noWalmart`. The `_line` arg is retained for call-site
+ *  compatibility but no longer branches. VERBATIM from the updated prototype `buildOffers`. */
+export function buildOffers(p: Product, _line?: 'auto' | 'health'): Offer[] {
+  const rows: Offer[] = [
+    offer('amazon', p.price || priceFor(p, 0), 'In stock · Free shipping', p.amazon, p.brand + ' ' + p.name),
+    offer('ebay', p.ebayPrice || priceFor(p, 1), 'In stock · Free shipping', p.ebay, p.brand + ' ' + p.name),
   ]
+  if (!p.noWalmart) rows.push(offer('walmart', priceFor(p, 2), 'In stock · 2-day shipping', undefined, p.brand + ' ' + p.name))
+  return rows
 }
 
 /** Marketplace disclaimer — VERBATIM from the prototype `.pd-disc` (Catalog.html

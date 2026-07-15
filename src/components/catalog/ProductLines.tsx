@@ -193,6 +193,9 @@ export default function ProductLines({
       fits: p.fits,
       desc: p.desc,
       offers: buildOffers(p, cat === 'health' ? 'health' : 'auto'),
+      photos: p.photos,
+      contact: p.contact,
+      logo: p.logo,
     })),
   )
   return (

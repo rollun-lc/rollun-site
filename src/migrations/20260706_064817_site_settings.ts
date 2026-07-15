@@ -29,10 +29,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"shop_address_state" varchar DEFAULT 'TX' NOT NULL,
   	"shop_address_zip" varchar DEFAULT '77039' NOT NULL,
   	"hours_home_cta_desktop" varchar DEFAULT '11:00 to 21:00 UTC' NOT NULL,
-  	"hours_home_cta_mobile" varchar DEFAULT '09:00 to 21:00 UTC+2' NOT NULL,
-  	"hours_about_cta_desktop" varchar DEFAULT '09:00 to 21:00 UTC +2' NOT NULL,
-  	"hours_about_cta_mobile" varchar DEFAULT '09:00 to 21:00 UTC+2' NOT NULL,
-  	"hours_contact" varchar DEFAULT '09:00 to 21:00 UTC+2' NOT NULL,
+  	"hours_home_cta_mobile" varchar DEFAULT '11:00 to 21:00 UTC' NOT NULL,
+  	"hours_about_cta_desktop" varchar DEFAULT '11:00 to 21:00 UTC' NOT NULL,
+  	"hours_about_cta_mobile" varchar DEFAULT '11:00 to 21:00 UTC' NOT NULL,
+  	"hours_contact" varchar DEFAULT '11:00 to 21:00 UTC' NOT NULL,
   	"updated_at" timestamp(3) with time zone,
   	"created_at" timestamp(3) with time zone
   );

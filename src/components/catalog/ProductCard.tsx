@@ -62,17 +62,22 @@ function ImgIco() {
 }
 
 export default function ProductCard({ product, variant, offers }: { product: Product; variant: 'dk' | 'mb'; offers: Offer[] }) {
-  const { brand, domain, name, imgs, specs } = product
+  const { brand, domain, name, imgs, specs, photos, logo, contact } = product
   return (
     <div className="product-card" role="button" tabIndex={0} aria-label={`${brand} ${name}`} data-pd-key={`${brand} ${name}`}>
       <div className="pc-media">
         <div className="pc-track">
           {imgs.map((_, idx) => (
             <div className="pc-slide" key={idx}>
-              <div className="img-ph">
-                <ImgIco />
-                <span className="pl">Photo {idx + 1}</span>
-              </div>
+              {photos && photos[idx] ? (
+                // eslint-disable-next-line @next/next/no-img-element -- fixed-ratio card slide; next/image adds no value in the enhanced slider
+                <img src={photos[idx]} alt={name} loading="lazy" />
+              ) : (
+                <div className="img-ph">
+                  <ImgIco />
+                  <span className="pl">Photo {idx + 1}</span>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -95,7 +100,12 @@ export default function ProductCard({ product, variant, offers }: { product: Pro
       </div>
       <div className="pc-body">
         <div className="pc-brand-row">
-          <FaviconImg domain={domain} className="pc-logo" />
+          {logo ? (
+            // eslint-disable-next-line @next/next/no-img-element -- small fixed brand logo; next/image adds no value here
+            <img className="pc-logo" src={logo} alt={brand} />
+          ) : (
+            <FaviconImg domain={domain} className="pc-logo" />
+          )}
           <div className="pc-brand">{brand}</div>
         </div>
         <div className="pc-name">{name}</div>
@@ -110,12 +120,16 @@ export default function ProductCard({ product, variant, offers }: { product: Pro
         <div className="pc-offers">
           <span className="pc-stock">In stock</span>
           <div className="pc-markets">
-            {offers.slice(0, 2).map((o) => (
-              <span className="mk" key={o.name}>
-                <FaviconImg domain={o.domain} />
-                {o.name}
-              </span>
-            ))}
+            {contact ? (
+              <span className="mk">Contact to buy</span>
+            ) : (
+              offers.slice(0, 2).map((o) => (
+                <span className="mk" key={o.name}>
+                  <FaviconImg domain={o.domain} />
+                  {o.name}
+                </span>
+              ))
+            )}
           </div>
         </div>
         <div className="pc-cta">

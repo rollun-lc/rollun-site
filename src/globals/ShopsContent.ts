@@ -33,7 +33,7 @@ export const ShopsContent: GlobalConfig = {
       type: 'group',
       fields: [
         { name: 'eyebrow', type: 'text', required: true, defaultValue: 'Where to buy' },
-        { name: 'title', type: 'text', required: true, defaultValue: 'Our stores' },
+        { name: 'title', type: 'text', required: true, defaultValue: 'Our shops' },
         {
           name: 'intro',
           type: 'text',

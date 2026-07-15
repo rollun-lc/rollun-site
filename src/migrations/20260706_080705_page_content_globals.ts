@@ -82,7 +82,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "shops_content" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"hero_eyebrow" varchar DEFAULT 'Where to buy' NOT NULL,
-  	"hero_title" varchar DEFAULT 'Our stores' NOT NULL,
+  	"hero_title" varchar DEFAULT 'Our shops' NOT NULL,
   	"hero_intro" varchar DEFAULT 'Visit us in person at our store in Texas, or shop the full Rollun catalog online across the marketplaces you trust.' NOT NULL,
   	"store_eyebrow" varchar DEFAULT 'In person' NOT NULL,
   	"store_title" varchar DEFAULT 'Visit our store in Texas' NOT NULL,

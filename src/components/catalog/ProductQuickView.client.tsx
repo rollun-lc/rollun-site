@@ -28,6 +28,7 @@
  * Phase 1: the gallery shows placeholders only — thumb clicks update the active border
  * and the "View N of M" counter, but there is NO real image swap (as in the prototype).
  */
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
@@ -52,6 +53,12 @@ export type ProductDetail = {
   fits: string[]
   desc: string
   offers: Offer[]
+  /** Real product photos (public paths), index-aligned to `imgs`. */
+  photos?: string[]
+  /** Sold on request (health) — show a "Contact to buy" CTA instead of offers. */
+  contact?: boolean
+  /** Real brand logo (public path) — overrides the derived favicon. */
+  logo?: string
 }
 
 /** Disclaimer under the offers — VERBATIM from the prototype `.pd-disc` (matches
@@ -96,6 +103,92 @@ function ImgIco() {
       <circle cx="9" cy="9" r="2" />
       <path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21" />
     </svg>
+  )
+}
+
+/** The → arrow on the "Contact to buy" CTA (prototype `arrowR`). */
+function ArrowR() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 12h14" />
+      <path d="m13 6 6 6-6 6" />
+    </svg>
+  )
+}
+
+/** Disclaimer shown under the "Contact to buy" CTA (health line — sold on request). */
+const CONTACT_DISCLAIMER = 'Available through Rollun on request — contact us for pricing and availability.'
+
+/** The purchase area WITHOUT its trailing disclaimer: a "Contact to buy" CTA for
+ *  on-request (health) products, else the "Available at" marketplace offers. The
+ *  disclaimer is rendered separately (`PdDisclaimer`) because desktop places it
+ *  immediately after, while mobile places it at the very end (after fits). */
+function PurchaseRows({ detail }: { detail: ProductDetail }) {
+  if (detail.contact) {
+    return (
+      <Link
+        className="btn btn-or"
+        style={{ justifyContent: 'center', marginTop: 4 }}
+        href={`/contact?topic=${encodeURIComponent('Product inquiry — ' + detail.brand + ' ' + detail.name)}#contactForm`}
+      >
+        Contact to buy
+        <ArrowR />
+      </Link>
+    )
+  }
+  return (
+    <>
+      <div className="pd-section-h">Available at</div>
+      <div className="pd-offers">
+        {detail.offers.map((o) => (
+          <OfferRow key={o.name} o={o} />
+        ))}
+      </div>
+    </>
+  )
+}
+
+/** The disclaimer under the purchase area — contact (on-request) vs marketplace text. */
+function PdDisclaimer({ detail }: { detail: ProductDetail }) {
+  return <p className="pd-disc">{detail.contact ? CONTACT_DISCLAIMER : DISCLAIMER}</p>
+}
+
+/** The gallery main image + thumbnail strip (shared by both compositions). Renders real
+ *  `photos` when present (main = contain on white; thumbs = cover), else placeholders. */
+function PdGallery({ detail, thumb, setThumb }: { detail: ProductDetail; thumb: number; setThumb: (n: number) => void }) {
+  const n = detail.imgs.length
+  return (
+    <>
+      <div className="pd-main">
+        {detail.photos && detail.photos[thumb] ? (
+          // eslint-disable-next-line @next/next/no-img-element -- product gallery image; next/image adds no value inside the modal
+          <img src={detail.photos[thumb]} alt={detail.name} style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', background: '#fff' }} />
+        ) : (
+          <div className="img-ph pd-ph-main">
+            <ImgIco />
+            <span className="pl">Product photo</span>
+            <span className="sub">
+              View <b>{thumb + 1}</b> of {n}
+            </span>
+          </div>
+        )}
+      </div>
+      <div className="pd-thumbs">
+        {detail.imgs.map((_, idx) => (
+          <button key={idx} className={idx === thumb ? 'pd-thumb active' : 'pd-thumb'} type="button" onClick={() => setThumb(idx)}>
+            {detail.photos && detail.photos[idx] ? (
+              // eslint-disable-next-line @next/next/no-img-element -- fixed-size thumbnail; next/image adds no value here
+              <img src={detail.photos[idx]} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            ) : (
+              <div className="img-ph pd-ph-mini">
+                <ImgIco />
+                <span className="pl">{idx + 1}</span>
+              </div>
+            )}
+          </button>
+        ))}
+      </div>
+    </>
   )
 }
 
@@ -244,8 +337,6 @@ export default function ProductQuickView({ details }: { details: ProductDetail[]
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [open])
 
-  const n = detail?.imgs.length ?? 0
-
   return (
     <>
       {/* ── Desktop modal composition (AD-3) — 2-column grid, VERBATIM Catalog.html ~1537 ── */}
@@ -261,30 +352,7 @@ export default function ProductQuickView({ details }: { details: ProductDetail[]
                 <div className="pd-grid">
                   {/* LEFT — gallery + thumbs + Compatibility (fits live in the gallery on desktop). */}
                   <div className="pd-gallery">
-                    <div className="pd-main">
-                      <div className="img-ph pd-ph-main">
-                        <ImgIco />
-                        <span className="pl">Product photo</span>
-                        <span className="sub">
-                          View <b>{thumb + 1}</b> of {n}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="pd-thumbs">
-                      {detail.imgs.map((_, idx) => (
-                        <button
-                          key={idx}
-                          className={idx === thumb ? 'pd-thumb active' : 'pd-thumb'}
-                          type="button"
-                          onClick={() => setThumb(idx)}
-                        >
-                          <div className="img-ph pd-ph-mini">
-                            <ImgIco />
-                            <span className="pl">{idx + 1}</span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
+                    <PdGallery detail={detail} thumb={thumb} setThumb={setThumb} />
                     <div className="pd-section-h" style={{ marginTop: 24 }}>
                       Compatibility — fits
                     </div>
@@ -302,7 +370,12 @@ export default function ProductQuickView({ details }: { details: ProductDetail[]
                   {/* RIGHT — brand/title/rating/desc + specs + offers. */}
                   <div className="pd-info">
                     <div className="pd-brand-row">
-                      <FaviconImg domain={detail.domain} />
+                      {detail.logo ? (
+                        // eslint-disable-next-line @next/next/no-img-element -- small fixed brand logo; next/image adds no value here
+                        <img src={detail.logo} alt={detail.brand} />
+                      ) : (
+                        <FaviconImg domain={detail.domain} />
+                      )}
                       <span className="b">{detail.brand}</span>
                     </div>
                     <h3 className="pd-title">{detail.name}</h3>
@@ -325,13 +398,8 @@ export default function ProductQuickView({ details }: { details: ProductDetail[]
                         </li>
                       ))}
                     </ul>
-                    <div className="pd-section-h">Available at</div>
-                    <div className="pd-offers">
-                      {detail.offers.map((o) => (
-                        <OfferRow key={o.name} o={o} />
-                      ))}
-                    </div>
-                    <p className="pd-disc">{DISCLAIMER}</p>
+                    <PurchaseRows detail={detail} />
+                    <PdDisclaimer detail={detail} />
                   </div>
                 </div>
               )}
@@ -356,35 +424,17 @@ export default function ProductQuickView({ details }: { details: ProductDetail[]
                 <>
                   {/* Gallery ONLY (no fits here on mobile). */}
                   <div className="pd-gallery">
-                    <div className="pd-main">
-                      <div className="img-ph pd-ph-main">
-                        <ImgIco />
-                        <span className="pl">Product photo</span>
-                        <span className="sub">
-                          View <b>{thumb + 1}</b> of {n}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="pd-thumbs">
-                      {detail.imgs.map((_, idx) => (
-                        <button
-                          key={idx}
-                          className={idx === thumb ? 'pd-thumb active' : 'pd-thumb'}
-                          type="button"
-                          onClick={() => setThumb(idx)}
-                        >
-                          <div className="img-ph pd-ph-mini">
-                            <ImgIco />
-                            <span className="pl">{idx + 1}</span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
+                    <PdGallery detail={detail} thumb={thumb} setThumb={setThumb} />
                   </div>
                   {/* Info — brand/title/rating/desc, then Available at → Specifications → fits. */}
                   <div className="pd-info">
                     <div className="pd-brand-row">
-                      <FaviconImg domain={detail.domain} />
+                      {detail.logo ? (
+                        // eslint-disable-next-line @next/next/no-img-element -- small fixed brand logo; next/image adds no value here
+                        <img src={detail.logo} alt={detail.brand} />
+                      ) : (
+                        <FaviconImg domain={detail.domain} />
+                      )}
                       <span className="b">{detail.brand}</span>
                     </div>
                     <h3 className="pd-title">{detail.name}</h3>
@@ -398,12 +448,7 @@ export default function ProductQuickView({ details }: { details: ProductDetail[]
                     </div>
                     <span className="pd-stockline">In stock — ships today</span>
                     <p className="pd-desc">{detail.desc}</p>
-                    <div className="pd-section-h">Available at</div>
-                    <div className="pd-offers">
-                      {detail.offers.map((o) => (
-                        <OfferRow key={o.name} o={o} />
-                      ))}
-                    </div>
+                    <PurchaseRows detail={detail} />
                     <div className="pd-section-h" style={{ marginTop: 24 }}>
                       Specifications
                     </div>
@@ -426,7 +471,7 @@ export default function ProductQuickView({ details }: { details: ProductDetail[]
                         ))}
                       </ul>
                     </div>
-                    <p className="pd-disc">{DISCLAIMER}</p>
+                    <PdDisclaimer detail={detail} />
                   </div>
                 </>
               )}

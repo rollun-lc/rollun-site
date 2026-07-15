@@ -5,6 +5,8 @@
 // visible one is chosen ONLY by the CSS `@media` at 768px in catalog.css — no JS
 // width gating. Hero is the FIRST section and is intentionally excluded from
 // `.reveal` (it is above the fold, matching the prototype).
+import Link from 'next/link'
+
 import type { CatalogContent } from '@/content/catalog'
 
 /** The ↗ "external link" glyph on the redirect note (both prototypes). */
@@ -27,10 +29,10 @@ export default function Hero({ hero }: { hero: CatalogContent['hero'] }) {
           <div className="eyebrow">{eyebrow}</div>
           <h1>{title}</h1>
           <p>{intro}</p>
-          <div className="redirect-note">
+          <Link className="redirect-note" href="/shops#online">
             <RedirectIcon />
             {redirectNote}
-          </div>
+          </Link>
         </div>
       </section>
 
@@ -40,10 +42,10 @@ export default function Hero({ hero }: { hero: CatalogContent['hero'] }) {
           <div className="eyebrow">{eyebrow}</div>
           <h1>{title}</h1>
           <p>{intro}</p>
-          <div className="redirect-note">
+          <Link className="redirect-note" href="/shops#online">
             <RedirectIcon />
             {redirectNote}
-          </div>
+          </Link>
         </div>
       </section>
     </>

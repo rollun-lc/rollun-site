@@ -22,3 +22,6 @@ npm-debug.log*
 *.zip
 .bmad-loop/runs/
 .bmad-loop/cache/
+
+# Extracted design reference (from gitignored zip)
+.design/
