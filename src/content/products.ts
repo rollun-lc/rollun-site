@@ -61,10 +61,17 @@ export type Product = {
   externalId?: string
 }
 
-// Shared image-name sets from the prototype (Phase 1 → placeholders).
+// Shared image-name sets from the prototype (drive the slide COUNT).
 const TIRE = ['cat-tires.png', 'cat-parts.png', 'mototou-product-reflectors.jpg']
 const OIL = ['cat-oils.png', 'cat-parts.png', 'mototou-product-filter.jpg']
 const ELEC = ['cat-electrical.png', 'mototou-product-reflectors.jpg', 'cat-parts.png']
+
+// Real public-path photo sets for the products that ship without a dedicated
+// product shoot — index-aligned to TIRE/OIL/ELEC so the card slider and quick-view
+// gallery render actual category imagery instead of the grey "Photo N" placeholder.
+const TIRE_PHOTOS = ['/cat-tires.png', '/cat-parts.png', '/mototou-product-reflectors.jpg']
+const OIL_PHOTOS = ['/cat-oils.png', '/cat-parts.png', '/mototou-product-filter.jpg']
+const ELEC_PHOTOS = ['/cat-electrical.png', '/mototou-product-reflectors.jpg', '/cat-parts.png']
 
 /** The Catalog product set — VERBATIM from the prototypes' `PRODUCTS` (3 each). */
 export const PRODUCTS: Record<ProductCategory, Product[]> = {
@@ -101,6 +108,7 @@ export const PRODUCTS: Record<ProductCategory, Product[]> = {
       domain: 'dunlop.com',
       name: 'Geomax MX33 Tire',
       imgs: TIRE,
+      photos: TIRE_PHOTOS,
       rating: 4.8,
       reviews: 389,
       specs: [
@@ -119,6 +127,7 @@ export const PRODUCTS: Record<ProductCategory, Product[]> = {
       domain: 'bridgestone.com',
       name: 'Battlax BT46 Tire',
       imgs: TIRE,
+      photos: TIRE_PHOTOS,
       rating: 4.7,
       reviews: 156,
       specs: [
@@ -163,6 +172,7 @@ export const PRODUCTS: Record<ProductCategory, Product[]> = {
       domain: 'maximausa.com',
       name: 'Extra4 20W-50 Engine Oil',
       imgs: OIL,
+      photos: OIL_PHOTOS,
       rating: 4.6,
       reviews: 178,
       specs: [
@@ -181,6 +191,7 @@ export const PRODUCTS: Record<ProductCategory, Product[]> = {
       domain: 'belray.com',
       name: 'Gear Saver 80W-90',
       imgs: OIL,
+      photos: OIL_PHOTOS,
       rating: 4.7,
       reviews: 97,
       specs: [
@@ -225,6 +236,7 @@ export const PRODUCTS: Record<ProductCategory, Product[]> = {
       domain: 'badlandsmoto.com',
       name: 'Plug-In Load Equalizer',
       imgs: ELEC,
+      photos: ELEC_PHOTOS,
       rating: 4.4,
       reviews: 88,
       specs: [
@@ -242,6 +254,7 @@ export const PRODUCTS: Record<ProductCategory, Product[]> = {
       domain: 'customdynamics.com',
       name: 'ProBEAM LED Bulb',
       imgs: ELEC,
+      photos: ELEC_PHOTOS,
       rating: 4.8,
       reviews: 131,
       specs: [

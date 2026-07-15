@@ -514,8 +514,16 @@
       justify-content: center;
       flex-wrap: wrap;
     }
+    /* Sits on light `--color-paper` next to the orange primary. Bare `--color-dark`
+       is nearly the same tone as the ink heading/body text, so it reads as a flat
+       block; a restrained elevation shadow + hairline gives it a clear button identity. */
     .catalog-dk .cta .btn-dark {
       background: var(--color-dark);
+      border-color: var(--color-dark);
+      box-shadow: 0 12px 26px -14px rgba(0, 0, 0, 0.55);
+    }
+    .catalog-dk .cta .btn-dark:hover {
+      box-shadow: 0 14px 28px -12px rgba(239, 127, 26, 0.5);
     }
   }
 
@@ -906,6 +914,11 @@
     .catalog-mb .cta-buttons .btn {
       width: 100%;
       justify-content: center;
+    }
+    /* Same fix as desktop: lift the dark secondary off the light paper so it doesn't
+       read as flat ink text (see `.catalog-dk .cta .btn-dark`). */
+    .catalog-mb .cta .btn-dark {
+      box-shadow: 0 12px 26px -14px rgba(0, 0, 0, 0.55);
     }
   }
 
