@@ -388,6 +388,15 @@
 
   /* Collapse the two-column layouts to one column on mobile (project 768px break). */
   @media not all and (min-width: 768px) {
+    /* Inline button glyphs (arrows/chevrons) ship no intrinsic size, so without
+       this they lay out at the SVG default and blow the button open. The Handoff
+       puts it in the SHARED `mobile.css` (one rule for every mobile page); the
+       port had only copied it into home.css/about.css, leaving catalog/brands/
+       shops/contact with 180px arrows. Global here, matching the prototype. */
+    .btn svg {
+      width: 16px;
+      height: 16px;
+    }
     .cf-row {
       grid-template-columns: 1fr;
     }
