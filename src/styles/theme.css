@@ -156,3 +156,21 @@
  *   [data-surface=brands]{ --color-moto-navy: #1c2c6b; --color-moto-navy-deep: #14215a; }
  *   [data-surface=about] .map { --color-map-land: #2a2d2e; --color-map-border: rgba(255,255,255,0.10); }
  */
+
+/*
+ * ── Page canvas ───────────────────────────────────────────────────────
+ * Every desktop prototype opens with `body { background: var(--bg) }` where
+ * `--bg` is #D2D2D2, and the sections paint over it. Tailwind's preflight only
+ * zeroes the body margin, so without this the canvas stayed transparent and any
+ * gap BETWEEN two sections fell through to the white root — visible as a white
+ * band under the About wave, whose 50px `margin-top` sits outside its own
+ * background box (About Us.html:347-352).
+ *
+ * (mobile.css sets #0c0c0c, but that is the phone-frame backdrop around the
+ * prototype shell, not a page surface, so it is deliberately not ported.)
+ */
+@layer base {
+  body {
+    background: var(--color-bg);
+  }
+}
