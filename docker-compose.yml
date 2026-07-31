@@ -5,10 +5,18 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      # REQUIRED — no default on purpose: `:?` makes compose refuse to start
+      # rather than silently fall back to a guessable secret.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env (openssl rand -hex 24)}
       POSTGRES_DB: rollun
+      # Force password auth for every non-local connection (no trust/md5).
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+    # Bind to loopback ONLY — a bare "5432:5432" publishes on 0.0.0.0 and exposes
+    # the database to the internet. The host-side dev server reaches it via
+    # localhost and the compose `app` service via the `postgres` service name,
+    # so nothing needs this port off-box.
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -25,15 +33,15 @@ services:
       dockerfile: Dockerfile
       target: migrator
       args:
-        PAYLOAD_SECRET: ${PAYLOAD_SECRET:-local-dev-secret-change-me}
-        DATABASE_URI: postgres://postgres:postgres@postgres:5432/rollun
+        PAYLOAD_SECRET: ${PAYLOAD_SECRET:?set PAYLOAD_SECRET in .env (openssl rand -hex 32)}
+        DATABASE_URI: postgres://postgres:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@postgres:5432/rollun
     restart: "no"
     depends_on:
       postgres:
         condition: service_healthy
     environment:
-      DATABASE_URI: postgres://postgres:postgres@postgres:5432/rollun
-      PAYLOAD_SECRET: ${PAYLOAD_SECRET:-local-dev-secret-change-me}
+      DATABASE_URI: postgres://postgres:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@postgres:5432/rollun
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:?set PAYLOAD_SECRET in .env (openssl rand -hex 32)}
 
   app:
     build:
@@ -42,8 +50,8 @@ services:
       args:
         # Payload config loads during build and fails fast if these are unset.
         # DATABASE_URI is only validated (not connected) at build time.
-        PAYLOAD_SECRET: ${PAYLOAD_SECRET:-local-dev-secret-change-me}
-        DATABASE_URI: postgres://postgres:postgres@postgres:5432/rollun
+        PAYLOAD_SECRET: ${PAYLOAD_SECRET:?set PAYLOAD_SECRET in .env (openssl rand -hex 32)}
+        DATABASE_URI: postgres://postgres:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@postgres:5432/rollun
     restart: unless-stopped
     depends_on:
       postgres:
@@ -54,17 +62,19 @@ services:
       NODE_ENV: production
       PORT: "3000"
       HOSTNAME: 0.0.0.0
-      DATABASE_URI: postgres://postgres:postgres@postgres:5432/rollun
-      PAYLOAD_SECRET: ${PAYLOAD_SECRET:-local-dev-secret-change-me}
+      DATABASE_URI: postgres://postgres:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@postgres:5432/rollun
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:?set PAYLOAD_SECRET in .env (openssl rand -hex 32)}
       CRM_API_URL: ${CRM_API_URL:-https://crm.example.com/api}
-      REVALIDATION_SECRET: ${REVALIDATION_SECRET:-local-revalidation-secret}
+      REVALIDATION_SECRET: ${REVALIDATION_SECRET:?set REVALIDATION_SECRET in .env}
       # QuickBooks Online OAuth (token-minting flow). Blank by default locally.
       QUICKBOOKS_CLIENT_ID: ${QUICKBOOKS_CLIENT_ID:-}
       QUICKBOOKS_CLIENT_SECRET: ${QUICKBOOKS_CLIENT_SECRET:-}
       QUICKBOOKS_REDIRECT_URI: ${QUICKBOOKS_REDIRECT_URI:-https://com.rollun.org/quickbooks/callback}
       QUICKBOOKS_CONNECT_SECRET: ${QUICKBOOKS_CONNECT_SECRET:-}
+    # Loopback only — this compose file is the LOCAL stack. Put a reverse proxy
+    # (Caddy/nginx) in front when a deployment needs to serve the public.
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
 
 volumes:
   pgdata:
