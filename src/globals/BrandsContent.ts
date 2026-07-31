@@ -93,7 +93,7 @@ export const BrandsContent: GlobalConfig = {
       fields: [
         { name: 'eyebrow', type: 'text', required: true, defaultValue: 'Registered & protected' },
         { name: 'title', type: 'text', required: true, defaultValue: 'A U.S. registered trademark' },
-        // 🔴 certificate image — OPTIONAL upload; empty → code-owned '/mototou-trademark.png'.
+        // 🔴 certificate image — OPTIONAL upload; empty → code-owned '/mototou-trademark.webp'.
         { name: 'certImage', type: 'upload', relationTo: 'media' },
       ],
     },

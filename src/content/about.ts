@@ -675,23 +675,25 @@ export const buildAboutContent = (c: AboutContentGlobal, s: SiteSetting): AboutC
   },
   team: {
     tilesDesktop: [
-      { pos: 'tl', src: '/team-shop.jpg', alt: 'Rollun team member in the shop', objectPosition: '48% 26%' },
+      { pos: 'tl', src: '/team-shop.webp', alt: 'Rollun team member in the shop', objectPosition: '48% 26%' },
       { pos: 'tr' },
-      { pos: 'bl', src: '/team-support.jpg', alt: 'Rollun customer-support specialist on a headset', objectPosition: '50% 24%' },
-      { pos: 'br', src: '/team-storefront.jpg', alt: 'Rollun team in front of the Texas storefront', objectPosition: '50% 38%' },
+      { pos: 'bl', src: '/team-support.webp', alt: 'Rollun customer-support specialist on a headset', objectPosition: '50% 24%' },
+      { pos: 'br', src: '/team-storefront.webp', alt: 'Rollun team in front of the Texas storefront', objectPosition: '50% 38%' },
     ],
+    // Design v3 dropped the stock placeholder tiles here and reused the real
+    // desktop team photos, with the mobile-specific object-positions.
     tilesMobile: [
-      { pos: 'tl', src: '/team-tile-1.png', alt: '' },
+      { pos: 'tl', src: '/team-shop.webp', alt: 'Rollun team member in the shop', objectPosition: '48% 26%' },
       { pos: 'tr' },
-      { pos: 'bl', src: '/team-photo.jpg', alt: '' },
-      { pos: 'br', src: '/team-tile-4.jpg', alt: '', objectPosition: '70% 35%' },
+      { pos: 'bl', src: '/team-support.webp', alt: 'Rollun customer-support specialist on a headset', objectPosition: '50% 24%' },
+      { pos: 'br', src: '/team-storefront.webp', alt: 'Rollun team in front of the Texas storefront', objectPosition: '50% 38%' },
     ],
     heading: [{ text: 'We ' }, { text: 'love', hand: true }, { text: 'what we do.', lineBreak: true }],
     quote: c.team.quote,
     ceoName: c.team.ceoName,
     ceoRole: c.team.ceoRole,
     // 🔴 CEO photo slot: Media URL when set, else the code-owned `/public` path.
-    ceoPhoto: resolveMediaUrl(c.team.ceoPhoto) ?? '/ceo-photo.png',
+    ceoPhoto: resolveMediaUrl(c.team.ceoPhoto) ?? '/ceo-photo.webp',
   },
   cta: {
     heading: c.cta.heading,

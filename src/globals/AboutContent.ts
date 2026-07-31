@@ -17,7 +17,7 @@ import { revalidateGlobal } from '../hooks/revalidate-global'
  * desktop|mobile art-directed team tiles (they stay pure code /`/public`).
  *
  * The CEO photo is an OPTIONAL `upload`: empty → builder falls back to the
- * code-owned `/public` path (`resolveMediaUrl(slot) ?? '/ceo-photo.png'`).
+ * code-owned `/public` path (`resolveMediaUrl(slot) ?? '/ceo-photo.webp'`).
  */
 export const AboutContent: GlobalConfig = {
   slug: 'about-content',
@@ -82,7 +82,7 @@ export const AboutContent: GlobalConfig = {
       name: 'team',
       type: 'group',
       fields: [
-        // 🔴 flat CEO photo — OPTIONAL upload; empty → code-owned '/ceo-photo.png'.
+        // 🔴 flat CEO photo — OPTIONAL upload; empty → code-owned '/ceo-photo.webp'.
         { name: 'ceoPhoto', type: 'upload', relationTo: 'media' },
         {
           name: 'quote',

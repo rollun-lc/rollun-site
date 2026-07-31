@@ -69,9 +69,9 @@ const ELEC = ['cat-electrical.png', 'mototou-product-reflectors.jpg', 'cat-parts
 // Real public-path photo sets for the products that ship without a dedicated
 // product shoot — index-aligned to TIRE/OIL/ELEC so the card slider and quick-view
 // gallery render actual category imagery instead of the grey "Photo N" placeholder.
-const TIRE_PHOTOS = ['/cat-tires.png', '/cat-parts.png', '/mototou-product-reflectors.jpg']
-const OIL_PHOTOS = ['/cat-oils.png', '/cat-parts.png', '/mototou-product-filter.jpg']
-const ELEC_PHOTOS = ['/cat-electrical.png', '/mototou-product-reflectors.jpg', '/cat-parts.png']
+const TIRE_PHOTOS = ['/cat-tires.webp', '/cat-parts.webp', '/mototou-product-reflectors.webp']
+const OIL_PHOTOS = ['/cat-oils.webp', '/cat-parts.webp', '/mototou-product-filter.webp']
+const ELEC_PHOTOS = ['/cat-electrical.webp', '/mototou-product-reflectors.webp', '/cat-parts.webp']
 
 /** The Catalog product set — VERBATIM from the prototypes' `PRODUCTS` (3 each). */
 export const PRODUCTS: Record<ProductCategory, Product[]> = {
@@ -83,7 +83,7 @@ export const PRODUCTS: Record<ProductCategory, Product[]> = {
       imgs: TIRE,
       rating: 4.7,
       reviews: 1827,
-      photos: ['/products/dunlop-d404-1.webp', '/products/dunlop-d404-2.jpg', '/products/dunlop-d404-3.webp'],
+      photos: ['/products/dunlop-d404-1.webp', '/products/dunlop-d404-2.webp', '/products/dunlop-d404-3.webp'],
       logo: '/products/dunlop-logo.png',
       amazon: 'https://www.amazon.com/Dunlop-D404-Motorcycle-80-15-Black/dp/B000GZDUHO/',
       price: '$148.98',
@@ -150,7 +150,7 @@ export const PRODUCTS: Record<ProductCategory, Product[]> = {
       imgs: OIL,
       rating: 4.9,
       reviews: 512,
-      photos: ['/products/motul-7100-4l.webp', '/products/motul-7100-1l-back.jpg', '/products/motul-7100-newdesign.jpg'],
+      photos: ['/products/motul-7100-4l.webp', '/products/motul-7100-1l-back.webp', '/products/motul-7100-newdesign.webp'],
       amazon: 'https://www.amazon.com/Motul-7100-10w50-Synthetic-Liter/dp/B00CVT5UQM/',
       price: '$30.78',
       ebay: 'https://www.ebay.com/sch/i.html?_nkw=Motul+7100+10W-50+4T+4L',
@@ -277,7 +277,7 @@ export const PRODUCTS: Record<ProductCategory, Product[]> = {
       rating: 4.5,
       reviews: 1203,
       contact: true,
-      photos: ['/products/mueller-brace-1.jpg', '/products/mueller-brace-2.jpg', '/products/mueller-brace-3.jpg'],
+      photos: ['/products/mueller-brace-1.webp', '/products/mueller-brace-2.webp', '/products/mueller-brace-3.webp'],
       specs: [
         ['Brand', 'Mueller'],
         ['Sizes', 'S: 56–86 cm · Reg: 71–127 cm'],

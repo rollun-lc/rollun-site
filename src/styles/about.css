@@ -91,7 +91,8 @@
     .about-dk.hero {
       background: var(--color-dark);
       color: #fff;
-      padding: 200px 0 130px;
+      /* Design v3 lifted the hero so the scroll cue sits above the fold. */
+      padding: 150px 0 80px;
       position: relative;
       overflow: hidden;
     }
@@ -150,6 +151,40 @@
       gap: 14px;
       justify-content: center;
       flex-wrap: wrap;
+    }
+    /* Scroll cue (design v3) — anchors down to #focus. Always animates, per the
+       project's always-animate policy (no prefers-reduced-motion opt-out). */
+    .about-dk .hero-scroll {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      margin: 34px auto 0;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.7);
+      animation: heroScrollBob 1.8s ease-in-out infinite;
+      transition:
+        color 0.2s ease,
+        border-color 0.2s ease;
+    }
+    .about-dk .hero-scroll svg {
+      width: 22px;
+      height: 22px;
+    }
+    .about-dk .hero-scroll:hover {
+      color: var(--color-or);
+      border-color: var(--color-or);
+    }
+    @keyframes heroScrollBob {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(6px);
+      }
     }
 
     /* ─────────────  SNAPSHOT (02)  ───────────── */
@@ -1472,7 +1507,8 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-top: 26px;
+      /* Design v3 (mobile.css): 26px → 36px. */
+      margin-top: 36px;
       align-items: stretch;
     }
 

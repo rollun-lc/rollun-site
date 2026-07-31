@@ -31,6 +31,19 @@ export default function Hero({ hero }: { hero: AboutContent['hero'] }) {
               {hero.ctaSecondary}
             </a>
           </div>
+          {/* Scroll cue (design v3) — desktop only, mirrors About Us.html. */}
+          <a className="hero-scroll" href="#focus" aria-label="Scroll down">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </a>
         </div>
       </section>
 

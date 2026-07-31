@@ -336,7 +336,7 @@
     .home-dk .stats-bg {
       position: absolute;
       inset: 0;
-      background: url("/stats-team-5b.jpg") center 30% / cover no-repeat, #1a1a1a;
+      background: url("/stats-team-5b.webp") center 30% / cover no-repeat, #1a1a1a;
       filter: blur(3px);
       transform: scale(1.04);
     }
@@ -840,7 +840,8 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-top: 26px;
+      /* Design v3 (mobile.css): 26px → 36px. */
+      margin-top: 36px;
       align-items: stretch;
     }
 
@@ -1008,7 +1009,7 @@
     .home-mb .stats-bg {
       position: absolute;
       inset: 0;
-      background: url("/stats-team-5b.jpg") center 30% / cover no-repeat, #1a1a1a;
+      background: url("/stats-team-5b.webp") center 30% / cover no-repeat, #1a1a1a;
       filter: blur(3px);
       transform: scale(1.04);
     }
@@ -1195,6 +1196,9 @@
       text-align: center;
       position: relative;
       overflow: hidden;
+      /* Design v3 tightened the CTA band around the larger heading. */
+      padding-top: 64px;
+      padding-bottom: 66px;
     }
     .home-mb.home-cta::before {
       content: "";
@@ -1210,8 +1214,10 @@
     }
     .home-mb .home-cta h2 {
       color: #fff;
-      font-size: 32px;
-      margin-bottom: 14px;
+      font-size: 42px;
+      line-height: 1.04;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
     }
     .home-mb .home-cta p {
       color: rgba(255, 255, 255, 0.72);

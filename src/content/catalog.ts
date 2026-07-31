@@ -171,7 +171,7 @@ export const buildCatalogContent = (
       key: 'auto',
       href: '#automotive',
       // 🔴 entrance image slot: Media URL when set, else code-owned `/public` path.
-      img: resolveMediaUrl(c.entrances?.autoImage) ?? '/cat-tires.png',
+      img: resolveMediaUrl(c.entrances?.autoImage) ?? '/cat-tires.webp',
       alt: {
         dk: 'Automotive and motorcycle parts — tires and wheels',
         mb: 'Automotive and motorcycle parts',
@@ -184,7 +184,7 @@ export const buildCatalogContent = (
       key: 'health',
       href: '#health',
       // 🔴 entrance image slot: Media URL when set, else code-owned `/public` path.
-      img: resolveMediaUrl(c.entrances?.healthImage) ?? '/health-supplements.png',
+      img: resolveMediaUrl(c.entrances?.healthImage) ?? '/health-supplements.webp',
       alt: {
         dk: 'Health products — dietary and sport supplements',
         mb: 'Health products',
@@ -214,19 +214,19 @@ export const buildCatalogContent = (
       },
       subcatLabel: 'Categories',
       subcats: [
-        { img: '/cat-tires.png', alt: { dk: 'Tires', mb: 'Tires' }, name: { dk: 'Tires', mb: 'Tires' } },
-        { img: '/cat-parts.png', alt: { dk: 'Parts', mb: 'Parts' }, name: { dk: 'Parts', mb: 'Parts' } },
+        { img: '/cat-tires.webp', alt: { dk: 'Tires', mb: 'Tires' }, name: { dk: 'Tires', mb: 'Tires' } },
+        { img: '/cat-parts.webp', alt: { dk: 'Parts', mb: 'Parts' }, name: { dk: 'Parts', mb: 'Parts' } },
         {
-          img: '/cat-oils.png',
+          img: '/cat-oils.webp',
           alt: { dk: 'Oils and fluids', mb: 'Oils and fluids' },
           name: { dk: 'Oils & Fluids', mb: 'Oils & Fluids' },
         },
         {
-          img: '/cat-electrical.png',
+          img: '/cat-electrical.webp',
           alt: { dk: 'Electrical components', mb: 'Electrical components' },
           name: { dk: 'Electrical Components', mb: 'Electrical' },
         },
-        { img: '/cat-batteries.png', alt: { dk: 'Batteries', mb: 'Batteries' }, name: { dk: 'Batteries', mb: 'Batteries' } },
+        { img: '/cat-batteries.webp', alt: { dk: 'Batteries', mb: 'Batteries' }, name: { dk: 'Batteries', mb: 'Batteries' } },
       ],
       listingHead: {
         title: { dk: 'Product examples', mb: 'Product examples' },
@@ -250,22 +250,22 @@ export const buildCatalogContent = (
       subcatLabel: 'Categories',
       subcats: [
         {
-          img: '/health-orthopedic.png',
+          img: '/health-orthopedic.webp',
           alt: { dk: 'Orthopedic braces and supports', mb: 'Orthopedic' },
           name: { dk: 'Orthopedic Braces & Supports', mb: 'Orthopedic Braces & Supports' },
         },
         {
-          img: '/health-supplements.png',
+          img: '/health-supplements.webp',
           alt: { dk: 'Dietary and sport supplements', mb: 'Supplements' },
           name: { dk: 'Dietary & Sport Supplements', mb: 'Dietary & Sport Supplements' },
         },
         {
-          img: '/health-energy.png',
+          img: '/health-energy.webp',
           alt: { dk: 'Energy and focus supplements', mb: 'Energy' },
           name: { dk: 'Energy & Focus Supplements', mb: 'Energy & Focus Supplements' },
         },
         {
-          img: '/health-painrelief.png',
+          img: '/health-painrelief.webp',
           alt: { dk: 'Pain relief and recovery rubs', mb: 'Pain relief' },
           name: { dk: 'Pain Relief & Recovery Rubs', mb: 'Pain Relief & Recovery Rubs' },
         },

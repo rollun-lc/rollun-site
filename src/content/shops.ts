@@ -83,7 +83,7 @@ export const SHOP_CARDS: ShopCardData[] = [
   {
     brand: 'amazon',
     shot: {
-      img: '/shop/store-amazon.png',
+      img: '/shop/store-amazon.webp',
       alt: 'Rollun storefront on Amazon',
       href: 'https://www.amazon.com/s?i=merchant-items&me=A11L6NMVUXNX47',
     },
@@ -98,7 +98,7 @@ export const SHOP_CARDS: ShopCardData[] = [
   {
     brand: 'ebay',
     shot: {
-      img: '/shop/store-ebay.png',
+      img: '/shop/store-ebay.webp',
       alt: 'Rollun store on eBay',
       href: 'https://www.ebay.com/str/Rollun',
     },
@@ -113,7 +113,7 @@ export const SHOP_CARDS: ShopCardData[] = [
   {
     brand: 'walmart',
     shot: {
-      img: '/shop/store-walmart-reviews.png',
+      img: '/shop/store-walmart-reviews.webp',
       alt: 'Rollun LC seller page on Walmart Marketplace',
       href: 'https://www.walmart.com/global/seller/101022720',
     },
@@ -153,7 +153,7 @@ export const buildShopsContent = (
     intro: c.store.intro,
     photo: {
       // 🔴 storefront photo slot: Media URL when set, else code-owned `/public` path.
-      img: resolveMediaUrl(c.store.photo) ?? '/shop/storefront-2.png',
+      img: resolveMediaUrl(c.store.photo) ?? '/shop/storefront-2.webp',
       altDk: 'Rollun storefront entrance in Texas with the rollun sign above the door',
       altMb: 'Rollun storefront entrance in Texas',
     },

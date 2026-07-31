@@ -16,7 +16,7 @@
  * / gutters that exist as DS tokens are written through the token; prototype-only
  * literals (shadows, all `rgba(255,255,255,…)`, the bc-media overlay tints) stay
  * verbatim. `.btn` / `.reveal` are NOT redefined. Background images use the
- * root-absolute `/mototou-shelf-bg.jpg` (copied into `public/`).
+ * root-absolute `/mototou-shelf-bg.webp` (copied into `public/`).
  *
  * `.btn-navy` (a colour variant that does not exist globally) is defined here.
  * The two prototypes DISAGREE on its colour, so it is per-composition (pixel wins
@@ -179,7 +179,7 @@
     .brands-dk .brand-card .bc-media {
       background:
         linear-gradient(rgba(244, 244, 244, 0.62), rgba(236, 236, 236, 0.62)),
-        url('/mototou-shelf-bg.jpg') center/cover no-repeat;
+        url('/mototou-shelf-bg.webp') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -600,7 +600,7 @@
       aspect-ratio: 16 / 10;
       background:
         linear-gradient(rgba(16, 20, 26, 0.6), rgba(16, 20, 26, 0.6)),
-        url('/mototou-shelf-bg.jpg') center/cover no-repeat;
+        url('/mototou-shelf-bg.webp') center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;

@@ -150,7 +150,7 @@ export const buildBrandsContent = (c: BrandsContentGlobal): BrandsContent => ({
     blocks: [
       {
         // 🔴 product photo slot: Media URL when set, else code-owned `/public` path.
-        img: resolveMediaUrl(c.products.reflectorsImage) ?? '/mototou-product-reflectors.jpg',
+        img: resolveMediaUrl(c.products.reflectorsImage) ?? '/mototou-product-reflectors.webp',
         alt: {
           dk: 'Mototou reflector hardware kit in branded packaging',
           mb: 'Mototou reflector hardware kit',
@@ -163,7 +163,7 @@ export const buildBrandsContent = (c: BrandsContentGlobal): BrandsContent => ({
       },
       {
         // 🔴 product photo slot: Media URL when set, else code-owned `/public` path.
-        img: resolveMediaUrl(c.products.filtersImage) ?? '/mototou-filters.jpg',
+        img: resolveMediaUrl(c.products.filtersImage) ?? '/mototou-filters.webp',
         alt: {
           dk: 'MOTOTOU air and oil filters in branded packaging on a retail shelf',
           mb: 'MOTOTOU air and oil filters in branded packaging on a retail shelf',
@@ -192,7 +192,7 @@ export const buildBrandsContent = (c: BrandsContentGlobal): BrandsContent => ({
     desc: "MOTOTOU is a registered trademark on the Principal Register of the United States Patent and Trademark Office, owned by Rollun LC — your assurance that you're working with a genuine, protected brand.",
     cert: {
       // 🔴 certificate image slot: Media URL when set, else code-owned `/public` path.
-      img: resolveMediaUrl(c.trademark.certImage) ?? '/mototou-trademark.png',
+      img: resolveMediaUrl(c.trademark.certImage) ?? '/mototou-trademark.webp',
       alt: 'MOTOTOU U.S. trademark registration certificate',
       caption: 'Tap to enlarge — USPTO Certificate of Registration',
       enlargedAlt: 'MOTOTOU trademark certificate enlarged',

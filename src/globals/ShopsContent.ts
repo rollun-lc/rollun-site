@@ -16,7 +16,7 @@ import { revalidateGlobal } from '../hooks/revalidate-global'
  * card CTA, store-photo alt), and the marketplace store screenshots + ratings.
  *
  * The storefront photo is an OPTIONAL `upload`: empty → builder falls back to the
- * code-owned `/public` path (`resolveMediaUrl(slot) ?? '/shop/storefront-2.png'`).
+ * code-owned `/public` path (`resolveMediaUrl(slot) ?? '/shop/storefront-2.webp'`).
  */
 export const ShopsContent: GlobalConfig = {
   slug: 'shops-content',
@@ -56,7 +56,7 @@ export const ShopsContent: GlobalConfig = {
           defaultValue: 'Drop by our Texas location for parts, accessories, and friendly face-to-face support.',
         },
         { name: 'locationLabel', type: 'text', required: true, defaultValue: 'Location' },
-        // 🔴 flat storefront photo — OPTIONAL upload; empty → code-owned '/shop/storefront-2.png'.
+        // 🔴 flat storefront photo — OPTIONAL upload; empty → code-owned '/shop/storefront-2.webp'.
         { name: 'photo', type: 'upload', relationTo: 'media' },
       ],
     },

@@ -23,6 +23,7 @@ import type { Product, ProductCategory } from '@/content/products'
 import { buildOffers } from '@/lib/offers'
 
 import CatalogCardSlider from './CatalogCardSlider.client'
+import CatalogLineReveal from './CatalogLineReveal.client'
 import CatalogLineSwitcher from './CatalogLineSwitcher.client'
 import ProductCard from './ProductCard'
 import ProductQuickView from './ProductQuickView.client'
@@ -111,20 +112,35 @@ function DesktopLineCol({
   )
 }
 
-/** One mobile stacked line section. `id` is the canonical anchor; `shelves`
- *  are the EMPTY `.product-shelf[data-cat]` mount points 5.2/5.3 fill. */
+/** The ⌄ chevron on the mobile reveal button (design v3, stroke-width 2.2). */
+function RevealChevron() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  )
+}
+
+/** One mobile stacked line section. `id` is the canonical anchor AND the reveal
+ *  key (`#automotive` / `#health` → `.cat-reveal[data-reveal]` + `#reveal-<id>`).
+ *
+ *  Design v3: the shelf renders COLLAPSED (`hidden`) behind a `.cat-reveal`
+ *  button, and automotive shows ONE representative per category (`auto-all`)
+ *  instead of three full shelves — the same set the desktop column shows. The
+ *  `hidden` attribute is the SSR/no-JS state; `CatalogLineReveal` toggles it. */
 function MobileLine({
   line,
   variant,
   id,
-  shelves,
-  products,
+  shelfCat,
+  shelfProducts,
 }: {
   line: CatalogLine
   variant: 'auto' | 'health'
   id: string
-  shelves: ProductCategory[]
-  products: Record<ProductCategory, Product[]>
+  /** `data-cat` on the single revealed shelf. */
+  shelfCat: string
+  shelfProducts: Product[]
 }) {
   return (
     <section className={`catalog-mb line ${variant}`} id={id}>
@@ -143,14 +159,18 @@ function MobileLine({
         <h3>{line.listingHead.title.mb}</h3>
         <span className="hint">{line.listingHead.hint.mb}</span>
       </div>
-      {/* Story 5.2 — each shelf server-renders its category's product cards. */}
-      {shelves.map((cat) => (
-        <div key={cat} className="product-shelf" data-cat={cat}>
-          {products[cat].map((p) => (
-            <ProductCard key={`${p.brand} ${p.name}`} product={p} variant="mb" offers={buildOffers(p, variant)} />
-          ))}
-        </div>
-      ))}
+      {/* Design v3 — collapsed shelf + reveal trigger. `aria-controls` points at
+          the shelf; the SSR state is closed (`hidden` + aria-expanded="false"). */}
+      <button className="cat-reveal" type="button" data-reveal={id} aria-expanded="false" aria-controls={`reveal-${id}`}>
+        <span className="cr-label">Show {id} products</span>
+        <span className="cr-meta">{shelfProducts.length} examples</span>
+        <RevealChevron />
+      </button>
+      <div className="product-shelf reveal-target" id={`reveal-${id}`} data-cat={shelfCat} hidden>
+        {shelfProducts.map((p) => (
+          <ProductCard key={`${p.brand} ${p.name}`} product={p} variant="mb" offers={buildOffers(p, variant)} />
+        ))}
+      </div>
       <div className="line-cta">
         <Link className="btn btn-or" href={line.lineCta.href}>
           {line.lineCta.label.mb}
@@ -224,12 +244,17 @@ export default function ProductLines({
         <CatalogLineSwitcher names={filter.names} />
       </section>
 
-      {/* ── Mobile composition — static stacked lines with canonical anchors ── */}
-      <MobileLine line={lines.auto} variant="auto" id="automotive" shelves={['tires', 'oils', 'elec']} products={products} />
-      <MobileLine line={lines.health} variant="health" id="health" shelves={['health']} products={products} />
+      {/* ── Mobile composition — stacked lines with canonical anchors; each line's
+             shelf is collapsed behind a reveal button (design v3). Automotive
+             shows the same 3 representatives as the desktop `auto-all` grid. ── */}
+      <MobileLine line={lines.auto} variant="auto" id="automotive" shelfCat="auto-all" shelfProducts={autoRepresentatives} />
+      <MobileLine line={lines.health} variant="health" id="health" shelfCat="health" shelfProducts={products.health} />
 
       {/* Leaf 'use client' island — enhances every card's slider. Renders null. */}
       <CatalogCardSlider />
+
+      {/* Leaf 'use client' island — the mobile reveal accordion. Renders null. */}
+      <CatalogLineReveal />
 
       {/* Story 5.4 — leaf 'use client' island: enhances every card's click/Enter/Space to
           open the quick-view. Renders BOTH modal compositions (AD-3), driven by one state. */}

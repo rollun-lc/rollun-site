@@ -18,12 +18,15 @@ import Products from '@/components/brands/Products'
 import Story from '@/components/brands/Story'
 import Trademark from '@/components/brands/Trademark'
 import { buildBrandsContent } from '@/content/brands'
+import { buildContactInfoContent } from '@/content/contact-info'
 import { getBrandsContent } from '@/lib/brands-content'
+import { getSiteSettings } from '@/lib/site-settings'
 
 import '@/styles/brands.css'
 
 export default async function BrandsPage() {
   const brandsContent = buildBrandsContent(await getBrandsContent())
+  const contactInfo = buildContactInfoContent(await getSiteSettings())
   return (
     <main>
       <Hero hero={brandsContent.hero} />
@@ -31,7 +34,7 @@ export default async function BrandsPage() {
       <Story story={brandsContent.story} />
       <Products products={brandsContent.products} />
       <Trademark trademark={brandsContent.trademark} facts={brandsContent.brand.trademark.facts} />
-      <CtaSection cta={brandsContent.cta} />
+      <CtaSection cta={brandsContent.cta} contactInfo={contactInfo} />
     </main>
   )
 }

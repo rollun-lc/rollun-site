@@ -30,17 +30,25 @@ type GetInTouchProps = {
   label?: string
   /** Optional deep-link topic — preselected in the modal, appended to the mobile link. */
   topic?: string
+  /** Button skin — `or` (default) or the dark secondary used by the Catalog CTA. */
+  variant?: 'or' | 'dark'
   /** Extra classes merged onto both triggers. */
   className?: string
 }
 
-export default function GetInTouch({ contactInfo, label = 'GET IN TOUCH', topic, className }: GetInTouchProps) {
+export default function GetInTouch({
+  contactInfo,
+  label = 'GET IN TOUCH',
+  topic,
+  variant = 'or',
+  className,
+}: GetInTouchProps) {
   const [open, setOpen] = useState(false)
   // Stable so the modal's effects don't re-subscribe on every render.
   const close = useCallback(() => setOpen(false), [])
 
   const href = topic ? `/contact?topic=${encodeURIComponent(topic)}` : '/contact'
-  const base = ['btn', 'btn-or', className].filter(Boolean).join(' ')
+  const base = ['btn', variant === 'dark' ? 'btn-dark' : 'btn-or', className].filter(Boolean).join(' ')
 
   return (
     <>

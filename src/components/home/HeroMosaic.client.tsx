@@ -37,10 +37,11 @@ import { useEffect } from 'react'
 
 import type { HomeMosaicPhoto } from '@/content/home'
 
-/** Mobile bloom timings (ms) — verbatim from `Home Mobile.html`. */
-const MOVE = 1000
-const HOLD = 3200
-const GAP = 800
+/** Mobile bloom timings (ms) — verbatim from `Home Mobile.html` (design v3
+ *  tightened the cycle by 10%: 1000/3200/800 → 900/2880/720). */
+const MOVE = 900
+const HOLD = 2880
+const GAP = 720
 /** Initial delay before the first mobile bloom (prototype `setTimeout(run, 400)`). */
 const MOBILE_START_DELAY = 400
 /** Desktop refresh interval (`Home.html` `setInterval(cycle, 3000)`). */
