@@ -451,26 +451,26 @@
     }
 
     /* split-scoped overrides (denser than the standalone line blocks). */
-    .catalog-dk .lines-split .line-head {
+    .catalog-dk.lines-split .line-head {
       max-width: 100%;
       margin-bottom: 28px;
     }
-    .catalog-dk .lines-split .line-head h2 {
+    .catalog-dk.lines-split .line-head h2 {
       margin-bottom: 14px;
       min-height: 2.2em;
     }
-    .catalog-dk .lines-split .line-head p {
+    .catalog-dk.lines-split .line-head p {
       font-size: 14.5px;
       line-height: 1.6;
       min-height: 4.6em;
     }
-    .catalog-dk .lines-split .subcat-grid,
-    .catalog-dk .lines-split .subcat-grid.four {
+    .catalog-dk.lines-split .subcat-grid,
+    .catalog-dk.lines-split .subcat-grid.four {
       grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
       gap: 14px;
       margin-bottom: 40px;
     }
-    .catalog-dk .lines-split .subcat-name {
+    .catalog-dk.lines-split .subcat-name {
       min-height: 58px;
       display: flex;
       align-items: center;
@@ -479,16 +479,16 @@
       font-size: 13px;
       line-height: 1.25;
     }
-    .catalog-dk .lines-split .product-grid,
-    .catalog-dk .lines-split .product-grid.cat-grid,
-    .catalog-dk .lines-split .product-grid.health-products {
+    .catalog-dk.lines-split .product-grid,
+    .catalog-dk.lines-split .product-grid.cat-grid,
+    .catalog-dk.lines-split .product-grid.health-products {
       grid-template-columns: repeat(auto-fill, minmax(198px, 1fr));
       gap: 16px;
     }
-    .catalog-dk .lines-split .listing-head {
+    .catalog-dk.lines-split .listing-head {
       margin-bottom: 20px;
     }
-    .catalog-dk .lines-split .line-cta {
+    .catalog-dk.lines-split .line-cta {
       margin-top: 34px;
     }
 
@@ -649,7 +649,7 @@
       position: relative;
       z-index: 2;
     }
-    .catalog-mb .page-hero .eyebrow {
+    .catalog-mb.page-hero .eyebrow {
       font-family: var(--font-display);
       font-size: 11px;
       font-weight: 600;

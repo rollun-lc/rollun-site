@@ -836,7 +836,7 @@
       position: relative;
       z-index: 2;
     }
-    .home-mb .page-hero .hero-buttons {
+    .home-mb.page-hero .hero-buttons {
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -901,7 +901,7 @@
       height: 1px;
       background: rgba(255, 255, 255, 0.25);
     }
-    .home-mb .page-hero h1 {
+    .home-mb.page-hero h1 {
       color: #fff;
       font-size: 42px;
       text-transform: uppercase;
@@ -909,7 +909,7 @@
       margin-bottom: 16px;
       line-height: 1.06;
     }
-    .home-mb .page-hero h1 .or-txt {
+    .home-mb.page-hero h1 .or-txt {
       color: var(--color-or);
     }
     /* Home hero override (Home Mobile.html) — must follow `.page-hero h1`. */
@@ -919,7 +919,7 @@
       line-height: 1.08;
       margin-bottom: 16px;
     }
-    .home-mb .page-hero p {
+    .home-mb.page-hero p {
       color: rgba(255, 255, 255, 0.74);
       font-size: 15.5px;
       font-weight: 300;
@@ -927,7 +927,7 @@
       max-width: 360px;
       margin: 0 auto;
     }
-    .home-mb .home-hero .hero-sub {
+    .home-mb.home-hero .hero-sub {
       color: rgba(255, 255, 255, 0.72);
       font-size: 15px;
       font-weight: 300;
@@ -1212,21 +1212,21 @@
       z-index: 2;
       padding: 0 20px;
     }
-    .home-mb .home-cta h2 {
+    .home-mb.home-cta h2 {
       color: #fff;
       font-size: 42px;
       line-height: 1.04;
       letter-spacing: -0.01em;
       margin-bottom: 20px;
     }
-    .home-mb .home-cta p {
+    .home-mb.home-cta p {
       color: rgba(255, 255, 255, 0.72);
       font-size: 14.5px;
       line-height: 1.6;
       max-width: 330px;
       margin: 0 auto 24px;
     }
-    .home-mb .home-cta .hours {
+    .home-mb.home-cta .hours {
       color: var(--color-or);
       font-weight: 500;
     }

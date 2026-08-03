@@ -319,19 +319,19 @@
       margin-bottom: 44px;
       color: var(--color-ink);
     }
-    .brands-dk .story p {
+    .brands-dk.story p {
       color: var(--color-ink-soft);
       font-size: 17px;
       line-height: 1.8;
       margin-bottom: 22px;
     }
-    .brands-dk .story p.lead {
+    .brands-dk.story p.lead {
       font-size: 20px;
       color: var(--color-ink);
       font-weight: 400;
       line-height: 1.6;
     }
-    .brands-dk .story .pull {
+    .brands-dk.story .pull {
       border-left: 3px solid var(--color-or);
       padding: 6px 0 6px 24px;
       margin: 34px 0;

@@ -1503,7 +1503,7 @@
       max-width: 360px;
       margin: 0 auto;
     }
-    .about-mb .page-hero .hero-buttons {
+    .about-mb.page-hero .hero-buttons {
       display: flex;
       flex-direction: column;
       gap: 12px;
