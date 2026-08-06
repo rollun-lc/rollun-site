@@ -6,7 +6,7 @@
 user_skill_level: intermediate
 planning_artifacts: "{project-root}/_bmad-output/planning-artifacts"
 implementation_artifacts: "{project-root}/_bmad-output/implementation-artifacts"
-project_knowledge: "{project-root}/{output_folder}"
+project_knowledge: "{project-root}/_bmad-output"
 
 # Core Configuration Values
 communication_language: Russian

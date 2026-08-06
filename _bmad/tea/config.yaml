@@ -3,7 +3,7 @@
 # Version: 6.9.0
 # Date: 2026-07-02T15:56:41.817Z
 
-test_artifacts: "{project-root}/{output_folder}/test-artifacts"
+test_artifacts: "{project-root}/_bmad-output/test-artifacts"
 tea_use_playwright_utils: true
 tea_use_pactjs_utils: false
 tea_pact_mcp: none

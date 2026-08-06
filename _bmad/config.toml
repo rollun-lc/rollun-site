@@ -11,15 +11,16 @@
 # ─────────────────────────────────────────────────────────────────
 
 [core]
+output_folder = "_bmad-output"
 document_output_language = "Russian"
 
 [modules.bmm]
-planning_artifacts = "{project-root}/{output_folder}/planning-artifacts"
-implementation_artifacts = "{project-root}/{output_folder}/implementation-artifacts"
-project_knowledge = "{project-root}/{output_folder}"
+planning_artifacts = "{project-root}/_bmad-output/planning-artifacts"
+implementation_artifacts = "{project-root}/_bmad-output/implementation-artifacts"
+project_knowledge = "{project-root}/_bmad-output"
 
 [modules.tea]
-test_artifacts = "{project-root}/{output_folder}/test-artifacts"
+test_artifacts = "{project-root}/_bmad-output/test-artifacts"
 tea_use_playwright_utils = true
 tea_use_pactjs_utils = false
 tea_pact_mcp = "none"
