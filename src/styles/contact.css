@@ -392,24 +392,41 @@
       display: block;
     }
 
-    /* The single inline-form section on mobile — grounded in the mobile form
-       section `.section.bg` (mobile.css `.section { padding: 46px 0 50px }`) and
-       its `.wrap` 20px side gutter, so the card's gutters match the mobile hero
-       (22px) / map (20px) instead of the desktop 28px `--spacing-gutter`. */
+    /*
+     * On mobile there IS no two-up card. The handoff ships the two halves as two
+     * separate sections (Contact Mobile.html:121-148):
+     *
+     *   <section class="section bg">      padding 46px 0 50px, page grey
+     *     <div class="wrap">              20px gutter
+     *       <form class="cf-form">        white, 1px border  ← a card
+     *   <section style="padding:0">       no padding, NO .wrap
+     *     <div class="cf-info">           #2f2f2f, edge to edge, no border
+     *
+     * So the white form is a bordered card floating on grey, then 50px of grey,
+     * then the dark panel touching both edges. Our port renders one
+     * `.contact-card` grid instead, which fused the halves into a single boxed
+     * slab: no gap between them, the card's own white background and shadow
+     * showing as a frame, and — worst — its `overflow: hidden` clipping the
+     * panel's bleed straight back to the 20px gutter, so the dark block read as
+     * a framed box rather than a full-width band. Dissolve the card here and
+     * rebuild the handoff's rhythm; the desktop card is untouched.
+     */
     .contact-section {
-      padding: 46px 0 50px;
+      padding: 46px 0 0; /* the 50px moves ABOVE the panel, per the split */
     }
     .contact-section .container {
       padding: 0 20px;
     }
-    /* On mobile the handoff splits the card in two: the form sits in a gutter-ed
-       `.section.bg > .wrap`, but the info panel is its OWN `<section style="padding:0">`
-       with no `.wrap`, so the dark block runs edge-to-edge (Contact Mobile.html:145-146).
-       Our single `.contact-card` keeps both halves inside the 20px gutter — bleed
-       the panel back out so it touches both edges as designed. */
+    .contact-section .contact-card {
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
+    }
+    .contact-section .cf-form {
+      background: var(--color-white);
+    }
     .contact-section .cf-info {
-      margin-left: -20px;
-      margin-right: -20px;
+      margin: 50px -20px 0;
     }
   }
 }
