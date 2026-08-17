@@ -34,6 +34,13 @@
       display: block;
     }
 
+    /* This page's `.btn` is a size of its own — `15px 30px`, where the other five
+       desktop prototypes all use `16px 32px` (Our Shops.html:140). The port used
+       the shared value, so every button here came out 4px wider and 2px taller. */
+    .shops-dk .btn {
+      padding: 15px 30px;
+    }
+
     /* Heading + inline primitives (prototype global reset). */
     .shops-dk h1,
     .shops-dk h2,
@@ -56,9 +63,16 @@
     }
 
     /* ─────────────  PAGE HERO (01)  ───────────── */
+    /* The flex row is load-bearing, not decoration (Our Shops.html:87): it makes
+       `.page-hero-inner` shrink-to-fit (676px) instead of filling its own 720px
+       cap, which is where the hero copy actually wraps in the handoff. Without it
+       the paragraph got 44px more line and broke a word later. */
     .shops-dk.page-hero {
       background: var(--color-dark);
       color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 170px 0 90px;
       position: relative;
       overflow: hidden;

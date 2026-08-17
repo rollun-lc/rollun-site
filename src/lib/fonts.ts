@@ -17,7 +17,15 @@ export const poppins = Poppins({
   variable: '--font-poppins',
 })
 
-// Roboto — body text → role token --font-body
+// Roboto — body text → role token --font-body.
+// KNOWN GAP (not fixable here): next/font resolves a Roboto build whose glyphs run
+// ~3% narrower than the `v51` face `fonts.googleapis.com` hands the prototype —
+// 357px vs 368px for the same string at `300 15.5px`, measured on the Contact hero
+// copy. Enough to pull a paragraph up a whole line, which is why the Home "two
+// product lines" intro, the About principles and the Brands/Contact hero blurbs
+// each wrap one line short of the handoff. Dropping `weight` (to take the variable
+// face) changes nothing — it is the font BUILD that differs. Closing it means
+// vendoring the v51 woff2 and switching to `next/font/local`; left open on purpose.
 export const roboto = Roboto({
   subsets: ['latin'],
   weight: ['300', '400', '500', '700'],

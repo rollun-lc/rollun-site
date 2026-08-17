@@ -169,8 +169,74 @@
  * (mobile.css sets #0c0c0c, but that is the phone-frame backdrop around the
  * prototype shell, not a page surface, so it is deliberately not ported.)
  */
+/*
+ * ── Inherited body leading ────────────────────────────────────────────
+ * Every prototype sets its own `body { line-height }` — 1.65 on desktop
+ * (Home.html:35 and the five siblings) and 1.6 in the shared mobile shell
+ * (mobile.css:26). The port never carried it, so every element that does NOT
+ * declare its own leading inherited Tailwind preflight's `1.5` instead. It is
+ * measurable on any button: `.btn` sets no line-height, so its text box came out
+ * 19.5px against the prototype's 21.45px — 2px short on desktop, 1.3px on mobile,
+ * on EVERY button of the site, plus the same drift in un-classed copy.
+ */
 @layer base {
   body {
     background: var(--color-bg);
+    line-height: 1.6; /* mobile.css:26 */
+  }
+  @media (min-width: 768px) {
+    body {
+      line-height: var(--text-base--line-height); /* 1.65 — desktop prototypes */
+    }
+  }
+
+  /*
+   * Global heading reset — every prototype opens with one
+   * (`h1, h2, h3, h4, h5 { font-family: Poppins; font-weight: 700;
+   * letter-spacing: -0.005em; line-height: 1.12; margin: 0 }`, Home.html:38-42).
+   * The port only re-created it INSIDE the per-page scopes (`.home-dk h1…`), so
+   * headings in the SHARED chassis — the five footer `h4` column titles, the
+   * contact card/modal `h3`s — were left with no leading at all and inherited the
+   * body's, rendering 21.45px tall against the prototype's 14.3px. That is the
+   * whole of the footer's 7px overshoot on every page. Kept in `base` so every
+   * page scope still wins, and WITHOUT the prototype's `color: var(--ink)`: the
+   * shared chassis is dark-on-dark, and the page scopes already set the colour
+   * where the design asks for it (see the 487bfd0 invisible-heading class of bug).
+   */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    line-height: 1.12; /* mobile.css:36 */
+    margin: 0;
+  }
+  @media (min-width: 768px) {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      line-height: 1.1; /* Home.html:43 and the five desktop siblings */
+    }
+  }
+
+  /*
+   * Form controls keep the UA `line-height: normal` the prototypes relied on.
+   * None of the prototype's `button`/`input`/`select`/`textarea` rules declare a
+   * leading, so the browser default applied and a `<button class="btn">` came out
+   * SHORTER than the same `.btn` on an `<a>` (50px vs 52.8px on mobile) — that
+   * difference is in the design. Tailwind preflight's `font: inherit` erases it
+   * by making controls inherit the body leading, so it is put back here (only the
+   * leading — the rest of `font: inherit` is what keeps the families consistent).
+   */
+  button,
+  input,
+  select,
+  textarea {
+    line-height: normal;
   }
 }

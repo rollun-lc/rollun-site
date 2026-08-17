@@ -325,27 +325,34 @@
     }
 
     /* ─────────────  MAP (03)  ─────────────
-       No mobile prototype CSS exists for the tabs/frame — ported from the
-       desktop prototype's own `@media(max-width:720px)` narrow rules (stacked
-       full-width tabs) reusing the desktop `.map-tab` look, plus a ~360px
-       frame. */
+       Contact Mobile.html:68-77 DOES ship its own tabs/frame block ("Location
+       tabs (embedded map) — equal-height, full-width stack"); the port had
+       assumed it did not and substituted the desktop `@media(max-width:720px)`
+       rules, which differ in every metric. Ported from the mobile prototype:
+       an equal-height 1-column GRID (both tabs the same height regardless of
+       how far the address wraps), 18px/20px padding, and the outer bottom
+       border on the LAST tab (the port had it on every tab BUT the last). */
     .contact-mb .map-tabs {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-auto-rows: 1fr;
       margin-bottom: 22px;
     }
     .contact-mb .map-tab {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
       background: #fff;
       border: 1px solid var(--color-line);
       border-bottom: none;
-      padding: 20px 30px;
+      padding: 18px 20px;
       cursor: pointer;
       text-align: left;
       width: 100%;
-      flex: none;
-      transition: all 0.25s;
+      font: inherit;
+      transition: background var(--duration-fast), border-color var(--duration-fast);
     }
-    .contact-mb .map-tab:not(:last-child) {
+    .contact-mb .map-tab:last-child {
       border-bottom: 1px solid var(--color-line);
     }
     .contact-mb .map-tab.active {
@@ -369,12 +376,13 @@
     .contact-mb .map-tab.active .tab-addr {
       color: rgba(255, 255, 255, 0.85);
     }
+    /* Contact Mobile.html:76-77 — a flat 340px frame: no drop shadow and no
+       grayscale filter on the iframe (both are desktop-only treatments). */
     .contact-mb .map-frame {
       position: relative;
       width: 100%;
-      height: 360px;
+      height: 340px;
       background: #ccc;
-      box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.5);
       overflow: hidden;
     }
     .contact-mb .map-frame iframe {
@@ -382,7 +390,6 @@
       height: 100%;
       border: 0;
       display: block;
-      filter: grayscale(0.25) contrast(1.05);
     }
 
     /* The single inline-form section on mobile — grounded in the mobile form
@@ -394,6 +401,15 @@
     }
     .contact-section .container {
       padding: 0 20px;
+    }
+    /* On mobile the handoff splits the card in two: the form sits in a gutter-ed
+       `.section.bg > .wrap`, but the info panel is its OWN `<section style="padding:0">`
+       with no `.wrap`, so the dark block runs edge-to-edge (Contact Mobile.html:145-146).
+       Our single `.contact-card` keeps both halves inside the 20px gutter — bleed
+       the panel back out so it touches both edges as designed. */
+    .contact-section .cf-info {
+      margin-left: -20px;
+      margin-right: -20px;
     }
   }
 }

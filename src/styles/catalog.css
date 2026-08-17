@@ -35,6 +35,14 @@
       display: block;
     }
 
+    /* Catalog is the one desktop prototype that spaces a button's label from its
+       glyph by 9px instead of 8 (Catalog.html:140) — and the only desktop page
+       whose `.btn` ever holds an SVG, so the value is visible here and nowhere
+       else. */
+    .catalog-dk .btn {
+      gap: 9px;
+    }
+
     /* Heading + inline-accent primitives (prototype global reset). */
     .catalog-dk h1,
     .catalog-dk h2,

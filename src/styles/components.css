@@ -63,6 +63,17 @@
     border-color: var(--color-or);
   }
 
+  /* Inline button glyphs (arrows/chevrons) ship no intrinsic size, so without
+     this they lay out at the SVG default (150×150 after the flex stretch) and
+     blow the button open — visible on the Catalog quick-view's "Contact to buy"
+     CTA, whose arrow rendered as a giant chevron next to the label. Both shells
+     size it: `mobile.css:97` and `Catalog.html:150` (the only desktop page whose
+     `.btn` ever holds an SVG). Global, so no viewport is left out. */
+  .btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
   .btn:focus-visible {
     outline: 2px solid var(--color-or);
     outline-offset: 3px;
@@ -373,6 +384,11 @@
      768px (AD-3 / Header pattern). Mobile-first: show the link, hide the button. */
   .gitouch-dk {
     display: none;
+    /* The prototype's CTA is an `<a href="#cta">` that JS intercepts; ours has to
+       be a real `<button>` to open the modal, which means it picks up the UA
+       `line-height: normal` restored in theme.css and lands 2px shorter than the
+       design. Put the inherited body leading back on this one control. */
+    line-height: inherit;
   }
   .gitouch-mb {
     display: inline-flex;
@@ -388,29 +404,166 @@
 
   /* Collapse the two-column layouts to one column on mobile (project 768px break). */
   @media not all and (min-width: 768px) {
-    /* Inline button glyphs (arrows/chevrons) ship no intrinsic size, so without
-       this they lay out at the SVG default and blow the button open. The Handoff
-       puts it in the SHARED `mobile.css` (one rule for every mobile page); the
-       port had only copied it into home.css/about.css, leaving catalog/brands/
-       shops/contact with 180px arrows. Global here, matching the prototype. */
-    .btn svg {
-      width: 16px;
-      height: 16px;
+    /* The mobile shell ships its OWN, smaller `.btn` box: `mobile.css:92-96` is
+       `padding: 15px 26px; gap: 9px` against the desktop prototype's
+       `16px 32px; gap: 8px`. The port only carried the desktop values over, so
+       every mobile button rendered 12px wider and 2px taller than the handoff
+       (measured: 53.5px vs the prototype's 52.8px). */
+    .btn {
+      padding: 15px 26px;
+      gap: 9px;
     }
+    /* The mobile form has no two-up row at all — Contact Mobile.html lists the six
+       `.cf-field`s as direct children of `.cf-form`, spaced only by their own 16px
+       bottom margin. Our shared markup keeps the desktop `.cf-row` wrappers, so on
+       mobile they were stacking their 24px gap and 22px bottom margin ON TOP of
+       that rhythm: 136px of extra card. Collapse the wrapper to a pass-through. */
     .cf-row {
       grid-template-columns: 1fr;
+      gap: 0;
+      margin-bottom: 0;
     }
     .contact-card,
     .contact-modal {
       grid-template-columns: 1fr;
     }
-    .cf-form,
+    /*
+     * Contact card — the mobile shell runs its own, much tighter metric set
+     * (Contact Mobile.html:13-39). The port had carried over ONLY a `40px 30px`
+     * padding compromise and left every other value at the desktop size, which is
+     * where the /contact page's 159px of extra mobile height came from. Ported
+     * verbatim below; anything the two viewports share is left to the base rules.
+     */
+    .cf-form {
+      padding: 24px 20px 26px;
+      border: 1px solid var(--color-line);
+    }
+    .cf-form h3 {
+      font-size: 20px;
+      margin-bottom: 22px;
+    }
+    .cf-field {
+      margin-bottom: 16px;
+    }
+    .cf-field label {
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+    /* 16px is deliberate — anything smaller makes iOS Safari zoom on focus. */
+    .cf-field input,
+    .cf-field select,
+    .cf-field textarea {
+      font-size: 16px;
+      padding: 13px 14px;
+    }
+    .cf-field textarea {
+      min-height: 120px;
+    }
+    /* The mobile form's submit is a full-width block, not the desktop's
+       shrink-to-fit pill (Contact Mobile.html:20). */
+    .cf-form .btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 6px;
+    }
+    .cf-sent {
+      margin-top: 14px;
+      padding: 13px 15px;
+      font-size: 13.5px;
+    }
+
     .cf-info {
-      padding: 40px 30px;
+      background: #2f2f2f;
+      padding: 28px 22px;
+    }
+    .cf-info h3 {
+      font-size: 19px;
+      margin-bottom: 24px;
+    }
+    .cf-item {
+      grid-template-columns: 30px 1fr;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .cf-item svg {
+      width: 22px;
+      height: 22px;
+    }
+    .cf-item .info-lines {
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .cf-item .info-lines .muted {
+      font-size: 12.5px;
+    }
+    .cf-item .info-lines .gap {
+      height: 10px;
     }
     .cf-item .info-lines.info-twocol {
       grid-template-columns: 1fr;
       gap: 18px;
+    }
+    .cf-info hr {
+      margin: 6px 0 22px;
+    }
+    .cf-info .blurb {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .cf-info-social {
+      gap: 14px;
+    }
+    .cf-info-social a {
+      width: 44px;
+      height: 44px;
+    }
+    .cf-info-social a svg {
+      width: 21px;
+      height: 21px;
+    }
+  }
+}
+
+/*
+ * ── `.container` vs Tailwind's `container` utility ────────────────────────
+ * The ported markup uses the prototype's `<div class="container">`, and Tailwind
+ * v4 sees that class in the source and emits ITS OWN `container` utility for it
+ * (`width:100%` + a max-width ladder up to 96rem). That utility lands in the
+ * `utilities` layer, which outranks EVERY rule in `components` regardless of
+ * specificity — so three ported caps silently lost the cascade:
+ *
+ *   · the base cap        — past a 1536px viewport the container grew to 96rem
+ *                           (1536px) instead of the prototype's 1280px, so every
+ *                           section stretched on a wide monitor;
+ *   · Home `.stats-inner` — 1080px cap ignored, the stats band rendered 1280 wide
+ *                           and its title stopped wrapping to two lines;
+ *   · Shops `.page-hero-inner` (720px) and `.store .container` (900px) — ignored,
+ *                           so the store block ran the full 1280 instead of 900.
+ *
+ * They are re-asserted here INSIDE `utilities`, the only layer that can win.
+ * This file is imported after theme.css (which holds `@import "tailwindcss"`),
+ * so this block also outranks the utility on equal specificity.
+ */
+@layer utilities {
+  .container {
+    max-width: var(--spacing-container);
+    /* The prototype's `.container` declares no `width` at all. Tailwind's utility
+       adds `width: 100%`, which is invisible for a block child but NOT inside a
+       flex parent: on Shops the hero row is `display:flex` (Our Shops.html:87) and
+       the handoff's container shrinks to its content (676px) instead of filling its
+       own 720px cap — which is where that hero's copy really wraps. */
+    width: auto;
+  }
+  @media (min-width: 768px) {
+    .home-dk .stats-inner {
+      max-width: 1080px;
+    }
+    .shops-dk .page-hero-inner {
+      max-width: 720px;
+    }
+    .shops-dk.store .container {
+      max-width: 900px;
     }
   }
 }
